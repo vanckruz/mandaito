@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Registro</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form form [formGroup]="form" novalidate>
+		<ion-grid>
+		  <ion-row>
+		    <ion-col col-6>  
+		      <ion-item>
+			    <ion-label floating>Nombre</ion-label>
+			    <ion-input type="text" name="name" formControlName="name" #name></ion-input>
+			  </ion-item>
+			</ion-col>
+		    <ion-col col-6>  
+		      <ion-item>
+			    <ion-label floating>Apellidos</ion-label>
+			    <ion-input type="text" name="apellido" formControlName="apellido" #apellido></ion-input>
+			  </ion-item>
+			</ion-col>		
+		  </ion-row>
+
+		  <ion-row>
+		    <ion-col col-4>  
+		      <ion-item>
+			    <ion-label floating>Prefijo</ion-label>
+			    <ion-input type="text" name="code" formControlName="code" #code (focus)="showCountries()"></ion-input>
+			  </ion-item>
+			</ion-col>
+		    <ion-col col-8>  
+		      <ion-item>
+			    <ion-label floating>Móvil</ion-label>
+			    <ion-input type="text" name="cellphone" formControlName="cellphone" #cellphone></ion-input>
+			  </ion-item>
+			</ion-col>		
+		  </ion-row>		  
+
+			<ion-row>
+				<ion-col>
+					<ion-item>
+				    	<ion-label floating>Contraseña</ion-label>
+						<ion-input type="text" name="password" formControlName="password" #password></ion-input>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<span>Al hacer click en "Registrarse" confirmo que he leido y aceptado los 
+						<a (click)="goToConditions()">terminos y condiciones</a> y las <a (click)="goToPolicies()">politicas de privacidad</a>
+					</span>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<button full ion-button>Registrarse</button>
+				</ion-col>
+			</ion-row>			
+		</ion-grid>
+	</form>
+</ion-content>

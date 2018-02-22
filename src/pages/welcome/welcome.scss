@@ -1,0 +1,12 @@
+page-welcome {
+	width: 100%;
+	height: 90%;
+	background: url('../assets/imgs/temporal.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;	
+	.bottom-nav{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+}

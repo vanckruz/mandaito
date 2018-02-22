@@ -1,0 +1,92 @@
+page-perfil {
+    
+    .imgbox{
+        width: 100%;
+        overflow: hidden;
+        background: #f1f1f1;
+        padding: 1em;
+        img{
+            width: 9em;
+            height: 9em;
+            border-radius: 50%;
+            display: block;
+            margin-top: 2em;
+            margin: auto;
+        }
+    }
+
+    .man{
+        background: url('../assets/perfil.png');
+    }
+    .woman{
+        background: url('../assets/perfil-woman.png');
+    }
+    .otro{
+        background: url('../assets/perfil-otro.png');
+    }    
+    
+    .full{
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 40;
+        .changePass{
+            position: absolute;
+            bottom: 0;
+            right: 3em;
+            button{
+                ion-icon{
+                    font-size: 2em;
+                    font-weight: 600;
+                }
+                font-size: .8em;
+            }
+        }
+        ion-grid{
+        	position: absolute;
+        	top: 0;
+        	left: 0;
+        	right: 0;
+        	bottom: 0;
+        	margin: auto;
+        	width: 94%;
+        	height: 15em;
+        }
+    }
+
+    p.titulo{
+        font-size: 1em;
+        font-weight: bold;
+        line-height: .5em;
+        color: #000; 
+        text-align: left;           
+    }
+    p.sub-titulo{
+        font-size: .8em;            
+        line-height: .3em;
+        color: #000;
+        text-align: left;
+    }
+    .infobox{
+        padding: 2em;
+        z-index: 10;
+        position: absolute;
+        bottom: 0;
+        i, ion-icon{
+            font-size: 2.5em;
+            position: relative;
+            top: .2em;
+            right: .1em;
+        }
+    }
+
+    .box-tabs{
+        overflow: hidden;
+        padding: 1em;
+    }
+
+}

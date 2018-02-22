@@ -1,0 +1,33 @@
+page-cart {
+    background: lavender !important;
+    td._1{
+        width: 30%;
+    }
+    td._2{
+       width: 50%;
+       padding: 1em;
+    }
+    td._3{
+       width: 20%;
+    }    
+    .lavander{
+        background: lavender;
+    }
+    .row-ajust{
+        padding: 1em;
+    }
+    span.precio{
+        padding: 1.5em;
+        border-radius: 50%;
+        background: lightgreen;
+        font-weight: bold;
+    }
+    ion-card{
+        padding-bottom: 2em;
+        ion-col{
+            button{
+                padding: none !important;
+            }
+        }
+    }
+}

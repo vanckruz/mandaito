@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Mi perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <div class="full">
+      <div class="imgbox">
+        <img src="https://www.adjust.com/new-assets/images/site-images/interface/user.svg" alt="perfil.png">
+        <p text-center>Usuario</p>
+      </div>
+
+      <ion-toolbar>
+        <ion-segment [(ngModel)]="perfilOptions" color="dark">
+          <ion-segment-button value="perfil" selected="true">
+            <ion-icon name="camera"></ion-icon>
+          </ion-segment-button>
+
+          <ion-segment-button value="card">
+            <ion-icon name="card"></ion-icon>
+          </ion-segment-button>
+
+          <ion-segment-button value="address">
+            <ion-icon name="mail"></ion-icon>
+          </ion-segment-button>
+
+          <ion-segment-button value="history">
+            <ion-icon name="book"></ion-icon>
+          </ion-segment-button>
+
+        </ion-segment>
+      </ion-toolbar>
+
+      <div [ngSwitch]="perfilOptions" class="box-tabs">
+        <div *ngSwitchCase="'perfil'">
+          <p class="sub-titulo">Nombre</p>
+          <p class="titulo"></p>
+          <p class="sub-titulo">Telefono</p>
+          <p class="titulo"></p>
+          <p class="sub-titulo">Género</p>
+          <p class="titulo"></p>
+          <p class="sub-titulo">Año de nacimiento</p>
+          <p class="titulo"></p>
+          <p class="sub-titulo">Email</p>
+          <p class="titulo"></p>
+        
+          <ion-footer>
+            <button full ion-button (click)="editPerfil()">
+              <ion-icon name="ios-contact-outline" item-left color="theme-white"></ion-icon>&nbsp; Editar perfil
+            </button>
+          </ion-footer>
+        </div>
+        <!--Perfil-->
+        <div *ngSwitchCase="'card'">
+          <a ion-item>
+            <ion-label>Métodos de Pagos</ion-label>
+          </a>
+        </div>
+        <div *ngSwitchCase="'address'">
+          <a ion-item>
+            <ion-label>Direcciones de Envio</ion-label>
+          </a>
+        </div>
+        <div *ngSwitchCase="'history'">
+          <a ion-item>
+            <ion-label>Historial de Compra</ion-label>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>

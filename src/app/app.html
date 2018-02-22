@@ -1,1 +1,38 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu id="mimenu" side="left" [content]="mycontent">
+  <ion-content color="light">
+    <img src="https://www.adjust.com/new-assets/images/site-images/interface/user.svg" alt="perfil.png">
+    <p text-center>Nombre Usuario</p>
+    <ion-list no-lines>
+      <button menuClose ion-item (click)="goToHome()">
+        <ion-icon name="ios-home" item-left></ion-icon>
+        <span>Inicio</span>
+      </button>
+      <button menuClose ion-item (click)="goToMyPerfil()">
+        <ion-icon name="ios-contact-outline" item-left color="theme-pink"></ion-icon>
+        <span>Mi perfil</span>
+      </button>
+      <button menuClose ion-item (click)="goToMyCart()">
+        <ion-icon name="ios-cart-outline" item-left></ion-icon>
+        <span>Carrito</span>
+      </button>
+      <button menuClose ion-item class="text-pink" (click)="goToNearbyStores()">
+        <ion-icon name="md-appstore" item-left></ion-icon>
+        <span>Tiendas cercanas</span>
+      </button>
+      <button menuClose ion-item (click)="goToFavoritesStore()">
+        <ion-icon name="ios-heart-outline" item-left></ion-icon>
+        <span>Tiendas favoritas</span>
+      </button>
+      <button menuClose ion-item (click)="goToTracking()">
+        <ion-icon name="ios-locate-outline" item-left></ion-icon>
+        <span>Tracking</span>
+      </button>
+      <button menuClose ion-item>
+        <ion-icon name="ios-log-out" item-left></ion-icon>
+        <span>Logout</span>
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>

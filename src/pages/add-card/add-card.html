@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Agregar tarjeta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form form [formGroup]="form" novalidate>
+		<ion-grid>
+		  <ion-row>
+		    <ion-col>  
+		      <ion-item>
+			    <ion-label floating>Número de tarjeta</ion-label>
+			    <ion-input type="text" name="card" formControlName="card" #card></ion-input>
+			  </ion-item>
+			</ion-col>
+		    <ion-col>  
+		      <ion-item>
+			    <ion-label floating>Fecha de Vencimiento</ion-label>
+			    <ion-input type="text" name="dueDate" formControlName="dueDate" #dueDate></ion-input>
+			  </ion-item>
+			</ion-col>		
+		  </ion-row>
+
+		  <ion-row>
+		    <ion-col col-4>  
+		      <ion-item>
+			    <ion-label floating>CVV</ion-label>
+			    <ion-input type="text" name="code" formControlName="cvv" #cvv></ion-input>
+			  </ion-item>
+			</ion-col>
+			<ion-col col-8>
+				<ion-item>
+			    	<ion-label floating>País</ion-label>
+					<ion-input type="text" name="country" formControlName="country" #country (focus)="showCountries()"></ion-input>
+				</ion-item>
+			</ion-col>			
+	
+		  </ion-row>		  
+
+		</ion-grid>
+	</form>
+	<ion-footer>
+		<button full ion-button color="light" (click)="next()">Siguiente</button>
+	</ion-footer>
+</ion-content>

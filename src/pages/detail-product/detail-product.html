@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Detalle</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-card>
+  <img src="http://lorempixel.com/400/200/food/">
+
+  <ion-card-content>
+      <div class="box">
+        <ion-row>
+          <ion-col>
+            <p>Pan</p>
+          </ion-col>
+          <ion-col>
+            <span class="precio" text-right>5$</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-note>Pan fresco</ion-note>
+        </ion-row>
+        <ion-buttons text-right>
+          <button ion-button outline>
+            <ion-icon name="add"></ion-icon>
+          </button>
+          <button ion-button outline>
+            <ion-icon name="remove"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-row>
+          <p text-justify>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum neque nam ut dolores reprehenderit est consequatur magnam, tempore nemo fugiat, ex, sit totam beatae dolorem harum quibusdam quam dignissimos repellendus!
+          </p>
+        </ion-row>
+      </div>
+  </ion-card-content>
+</ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab>
+      <ion-icon name="cart" (click)="goToMyCart()"> </ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

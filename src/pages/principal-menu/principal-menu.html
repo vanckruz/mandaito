@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Menú Principal</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<ion-searchbar>
+	</ion-searchbar>
+	
+	<div class="list">
+		<ion-card [ngStyle]="{
+		'background-image': 'url(' + 'http://www.lavanguardia.com/r/GODO/LV/p4/WebSite/2017/05/04/Recortada/img_ysaiz_20161227-114435_imagenes_lv_getty_istock-492546162-091-kXdF--656x438@LaVanguardia-Web.jpg' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Supermercados</span>
+		</ion-card>
+		<ion-card [ngStyle]="{
+		'background-image': 'url(' + 'http://www.deanpharmacy.com/wp-content/uploads/2015/05/pharmacy_open.jpg' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Farmacia</span>
+		</ion-card>
+		<ion-card [ngStyle]="{'background-image': 'url(' + 'http://ordesasobrarbe.com/sites/default/files/styles/large/public/img_pri_empresa/ferreteria-19.jpg?itok=Nkjx7RL2' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Ferretería</span>
+		</ion-card>
+		<ion-card [ngStyle]="{'background-image': 'url(' + 'http://www.eurekaloencontre.com/wp-content/uploads/2017/05/carniceria-vidrio-rioverde-1.jpg' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Carnicería</span>
+		</ion-card>
+		<ion-card [ngStyle]="{'background-image': 'url(' + 'assets/imgs/mandado.jpg' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Mandados</span>
+		</ion-card>
+		<ion-card [ngStyle]="{'background-image': 'url(' + 'http://significadosdelossuenos.net/wp-content/uploads/2017/08/Sueños-con-licor.jpg' + ')',
+		'background-repeat': 'none',
+		'background-size': 'cover'
+		}" (click)="goToStores()">
+			<span>Licores</span>
+		</ion-card>									
+	</div>
+</ion-content>

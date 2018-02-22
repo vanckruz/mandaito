@@ -1,0 +1,16 @@
+page-login {
+	ion-content{
+		background: url('../assets/imgs/temporal.jpg');
+		background-size: 100% 100%;
+		background-position: 0 4em;
+		background-repeat: no-repeat;	
+	}
+	ion-card{
+		margin-top: 7em !important;
+		background: rgba(255,255,255,0.8) !important;
+	
+		ion-item,ion-input{
+			background: rgba(255,255,255,0) !important;
+		}
+	}
+}

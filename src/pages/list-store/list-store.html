@@ -11,49 +11,27 @@
   <ion-searchbar>
 
   </ion-searchbar>
-<ion-card  (click)="goToProductsList()">
-  <img src="http://lorempixel.com/400/200/food/">
+<ion-card *ngFor="let tienda of tiendas" (click)="goToProductsList(tienda)">
+  <img [src]="tienda.foto">
 
   <ion-card-content>
     <ion-row>
       <ion-col>
-        <strong>Creppisima - Plaza Lincon</strong>
+        <strong>{{ tienda.descripcion }}</strong>
       </ion-col>
       <ion-col center text-end>
-        <ion-note> 20 - 30 min </ion-note>
+        <ion-note> {{ tienda.provincia }}</ion-note>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-note> Comida rápida</ion-note>
+      <ion-note> {{ tienda.categoria }}</ion-note>
     </ion-row>
     <ion-row>
-      <ion-icon name="star" color="theme-yellow"></ion-icon>
       <ion-note>
-        <b>4.6</b> (125)</ion-note>
+        <b>De {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> 
+      </ion-note>
     </ion-row>
   </ion-card-content>
 </ion-card>
 
-<ion-card (click)="goToProductsList()">
-  <img src="http://lorempixel.com/400/200/food/">
-
-  <ion-card-content>
-    <ion-row>
-      <ion-col>
-        <strong>Don pepe</strong>
-      </ion-col>
-      <ion-col center text-end>
-        <ion-note> 15 - 20 min </ion-note>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-note> Comida rápida</ion-note>
-    </ion-row>
-    <ion-row>
-      <ion-icon name="star" color="theme-yellow"></ion-icon>
-      <ion-note>
-        <b>4.8</b> (130)</ion-note>
-    </ion-row>
-  </ion-card-content>
-</ion-card>
 </ion-content>

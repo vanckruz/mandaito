@@ -10,6 +10,9 @@ import { HomePage } from '../pages/home/home';
 import { LoginProvider } from '../providers/login/login';
 import { RegisterUserProvider } from '../providers/register-user/register-user';
 import { CountriesProvider } from '../providers/countries/countries';
+import { CategoriasProvider } from '../providers/categorias/categorias';
+import { TiendasProvider } from '../providers/tiendas/tiendas';
+import { ProductosProvider } from '../providers/productos/productos';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { CountriesProvider } from '../providers/countries/countries';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
     RegisterUserProvider,
-    CountriesProvider
+    CountriesProvider,
+    CategoriasProvider,
+    TiendasProvider,
+    ProductosProvider
   ]
 })
 export class AppModule {}

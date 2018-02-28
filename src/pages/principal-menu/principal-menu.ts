@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoriasProvider } from '../../providers/categorias/categorias';
+
+import { Pipe, PipeTransform } from '@angular/core';
 
 @IonicPage()
 @Component({
@@ -7,17 +10,48 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'principal-menu.html',
 })
 export class PrincipalMenuPage {
-  url: any = 'https://loremflickr.com/320/240';
+  categorias: any;
+  searchTerm: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public categoriasProvider: CategoriasProvider
+  ){
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PrincipalMenuPage');
+    this.getCategorias();
   }
 
-  goToStores(){
-    this.navCtrl.push('ListStorePage')
+  getCategorias(){
+    this.categoriasProvider.get().subscribe(
+      data => {
+        this.categorias = data.response.datos;
+        console.log(this.categorias)
+      }
+    );    
+  }
+
+  filterCategories(searchTerm) {
+    console.log(searchTerm)
+    if (searchTerm !== null && searchTerm.data !== ""){
+
+      this.categorias = this.categorias.filter((item) => {
+        return item.descripcion.toLowerCase().indexOf(searchTerm.data.toLowerCase()) > -1;
+      });
+
+    }else{
+      this.getCategorias();      
+    }
+
+  }
+
+  goToStores(data){
+    this.navCtrl.push('ListStorePage',{
+      categoria: data
+    })
   }
 
 }

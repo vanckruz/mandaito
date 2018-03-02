@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TiendasProvider } from '../../providers/tiendas/tiendas';
 
 @IonicPage()
@@ -14,7 +14,8 @@ export class ListStorePage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public tiendasProvider: TiendasProvider
+    public tiendasProvider: TiendasProvider,
+    private loading: LoadingController,
   ){
     this.categoria = this.navParams.get("categoria");
     console.log(this.categoria);
@@ -22,14 +23,20 @@ export class ListStorePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListStorePage');
-    this.getTiendas(this.categoria);
+    this.getTiendas();
   }
 
-  getTiendas(categoria){
-    this.tiendasProvider.get(categoria.idcategoriatienda).subscribe((data) => {
-      console.log(data);
-      this.tiendas = data.response.datos;
-    });
+  getTiendas(){
+    if(this.categoria != undefined){
+      let loading = this.loading.create({ content: 'Cargando...' });
+      loading.present().then(() => {
+        this.tiendasProvider.get(this.categoria.idcategoriatienda).subscribe((data) => {
+          console.log(data);
+          loading.dismiss();
+          this.tiendas = data.response.datos;
+        });
+      });
+    }
   }
 
   goToProductsList(tienda){

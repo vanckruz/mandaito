@@ -7,8 +7,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detail-product.html',
 })
 export class DetailProductPage {
-
+  producto: any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.producto = this.navParams.get("producto");
   }
 
   ionViewDidLoad() {

@@ -1,0 +1,14 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Elija su provincia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="provincias">
+    <ion-item (click)="passProvincia(provincia)" *ngFor="let provincia of provincias">{{ provincia.descripcion }}</ion-item>
+  </ion-list>
+</ion-content>

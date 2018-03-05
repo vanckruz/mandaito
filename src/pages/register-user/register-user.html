@@ -14,16 +14,32 @@
 		    <ion-col col-6>  
 		      <ion-item>
 			    <ion-label floating>Nombre</ion-label>
-			    <ion-input type="text" name="name" formControlName="name" #name></ion-input>
+			    <ion-input type="text" name="nombre" formControlName="nombre" #nombre></ion-input>
 			  </ion-item>
 			</ion-col>
 		    <ion-col col-6>  
 		      <ion-item>
-			    <ion-label floating>Apellidos</ion-label>
-			    <ion-input type="text" name="apellido" formControlName="apellido" #apellido></ion-input>
-			  </ion-item>
-			</ion-col>		
+			    	<ion-label floating>Apellidos</ion-label>
+			   		<ion-input type="text" name="apellido" formControlName="apellido" #apellido></ion-input>
+			  	</ion-item>
+				</ion-col>		
 		  </ion-row>
+			
+			<ion-row>
+				<ion-col col-6>
+					<ion-item>
+						<ion-label floating>Correo</ion-label>
+						<ion-input type="text" name="correo" formControlName="correo" #correo></ion-input>
+					</ion-item>
+				</ion-col>
+				<ion-col col-6>
+					<ion-item>
+						<ion-label floating>Provincia</ion-label>
+						<ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()"></ion-input>
+						<input type="hidden" name="idprovincia" formControlName="idprovincia" #idprovincia>
+					</ion-item>
+				</ion-col>
+			</ion-row>
 
 		  <ion-row>
 		    <ion-col col-4>  
@@ -34,20 +50,20 @@
 			</ion-col>
 		    <ion-col col-8>  
 		      <ion-item>
-			    <ion-label floating>Móvil</ion-label>
-			    <ion-input type="text" name="cellphone" formControlName="cellphone" #cellphone></ion-input>
+			    <ion-label floating>Teléfono</ion-label>
+			    <ion-input type="text" name="telefono" formControlName="telefono" #telefono></ion-input>
 			  </ion-item>
 			</ion-col>		
 		  </ion-row>		  
 
-			<ion-row>
+			<!--<ion-row>
 				<ion-col>
 					<ion-item>
 				    	<ion-label floating>Contraseña</ion-label>
 						<ion-input type="text" name="password" formControlName="password" #password></ion-input>
 					</ion-item>
 				</ion-col>
-			</ion-row>
+			</ion-row>-->
 
 			<ion-row>
 				<ion-col>
@@ -59,7 +75,7 @@
 
 			<ion-row>
 				<ion-col>
-					<button full ion-button>Registrarse</button>
+					<button full ion-button (click)="register()">Registrarse</button>
 				</ion-col>
 			</ion-row>			
 		</ion-grid>

@@ -26,12 +26,14 @@ export class RegisterUserPage {
     public fb: FormBuilder    
   ){
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      email: ['', Validators.required],
+      correo: ['', Validators.required],
+      provincia: ['', Validators.required],
+      idprovincia: ['', Validators.required],
+      telefono: ['', Validators.required],
       code: ['', Validators.required],
-      cellphone: ['', Validators.required],
-      password: ['', Validators.required]
+      //password: ['', Validators.required]
     });  
   }
 
@@ -49,11 +51,25 @@ export class RegisterUserPage {
     });//Dismiss popover
   }
 
+  showProvincias(){
+    let popover = this._modal.create("ProvinciasPage");
+    popover.present();
+
+    popover.onDidDismiss((data: any) => {
+      console.log(data)
+      this.form.patchValue({ provincia: data.descripcion, idprovincia: data.idprovincia })
+    });//Dismiss popover
+  }
+
   goToConditions(){
     this.navCtrl.push("TermsAndConditionsPage");
   }
 
   goToPolicies(){
     this.navCtrl.push("PrivacyPolicyPage");
+  }
+
+  register(){
+    console.log(this.form.value)
   }
 }

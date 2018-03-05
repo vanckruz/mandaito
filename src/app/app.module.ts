@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { CountriesProvider } from '../providers/countries/countries';
 import { CategoriasProvider } from '../providers/categorias/categorias';
 import { TiendasProvider } from '../providers/tiendas/tiendas';
 import { ProductosProvider } from '../providers/productos/productos';
+import { ProvinciasProvider } from '../providers/provincias/provincias';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,10 @@ import { ProductosProvider } from '../providers/productos/productos';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: '__MiMandaito',
+      driverOrder: ['sqlite', 'indexeddb', 'websql']
+    }),
     ReactiveFormsModule,
     HttpClientModule
   ],
@@ -39,7 +45,8 @@ import { ProductosProvider } from '../providers/productos/productos';
     CountriesProvider,
     CategoriasProvider,
     TiendasProvider,
-    ProductosProvider
+    ProductosProvider,
+    ProvinciasProvider
   ]
 })
 export class AppModule {}

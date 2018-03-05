@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { CategoriasProvider } from '../../providers/categorias/categorias';
 
 import { Pipe, PipeTransform } from '@angular/core';
@@ -16,7 +16,8 @@ export class PrincipalMenuPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public categoriasProvider: CategoriasProvider
+    public categoriasProvider: CategoriasProvider,
+    public loading: LoadingController
   ){
 
   }
@@ -26,8 +27,13 @@ export class PrincipalMenuPage {
   }
 
   getCategorias(){
+    let loading = this.loading.create({content: "Cargando"});
+
+    loading.present();
+    
     this.categoriasProvider.get().subscribe(
       data => {
+        loading.dismiss();
         this.categorias = data.response.datos;
         console.log(this.categorias)
       }

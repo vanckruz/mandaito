@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { CountriesProvider } from '../../providers/countries/countries';
 
 @IonicPage()
@@ -14,14 +14,20 @@ export class CountriesListPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public countries: CountriesProvider,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public loading: LoadingController
   ){
 
   }
 
   ionViewDidLoad() {
+    let loading = this.loading.create({content: "Cargando..."});
+
+    loading.present();
+    
     this.countries.get().subscribe(
         data => {
+          loading.dismiss();
           this.countriesList = data;
         }
     );

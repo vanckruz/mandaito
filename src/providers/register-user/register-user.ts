@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { routes } from '../../config/routes';
+import { Observable } from 'rxjs/Rx';
 
-/*
-  Generated class for the RegisterUserProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class RegisterUserProvider {
 
@@ -14,4 +10,10 @@ export class RegisterUserProvider {
     console.log('Hello RegisterUserProvider Provider');
   }
 
+  register(usuario: { nombre: string, apellido: string, correo: string, idProvincia: number, telefono: string }): Observable<any> {
+    let user = JSON.stringify(usuario);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json;charset=utf-8');
+
+    return this.http.post(routes.registerUser(), user, { headers: headers });
+  }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -45,10 +46,22 @@ export class LoginPage {
       email: this.form.value.email,
       clave: this.form.value.password
     }).subscribe((data) => {
-      console.log(data)
       loading.dismiss();
-      this.navCtrl.setRoot("PrincipalMenuPage");    
-      },
+      console.log(data)
+      if (data.response.statusLogin == 1){
+        this.storage.set('user', JSON.stringify(data)).then((user) => {
+          let userJson = JSON.parse(user);
+          this.navCtrl.setRoot("PrincipalMenuPage");    
+        });      
+      }else{
+        let toast = this.toastCtrl.create({
+          message: data.response.msj,
+          duration: 3000,
+          position: 'top'
+        });        
+        toast.present();
+      }
+    },
       err => {
         let toast = this.toastCtrl.create({
           message: "He ocurrido un error, por favor intente luego",

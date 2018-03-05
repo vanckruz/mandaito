@@ -3,7 +3,11 @@ page-list-products-store {
 	.list{
 		display: grid;
 		grid-template-columns: 2fr 2fr;
-		grid-auto-rows: 220px;
+        grid-auto-rows: 220px;
+        
+        ion-content{
+            background: #f1f1f1 !important;
+        }
 
 		ion-card{
             .box{

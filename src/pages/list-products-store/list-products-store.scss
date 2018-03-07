@@ -1,38 +1,12 @@
 page-list-products-store {
-	background: #f1f1f1;
-	.list{
-		display: grid;
-		grid-template-columns: 2fr 2fr;
-        grid-auto-rows: 220px;
-        
-        ion-content{
-            background: #f1f1f1 !important;
-        }
+    ion-content{
+        background: #f1f1f1 !important;
+    }
 
-		ion-card{
-            .box{
-                padding: 1em;
-                p{
-                    font-weight: bold;
-                }
-                ion-note{
-                    display: block;
-                }
-                ion-col{
-                    span.precio{
-                        padding: .6em;
-                        border-radius: 50%;
-                        background: lightgreen;
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-        ion-buttons{
-            button{
-                height: 2em !important;
-                width: 2em !important;
-            }
+    ion-card{
+        .desc{
+            border-top: 1px dotted gray;
+            border-bottom: 1px dotted gray;
         }
     }
 }

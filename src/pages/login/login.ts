@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, MenuController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
 import { Storage } from '@ionic/storage';
@@ -19,8 +19,11 @@ export class LoginPage {
     public loading: LoadingController,
     public loginProvider: LoginProvider,
     public toastCtrl: ToastController,
-    public storage: Storage
+    public storage: Storage,
+    public menuCtrl: MenuController
   ){
+    this.menuCtrl.enable(false); 
+    
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -51,6 +54,7 @@ export class LoginPage {
       if (data.response.statusLogin == 1){
         this.storage.set('user', JSON.stringify(data)).then((user) => {
           let userJson = JSON.parse(user);
+          this.menuCtrl.enable(true);
           this.navCtrl.setRoot("PrincipalMenuPage");    
         });      
       }else{

@@ -42,7 +42,7 @@
 					</div>
 				</ion-col>
 				<ion-col col-6>
-					<ion-item>
+					<ion-item [ngClass]="{'greenborder': provincia.value != ''}">
 						<ion-label floating>Provincia</ion-label>
 						<ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()"></ion-input>
 						<input type="hidden" name="idprovincia" formControlName="idprovincia" #idprovincia>
@@ -52,37 +52,37 @@
 					</div>
 				</ion-col>
 			</ion-row>
-
+			
 		  <ion-row>
-		    <ion-col col-4>  
-		      <ion-item>
-			    <ion-label floating>Prefijo</ion-label>
-			    <ion-input type="text" name="code" formControlName="code" #code (focus)="showCountries()"></ion-input>
-				</ion-item>
+				<ion-col col-4>  
+					<ion-item [ngClass]="{'greenborder': code.value != ''}">
+						<ion-label floating>Prefijo</ion-label>
+						<ion-input type="text" name="code" formControlName="code" #code (focus)="showCountries()"></ion-input>
+					</ion-item>
 					<div padding *ngIf="form.controls.code.errors && form.controls.code.touched">
 						<ion-label color="danger" *ngIf="form.controls.code.errors.required">*Requerido</ion-label>
 					</div>
-			</ion-col>
+				</ion-col>
 		    <ion-col col-8>  
-		      <ion-item>
-			    <ion-label floating>Teléfono</ion-label>
-			    <ion-input type="text" name="telefono" formControlName="telefono" #telefono></ion-input>
-				</ion-item>
-				<div padding *ngIf="form.controls.telefono.errors && form.controls.telefono.dirty">
-					<ion-label color="danger" *ngIf="form.controls.telefono.errors.required">*Requerido</ion-label>
-				</div>
-			</ion-col>		
+					<ion-item>
+						<ion-label floating>Teléfono</ion-label>
+						<ion-input type="text" name="telefono" formControlName="telefono" #telefono></ion-input>
+					</ion-item>
+					<div padding *ngIf="form.controls.telefono.errors && form.controls.telefono.dirty">
+						<ion-label color="danger" *ngIf="form.controls.telefono.errors.required">*Requerido</ion-label>
+					</div>
+				</ion-col>		
 		  </ion-row>		  
-
+			
 			<!--<ion-row>
 				<ion-col>
 					<ion-item>
-				    	<ion-label floating>Contraseña</ion-label>
+						<ion-label floating>Contraseña</ion-label>
 						<ion-input type="text" name="password" formControlName="password" #password></ion-input>
 					</ion-item>
 				</ion-col>
 			</ion-row>-->
-
+			
 			<ion-row>
 				<ion-col>
 					<span>Al hacer click en "Registrarse" confirmo que he leido y aceptado los 
@@ -90,7 +90,7 @@
 					</span>
 				</ion-col>
 			</ion-row>
-
+			
 			<ion-row>
 				<ion-col>
 					<button full ion-button (click)="register()" [disabled]="form.invalid">Registrarse</button>
@@ -98,5 +98,4 @@
 			</ion-row>			
 		</ion-grid>
 	</form>
-	<pre>{{ form.value | json}}</pre>
 </ion-content>

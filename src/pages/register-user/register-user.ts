@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController,  ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, ToastController, MenuController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterUserProvider } from '../../providers/register-user/register-user';
 
@@ -18,8 +18,11 @@ export class RegisterUserPage {
     private loading: LoadingController,
     private toastCtrl: ToastController,
     public fb: FormBuilder,
-    public registerUserProvider: RegisterUserProvider
+    public registerUserProvider: RegisterUserProvider,
+    public menuCtrl: MenuController
   ){
+    this.menuCtrl.enable(false); 
+    
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -37,6 +40,7 @@ export class RegisterUserPage {
   }
 
   showCountries(){
+    
     let popover = this._modal.create("CountriesListPage");
     popover.present();
     
@@ -78,6 +82,9 @@ export class RegisterUserPage {
       this.registerUserProvider.register(this.form.value).subscribe( data => {
         console.log(data)
         loading.dismiss();
+        let toast = this.toastCtrl.create({ message: "Registro exitoso le estaremos enviando un correo con su clave de inicio de sesión", duration: 3000, position: 'top' });
+        toast.present();     
+        this.navCtrl.setRoot("LoginPage")   
       });
 
     }

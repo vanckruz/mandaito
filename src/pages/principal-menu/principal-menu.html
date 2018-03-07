@@ -10,8 +10,7 @@
 </ion-header>
 
 
-<ion-content padding>
-	
+<ion-content>
 	<ion-grid *ngIf="categorias">
 		<ion-searchbar [(ngModel)]="searchTerm"  (ionInput)="filterCategories($event)" (ionCancel)="getCategorias()">
 		</ion-searchbar>

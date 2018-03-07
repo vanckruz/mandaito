@@ -11,25 +11,18 @@
 
 <ion-card *ngIf="producto">
   <ion-card-content>
-      <img [src]="producto.foto">
-      <div class="desc">{{ producto.tiendanombre }}</div>
-      <ion-row>
-        <ion-col>
-          <p>{{ producto.descripcion }}</p>
-        </ion-col>
-        <ion-col>
-          <span class="precio" text-right>{{ producto.precio | number }}</span>
-        </ion-col>
-      </ion-row>
-      <ion-buttons text-right>
-        <button ion-button outline>
-          <ion-icon name="add"></ion-icon>
-        </button>
-        <button ion-button outline>
-          <ion-icon name="remove"></ion-icon>
-        </button>
-      </ion-buttons>
+    <img [src]="producto.foto">
+    <div class="desc">
+      <ion-note>{{ producto.tiendanombre }}</ion-note>
+    </div>
+    <p>{{ producto.descripcion }}</p>
+    <p class="precio">Precio:
+      <b text-right>{{ producto.precio | number }}₡</b>
+    </p>
   </ion-card-content>
+  <button ion-button full color="primary">
+    <ion-icon name="cart"></ion-icon> Añadir
+  </button>
 </ion-card>
 
   <ion-fab right bottom>

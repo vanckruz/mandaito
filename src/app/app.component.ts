@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, Nav, LoadingController } from 'ionic-angular';
+import { Platform, NavController, Nav, LoadingController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -10,13 +10,15 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = 'WelcomePage';
+  user: any;
 
   constructor(
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
     public storage: Storage,
-    public loading: LoadingController
+    public loading: LoadingController,
+    public menuCtrl: MenuController
   ){
     this.checkLogin();
     platform.ready().then(() => {
@@ -31,7 +33,8 @@ export class MyApp {
       if (!user) {
         this.nav.setRoot("WelcomePage");
       } else {
-        const usuario = JSON.parse(user);
+        this.user = JSON.parse(user);
+        this.menuCtrl.enable(true);
         let loading = this.loading.create({content: "cargando"});
         this.nav.setRoot("PrincipalMenuPage");
 

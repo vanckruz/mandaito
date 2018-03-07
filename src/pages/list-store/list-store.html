@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-searchbar>
 
   </ion-searchbar>
@@ -24,12 +24,10 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-note> {{ tienda.categoria }}</ion-note>
+      <p> {{ tienda.categoria }}</p>
     </ion-row>
     <ion-row>
-      <ion-note>
-        <b>Horario De {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> 
-      </ion-note>
+      <b>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> 
     </ion-row>
   </ion-card-content>
 </ion-card>

@@ -10,33 +10,20 @@
 <ion-content padding>
   <ion-card>
     <table>
-        <tbody>
-          <tr>
+        <!-- <tbody *ngIf="items != undefined">
+          <tr *ngFor="let item of items">
             <td class="_1">
-              <img src="http://lorempixel.com/400/200/food/">
+              <img [src]="item.foto">
             </td>
-            <td class="_2">Pan fresco</td>
-            <td class="_3">5$</td>
+            <td class="_2">{{ item.descripcion }}</td>
+            <td class="_3">{{ item.precio | number }}₡</td>
           </tr>
-          <tr>
-            <td class="_1">
-              <img src="http://lorempixel.com/400/200/food/">
-            </td>
-            <td class="_2">Pan gallego</td>
-            <td class="_3">3$</td>
-          </tr>
-          <tr>
-            <td class="_1">
-              <img src="http://lorempixel.com/400/200/food/">
-            </td>
-            <td class="_2">Pan Frances</td>
-            <td class="_3">2$</td>
-          </tr>
-        </tbody>
+        </tbody> -->
+
         <tfoot>
           <tr class="lavander">
             <th colspan="2" class="row-ajust">Total</th>
-            <td class="row-ajust"><span class="precio">10$</span></td>
+            <td class="row-ajust"><span class="precio">{{total}}₡</span></td>
           </tr>
         </tfoot>
     </table>

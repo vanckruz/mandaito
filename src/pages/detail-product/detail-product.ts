@@ -11,6 +11,7 @@ export class DetailProductPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.producto = this.navParams.get("producto");
+    console.log(this.navParams.get("producto"))
   }
 
   ionViewDidLoad() {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -7,12 +8,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'favorites-store.html',
 })
 export class FavoritesStorePage {
+  tiendas: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public storage: Storage,
+    public toast: ToastController
+  ){
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavoritesStorePage');
+    this.getFavorites();
+  }
+
+  getFavorites(){
+
   }
 
   goToProductsList(){

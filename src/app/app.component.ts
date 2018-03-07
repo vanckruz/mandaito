@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, Nav, LoadingController, MenuController } from 'ionic-angular';
+import { Platform, NavController, Nav, LoadingController, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -18,8 +18,13 @@ export class MyApp {
     splashScreen: SplashScreen,
     public storage: Storage,
     public loading: LoadingController,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public events: Events
   ){
+    this.events.subscribe("userLogin", (user) => {
+      this.user = user;
+    });
+
     this.checkLogin();
     platform.ready().then(() => {
       statusBar.styleDefault();

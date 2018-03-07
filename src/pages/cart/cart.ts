@@ -17,11 +17,18 @@ export class CartPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
 
-    // this.storage.get("carrito").then((carrito) => {
-    //   this.items = JSON.parse(carrito);
-    //   this.total = this.items.reduce((a, b) => a.precio + b.precio, 0)
-    //   console.log(this.items)
-    // });    
+    this.storage.get("carrito").then((carrito) => {
+      this.items = JSON.parse(carrito);
+      // this.total = this.items.reduce( (valorAnterior, valorActual, indice, vector) => {
+      //   console.log(typeof valorAnterior.precio, typeof valorActual.precio)
+      //   console.log(valorAnterior.precio, valorActual.precio)
+      //   return parseFloat(valorAnterior.precio) + parseFloat(valorActual.precio);
+      // })
+      this.total = 0;
+      for (var i in this.items) { this.total += parseFloat(this.items[i].precio) * parseFloat(this.items[i].cantidad); }
+      console.log(this.total)
+      console.log(this.items)
+    });    
   }
 
   ProccessPayment(){

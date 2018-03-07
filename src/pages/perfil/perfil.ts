@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, SegmentButton, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, SegmentButton, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PerfilProvider } from '../../providers/perfil/perfil';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -16,11 +18,15 @@ export class PerfilPage {
   isDisabledS: boolean = false;
   perfilOptions: string = 'perfil';
   myForm: any;
+  user: any;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    fb: FormBuilder
+    public fb: FormBuilder,
+    public perfilProvider: PerfilProvider,
+    public storage: Storage,
+    public loading: LoadingController
   ){
     this.myForm = fb.group({
       mapStyle: ['active', Validators.required]
@@ -29,6 +35,26 @@ export class PerfilPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerfilPage');
+    this.getPerfil();
+  }
+
+  getPerfil(){
+    this.storage.get('user').then((user) => {
+      console.log(user)
+      if (!user) {
+        this.navCtrl.setRoot("WelcomePage");
+      } else {
+        let usuario = JSON.parse(user);
+        let loading = this.loading.create({ content: "cargando" });
+        loading.present();
+        this.perfilProvider.get(usuario.idusuario).subscribe((data)=>{
+          this.user = data.response.datos;
+          console.log(data.response.datos)
+          loading.dismiss();
+        });
+      }
+
+    });//storage user    
   }
 
   editPerfil() {

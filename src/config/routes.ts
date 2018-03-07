@@ -9,6 +9,9 @@ export const routes = {
     provincias: function() {
         return `${ROOT}/provincia/all`
     },
+    perfil: function($id){
+        return `${ROOT}/perfil/${$id}`
+    },
     categories: function(){
         return `${ROOT}/categoriatienda/all`
     },

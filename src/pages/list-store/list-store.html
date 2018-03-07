@@ -11,10 +11,10 @@
   <ion-searchbar>
 
   </ion-searchbar>
-<ion-card *ngFor="let tienda of tiendas" (click)="goToProductsList(tienda)">
-  <img [src]="tienda.foto">
-
-  <ion-card-content>
+<ion-card *ngFor="let tienda of tiendas; let i = index;">
+  
+  <ion-card-content (click)="goToProductsList(tienda)">
+    <img [src]="tienda.foto">
     <ion-row>
       <ion-col>
         <strong>{{ tienda.descripcion }}</strong>
@@ -26,10 +26,14 @@
     <ion-row>
       <p> {{ tienda.categoria }}</p>
     </ion-row>
-    <ion-row>
-      <b>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> 
-    </ion-row>
   </ion-card-content>
+  <ion-row>
+    <ion-col col-10><b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> </ion-col>
+    <ion-col col-2>
+      <button ion-button outline color="primary" #boton (click)="addFavorite(boton, tienda)">
+        <ion-icon name="heart" ></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-card>
-
 </ion-content>

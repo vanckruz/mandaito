@@ -48,47 +48,52 @@ export class ListProductsStorePage {
     toast.present();
     console.log(producto)
     
-    // this.storage.get("carrito").then((carrito) => {
-    //   let car = JSON.parse(carrito);
-    //   console.log(carrito)
+    this.storage.get("carrito").then((carrito) => {
+      let car = JSON.parse(carrito);
+console.log(typeof car)
+      if(car == null){
+        car = [];
+        producto.cantidad = 1;
+        producto.total = parseFloat(producto.precio);
+        car.push(producto)
+        this.storage.set("carrito", JSON.stringify(car));        
+      }else{
+        //Build Json Car
+        if (car.length > 0){
 
-    //   if(carrito == null){
-    //     car = [];
-    //     producto.cantidad = 1;
-    //     producto.total = parseFloat(producto.precio);
-    //     car.push(producto)
-    //     this.storage.set("carrito", JSON.stringify(car));        
-    //   }else{
-    //     //Build Json Car
-    //     if (car.length > 0){
+          let foundItem = null;
 
-    //       let mapProducts = car.map((item, index)=>{
-    //         console.log(index, item.idproducto, producto.idproducto)
-    //         console.log(typeof item.idproducto, typeof producto.idproducto)
-    //         console.log(item.idproducto == producto.idproducto)
+          for(let item of car){
+            // console.log(item)
+            console.log(item.idproducto, producto.idproducto)
+            console.log(item.idproducto == producto.idproducto)
 
-    //         if (item.idproducto == producto.idproducto){
-    //           item.cantidad++;
-    //           item.precio += parseFloat(producto.precio);
-    //           item.total += item.cantidad * item.precio;
-    //           console.log(item);
-    //         }else{
-    //           producto.cantidad = 1;
-    //           producto.total = producto.precio;
-    //           car.push(producto)
-    //         }
 
-    //         return item;
-    //       })
+            if (item.idproducto == producto.idproducto){
+              item.cantidad++;
+              item.total = item.cantidad * item.precio;
+              foundItem = item;
+              break;
+            }
+            
+            console.log(foundItem);
+            
+          }//for
 
-    //       console.log(mapProducts)
+          if(foundItem == null){
+            producto.cantidad = 1;
+            producto.total = parseFloat(producto.precio);
+            console.log(producto)
+            car.push(producto)
+          }
           
-    //       this.storage.set("carrito", JSON.stringify(mapProducts));
-    //     }
+          this.storage.set("carrito", JSON.stringify(car));
+        }//If car lenght
+        // console.log(car)
+        console.log(car)
         
-    //     console.log(car)
-    //   }
-    // });
+      }
+    });
   }
   
   goToMyCart(){

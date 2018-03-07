@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { TiendasProvider } from '../../providers/tiendas/tiendas';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -10,12 +11,15 @@ import { TiendasProvider } from '../../providers/tiendas/tiendas';
 export class ListStorePage {
   categoria: any;
   tiendas: any;
+  color: string = 'primary';
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public tiendasProvider: TiendasProvider,
     private loading: LoadingController,
+    public storage: Storage,
+    public toast: ToastController
   ){
     this.categoria = this.navParams.get("categoria");
     console.log(this.categoria);
@@ -37,6 +41,15 @@ export class ListStorePage {
         });
       });
     }
+  }
+
+  addFavorite(boton, tienda){
+    let toast = this.toast.create({ message: "Tienda guardada en favoritos", duration: 3000, position: 'top' });
+    toast.present();
+
+    boton._elementRef.nativeElement.setAttribute("color", "danger");
+    // boton._color = "danger";
+    console.log(boton)
   }
 
   goToProductsList(tienda){

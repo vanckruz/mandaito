@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, MenuController, Events } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
 import { Storage } from '@ionic/storage';
@@ -20,7 +20,8 @@ export class LoginPage {
     public loginProvider: LoginProvider,
     public toastCtrl: ToastController,
     public storage: Storage,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public events: Events
   ){
     this.menuCtrl.enable(false); 
     
@@ -52,8 +53,10 @@ export class LoginPage {
       loading.dismiss();
       console.log(data)
       if (data.response.statusLogin == 1){
-        this.storage.set('user', JSON.stringify(data)).then((user) => {
+        this.storage.set('user', JSON.stringify(data.response.objUsuario)).then((user) => {
           let userJson = JSON.parse(user);
+          console.log(userJson)
+          this.events.publish("userLogin", userJson);
           this.menuCtrl.enable(true);
           this.navCtrl.setRoot("PrincipalMenuPage");    
         });      

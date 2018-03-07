@@ -9,10 +9,10 @@
 
 <ion-content padding>
   <div>
-    <div class="full">
+    <div class="full" *ngIf="user">
       <div class="imgbox">
-        <img src="https://www.adjust.com/new-assets/images/site-images/interface/user.svg" alt="perfil.png">
-        <p text-center>Usuario</p>
+        <img [src]="user.perfil.foto" alt="perfil.png">
+        <p text-center class="nameUser">{{ user.perfil.nombre }} {{ user.perfil.apellido }}</p>
       </div>
 
       <ion-toolbar>
@@ -38,16 +38,22 @@
 
       <div [ngSwitch]="perfilOptions" class="box-tabs">
         <div *ngSwitchCase="'perfil'">
-          <p class="sub-titulo">Nombre</p>
-          <p class="titulo"></p>
-          <p class="sub-titulo">Telefono</p>
-          <p class="titulo"></p>
-          <p class="sub-titulo">Género</p>
-          <p class="titulo"></p>
-          <p class="sub-titulo">Año de nacimiento</p>
-          <p class="titulo"></p>
-          <p class="sub-titulo">Email</p>
-          <p class="titulo"></p>
+          <ion-item>
+            <span item-left>Nombre</span>
+            <span item-right>{{ user.perfil.nombre }} {{ user.perfil.apellido }}</span>
+          </ion-item>
+          <ion-item>
+            <span item-left>Teléfono</span>
+            <span item-right>{{ user.perfil.telefono }}</span>
+          </ion-item>
+          <ion-item>
+            <span item-left>Email</span>
+            <span item-right>{{ user.perfil.correo }}</span>
+          </ion-item>
+          <ion-item>
+            <span item-left>Provincia</span>
+            <span item-right>{{ user.perfil.provincia }}</span>
+          </ion-item>
         
           <ion-footer>
             <button full ion-button (click)="editPerfil()">

@@ -7,27 +7,19 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
-    <table>
-        <!-- <tbody *ngIf="items != undefined">
-          <tr *ngFor="let item of items">
-            <td class="_1">
-              <img [src]="item.foto">
-            </td>
-            <td class="_2">{{ item.descripcion }}</td>
-            <td class="_3">{{ item.precio | number }}₡</td>
-          </tr>
-        </tbody> -->
-
-        <tfoot>
-          <tr class="lavander">
-            <th colspan="2" class="row-ajust">Total</th>
-            <td class="row-ajust"><span class="precio">{{total}}₡</span></td>
-          </tr>
-        </tfoot>
-    </table>
-  </ion-card>  
+<ion-content>
+  <ion-grid *ngIf="items != undefined">
+    <ion-row *ngFor="let item of items">
+        <ion-col><img [src]="item.foto"></ion-col>
+        <ion-col>{{ item.descripcion }}</ion-col>
+        <ion-col>{{ item.precio }}₡</ion-col>
+        <ion-col>{{ item.cantidad }}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>Total</ion-col>
+      <ion-col>{{total}}₡</ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-footer>
     <button ion-button (click)="ProccessPayment()" full>Procesar pago</button>
   </ion-footer>

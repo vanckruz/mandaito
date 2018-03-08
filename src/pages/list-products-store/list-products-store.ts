@@ -50,7 +50,7 @@ export class ListProductsStorePage {
     
     this.storage.get("carrito").then((carrito) => {
       let car = JSON.parse(carrito);
-console.log(typeof car)
+      
       if(car == null){
         car = [];
         producto.cantidad = 1;

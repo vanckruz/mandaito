@@ -30,7 +30,7 @@
   <ion-row>
     <ion-col col-10><b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> </ion-col>
     <ion-col col-2>
-      <button ion-button outline color="primary" #boton (click)="addFavorite(boton, tienda)">
+      <button ion-button outline [color]="!hearts[i] ? 'primary': 'danger'"  (click)="addFavorite(tienda, i)">
         <ion-icon name="heart" ></ion-icon>
       </button>
     </ion-col>

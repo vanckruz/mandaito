@@ -7,27 +7,31 @@
 </ion-header>
 
 
-<ion-content padding>
-<ion-card (click)="goToProductsList()">
-  <img src="http://lorempixel.com/400/200/food/">
-
-  <ion-card-content>
+<ion-content *ngIf="tiendas">
+  <ion-card *ngFor="let tienda of tiendas; let i = index;">
+    <ion-card-content (click)="goToProductsList(tienda)">
+      <img [src]="tienda.foto">
+      <ion-row>
+        <ion-col>
+          <strong>{{ tienda.descripcion }}</strong>
+        </ion-col>
+        <ion-col center text-end>
+          <ion-note> {{ tienda.provincia }}</ion-note>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <p> {{ tienda.categoria }}</p>
+      </ion-row>
+    </ion-card-content>
     <ion-row>
-      <ion-col>
-        <strong>Don pepe</strong>
+      <ion-col col-8>
+        <b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b>
       </ion-col>
-      <ion-col center text-end>
-        <ion-note> 15 - 20 min </ion-note>
+      <ion-col col-4>
+        <button ion-button outline color="danger" (click)="delFavorite(tienda);">
+          Quitar
+        </button>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-note> Comida rápida</ion-note>
-    </ion-row>
-    <ion-row>
-      <ion-icon name="star" color="theme-yellow"></ion-icon>
-      <ion-note>
-        <b>4.8</b> (130)</ion-note>
-    </ion-row>
-  </ion-card-content>
-</ion-card>
+  </ion-card>
 </ion-content>

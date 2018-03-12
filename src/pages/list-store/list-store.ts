@@ -48,8 +48,22 @@ export class ListStorePage {
               element.horaabierto = moment(element.horaabierto, "HH:mm A").format('LT');
               element.horacierre = moment(element.horacierre, "HH:mm A").format('LT');
               this.hearts.push(false);
-            });
+              
+              this.storage.get("tiendasFavoritas").then((fav) => {
+                let favoritas = JSON.parse(fav);
+                favoritas.forEach(element2 => {
+                  console.log(element, element2)
+                  if (element.idtienda == element2.idtienda){
+                    element.favorito = true;
+                  }else{
+                    element.favorito = false;
+                  }
+                });
+              });
+
+            });//First For Each
             
+            console.log(tiendas)
             this.tiendas = tiendas;
           }
           
@@ -58,10 +72,11 @@ export class ListStorePage {
     }
   }
   
-  addFavorite(tienda, i){
+  addFavorite(tienda){
     console.log(tienda)
 
-    this.hearts[i] = !this.hearts[i];
+    // this.hearts[i] = !this.hearts[i];
+    tienda.favorito = !tienda.favorito;
     this.storage.get("tiendasFavoritas").then((fav)=>{
       let favoritas = JSON.parse(fav);
       
@@ -80,7 +95,7 @@ export class ListStorePage {
           console.log(store.idtienda == tienda.idtienda)
 
           if (store.idtienda == tienda.idtienda) {
-            let toast = this.toast.create({ message: "Esta tienda ya esta guardada en favoritos", duration: 3000, position: 'top' });
+            let toast = this.toast.create({ message: "Tienda removida de favoritos", duration: 3000, position: 'top' });
             toast.present();
             foundItem = store;
             break;
@@ -89,17 +104,29 @@ export class ListStorePage {
           console.log(foundItem);
 
         }//for
+        //Sino se encontro el item:
         if (foundItem == null) {
           console.log(tienda)
           favoritas.push(tienda)
-        }      
-        console.log(favoritas)  
+          let toast = this.toast.create({ message: "Tienda guardada en favoritos", duration: 3000, position: 'top' });
+          toast.present();          
+        }else{
+          let filterStore = favoritas.filter((e, index) => {
+            console.log(e.idtienda, tienda.idtienda)
+
+            return e.idtienda != tienda.idtienda;
+          })
+
+          favoritas = filterStore;          
+        }   
+
         this.storage.set("tiendasFavoritas", JSON.stringify(favoritas));    
       }
     });
   }
 
   goToProductsList(tienda){
+    console.log(tienda)
     this.navCtrl.push('ListProductsStorePage',{
       tienda: tienda
     });

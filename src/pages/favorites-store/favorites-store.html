@@ -7,31 +7,40 @@
 </ion-header>
 
 
-<ion-content *ngIf="tiendas">
-  <ion-card *ngFor="let tienda of tiendas; let i = index;">
-    <ion-card-content (click)="goToProductsList(tienda)">
-      <img [src]="tienda.foto">
+<ion-content>
+  <div *ngIf="tiendas">
+    <ion-card *ngFor="let tienda of tiendas; let i = index;">
+      <ion-card-content (click)="goToProductsList(tienda)">
+        <img [src]="tienda.foto">
+        <ion-row>
+          <ion-col>
+            <strong>{{ tienda.descripcion }}</strong>
+          </ion-col>
+          <ion-col center text-end>
+            <ion-note> {{ tienda.provincia }}</ion-note>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <p> {{ tienda.categoria }}</p>
+        </ion-row>
+      </ion-card-content>
       <ion-row>
-        <ion-col>
-          <strong>{{ tienda.descripcion }}</strong>
+        <ion-col col-10>
+          <b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b>
         </ion-col>
-        <ion-col center text-end>
-          <ion-note> {{ tienda.provincia }}</ion-note>
+        <ion-col col-2>
+          <button ion-button outline color="danger" (click)="delFavorite(tienda);">
+            <ion-icon name="trash"></ion-icon>
+          </button>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <p> {{ tienda.categoria }}</p>
-      </ion-row>
-    </ion-card-content>
-    <ion-row>
-      <ion-col col-8>
-        <b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b>
-      </ion-col>
-      <ion-col col-4>
-        <button ion-button outline color="danger" (click)="delFavorite(tienda);">
-          Quitar
-        </button>
-      </ion-col>
-    </ion-row>
+    </ion-card>
+  </div>
+
+  <ion-card *ngIf="tiendas != undefined && tiendas.length == 0" padding>
+    <p text-center>
+      <ion-icon name="ios-information-circle-outline" class="infoicon"></ion-icon>
+    </p>
+    <p class="info"> No tienes tiendas guardadas</p>
   </ion-card>
 </ion-content>

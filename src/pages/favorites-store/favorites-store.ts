@@ -35,14 +35,12 @@ export class FavoritesStorePage {
 
   delFavorite(tienda){
 
-    
     let filterStore = this.tiendas.filter((e, index) => {
       console.log(e.idtienda, tienda.idtienda)
 
       return e.idtienda != tienda.idtienda;
     })
 
-    console.log(filterStore)
     this.storage.set("tiendasFavoritas", JSON.stringify(filterStore))
     this.tiendas = filterStore;
   }

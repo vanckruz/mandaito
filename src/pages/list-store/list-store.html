@@ -8,32 +8,37 @@
 
 
 <ion-content>
-  <ion-searchbar>
+  <div *ngIf="tiendas">
+    <ion-searchbar> </ion-searchbar>
+    <ion-card *ngFor="let tienda of tiendas; let i = index;">
+      
+      <ion-card-content (click)="goToProductsList(tienda)">
+        <img [src]="tienda.foto">
+        <ion-row>
+          <ion-col>
+            <strong>{{ tienda.descripcion }}</strong>
+          </ion-col>
+          <ion-col center text-end>
+            <ion-note> {{ tienda.provincia }}</ion-note>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <p> {{ tienda.categoria }}</p>
+        </ion-row>
+      </ion-card-content>
+      <ion-row>
+        <ion-col col-10><b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> </ion-col>
+        <ion-col col-2>
+          <button ion-button outline [color]="!tienda.favorito ? 'primary': 'danger'"  (click)="addFavorite(tienda)">
+            <ion-icon name="heart" ></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
 
-  </ion-searchbar>
-<ion-card *ngFor="let tienda of tiendas; let i = index;">
-  
-  <ion-card-content (click)="goToProductsList(tienda)">
-    <img [src]="tienda.foto">
-    <ion-row>
-      <ion-col>
-        <strong>{{ tienda.descripcion }}</strong>
-      </ion-col>
-      <ion-col center text-end>
-        <ion-note> {{ tienda.provincia }}</ion-note>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <p> {{ tienda.categoria }}</p>
-    </ion-row>
-  </ion-card-content>
-  <ion-row>
-    <ion-col col-10><b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> </ion-col>
-    <ion-col col-2>
-      <button ion-button outline [color]="!hearts[i] ? 'primary': 'danger'"  (click)="addFavorite(tienda, i)">
-        <ion-icon name="heart" ></ion-icon>
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-card>
+  <ion-card *ngIf="tiendas == null" padding>
+    <p text-center><ion-icon name="ios-information-circle-outline" class="infoicon"></ion-icon></p>
+    <p class="info"> No tenemos tiendas registradas en esta categoria</p>
+  </ion-card>
 </ion-content>

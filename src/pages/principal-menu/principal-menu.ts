@@ -40,18 +40,15 @@ export class PrincipalMenuPage {
     );    
   }
 
-  filterCategories(searchTerm) {
-    console.log(searchTerm)
-    if (searchTerm !== null && searchTerm.data !== ""){
-
+  filterCategories() {
+    if (this.searchTerm !== ""){
       this.categorias = this.categorias.filter((item) => {
-        return item.descripcion.toLowerCase().indexOf(searchTerm.data.toLowerCase()) > -1;
+        return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
 
     }else{
       this.getCategorias();      
     }
-
   }
 
   goToStores(data){

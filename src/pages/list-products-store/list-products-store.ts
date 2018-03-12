@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 export class ListProductsStorePage {
   tienda: any;
   productos: any;
+  searchTerm: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -117,6 +118,17 @@ export class ListProductsStorePage {
       //here
 
     });
+  }
+
+  filterProducts(){
+    if (this.searchTerm !== "") {
+      this.productos = this.productos.filter((item) => {
+        return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
+
+    } else {
+      this.getProductos();
+    }
   }
 
   goToProductsList(tienda) {

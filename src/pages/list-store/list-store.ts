@@ -13,7 +13,7 @@ export class ListStorePage {
   categoria: any;
   tiendas: any;
   color: string = 'primary';
-  hearts: Array<boolean> = new Array();
+  searchTerm: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -47,7 +47,6 @@ export class ListStorePage {
             tiendas.forEach( (element, index) => {
               element.horaabierto = moment(element.horaabierto, "HH:mm A").format('LT');
               element.horacierre = moment(element.horacierre, "HH:mm A").format('LT');
-              this.hearts.push(false);
               
               this.storage.get("tiendasFavoritas").then((fav) => {
                 let favoritas = JSON.parse(fav);
@@ -123,6 +122,17 @@ export class ListStorePage {
         this.storage.set("tiendasFavoritas", JSON.stringify(favoritas));    
       }
     });
+  }
+
+  filterStores(){
+    if (this.searchTerm !== "") {
+      this.tiendas = this.tiendas.filter((item) => {
+        return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
+
+    } else {
+      this.getTiendas();
+    }
   }
 
   goToProductsList(tienda){

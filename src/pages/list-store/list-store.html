@@ -9,7 +9,7 @@
 
 <ion-content>
   <div *ngIf="tiendas">
-    <ion-searchbar> </ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()"></ion-searchbar>
     <ion-card *ngFor="let tienda of tiendas; let i = index;">
       
       <ion-card-content (click)="goToProductsList(tienda)">

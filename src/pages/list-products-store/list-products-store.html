@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <img [src]="tienda.foto" class="imgtienda">
+  <img [src]="tienda.foto" class="imgtienda" *ngIf="tienda">
   <ion-grid *ngIf="productos">
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCategories($event)" (ionCancel)="getCategorias()">
     </ion-searchbar>

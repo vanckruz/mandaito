@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Nuevo método</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form form [formGroup]="form" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Tipo de tarjeta</ion-label>s
+            <ion-input type="text" name="tipotarjeta" formControlName="tipotarjeta" #tipotarjeta></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tipotarjeta.errors && form.controls.tipotarjeta.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tipotarjeta.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Número</ion-label>
+            <ion-input type="text" name="tarjetanro" formControlName="tarjetanro" #tarjetanro></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetanro.errors && form.controls.tarjetanro.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetanro.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Nombre</ion-label>s
+            <ion-input type="text" name="tarjetaombre" formControlName="tarjetaombre" #tarjetaombre></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetaombre.errors && form.controls.tarjetaombre.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetaombre.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Fecha</ion-label>
+            <ion-input type="text" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetafecha.errors && form.controls.tarjetafecha.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetafecha.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button full ion-button (click)="save()" [disabled]="form.invalid">Guardar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

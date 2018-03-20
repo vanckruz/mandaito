@@ -1,0 +1,71 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Nueva dirección</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form form [formGroup]="form" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Dirección 1</ion-label>s
+            <ion-input type="text" name="direccion1" formControlName="direccion1" #direccion1></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.direccion1.errors && form.controls.direccion1.dirty">
+            <ion-label color="danger" *ngIf="form.controls.direccion1.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Dirección 2</ion-label>
+            <ion-input type="text" name="direccion2" formControlName="direccion2" #direccion2></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.direccion2.errors && form.controls.direccion2.dirty">
+            <ion-label color="danger" *ngIf="form.controls.direccion2.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Provincia</ion-label>s
+            <ion-input type="text" name="provincia" formControlName="provincia" #provincia></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.dirty">
+            <ion-label color="danger" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Ciudad</ion-label>
+            <ion-input type="text" name="ciudad" formControlName="ciudad" #ciudad></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.ciudad.errors && form.controls.ciudad.dirty">
+            <ion-label color="danger" *ngIf="form.controls.ciudad.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>Código postal</ion-label>
+            <ion-input type="text" name="codigopostal" formControlName="codigopostal" #codigopostal></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.codigopostal.errors && form.controls.codigopostal.dirty">
+            <ion-label color="danger" *ngIf="form.controls.codigopostal.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col>
+          <button full ion-button (click)="save()" [disabled]="form.invalid">Guardar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -57,10 +57,23 @@ export class PerfilPage {
     });//storage user    
   }
 
+  
   editPerfil() {
     this.navCtrl.push('EditPerfilPage');
   }
   
+  addMethod(){
+    this.navCtrl.push('MakeMethodsPage',{
+      user: this.user.perfil
+    });
+  }
+  
+  addDirection(){
+    this.navCtrl.push('MakeDirectionsPage',{
+      user: this.user.perfil
+    });
+  }
+
   toggleBDisabled() {
     this.isDisabledB = !this.isDisabledB;
   }

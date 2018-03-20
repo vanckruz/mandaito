@@ -1,24 +1,30 @@
 const ROOT = 'http://mimandadito.tk/api/public';
 export const routes = {
-    login: function() {
+    login: () => {
         return `${ROOT}/login`
     },
-    registerUser: function() {
+    registerUser: () => {
         return `${ROOT}/register`
     },
-    provincias: function() {
+    provincias: () => {
         return `${ROOT}/provincia/all`
     },
-    perfil: function($id){
-        return `${ROOT}/perfil/${$id}`
+    perfil: ($idPerfil) => {
+        return `${ROOT}/perfil/${$idPerfil}`
     },
-    categories: function(){
+    direcciones: ($idPerfil) => {
+        return `${ROOT}/perfil/${$idPerfil}/direccion/guardar`
+    },
+    metodos: ($idPerfil) => {
+        return `${ROOT}/perfil/${$idPerfil}/metodos/guardar`
+    },    
+    categories: () => {
         return `${ROOT}/categoriatienda/all`
     },
-    stores: function ($idCategoria) {
+    stores: ($idCategoria) => {
         return `${ROOT}/tienda/${$idCategoria}`
     },
-    products: function ($idStore) {
+    products:  ($idStore) => {
         return `${ROOT}/producto/${$idStore}`
     }    
 }

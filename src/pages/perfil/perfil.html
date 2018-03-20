@@ -63,14 +63,19 @@
         </div>
         <!--Perfil-->
         <div *ngSwitchCase="'card'">
-          <a ion-item>
-            <ion-label>Métodos de Pagos</ion-label>
-          </a>
+          <ion-list-header>
+            Métodos de pago
+            <ion-icon name="add" item-right (click)="addMethod()"></ion-icon>
+          </ion-list-header>
         </div>
         <div *ngSwitchCase="'address'">
-          <a ion-item>
-            <ion-label>Direcciones de Envio</ion-label>
-          </a>
+          <ion-list-header>
+            Direcciones de Envios <ion-icon name="add" item-right (click)="addDirection()"></ion-icon>
+          </ion-list-header>
+          <ion-item *ngFor="let item of user.direcciones">
+            {{ item.ciudad }} - {{ item.provincia }}
+            <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
+          </ion-item>
         </div>
         <div *ngSwitchCase="'history'">
           <a ion-item>

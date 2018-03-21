@@ -91,7 +91,7 @@ export class ProccessPaymentPage {
       let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto", duration: 3000, position: 'top' });
       toast.present();
       this.storage.remove("nowstore");
-      this.storage.set("carrito","[]");
+      this.storage.remove("carrito");
       this.navCtrl.popToRoot();      
     });
   }

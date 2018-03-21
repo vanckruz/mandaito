@@ -22,22 +22,27 @@ export class CartPage {
 
   getCarrito(){
     this.storage.get("carrito").then((carrito) => {
+      
       this.items = JSON.parse(carrito);
-      this.total = 0;
-      // for (var i in this.items) { this.total += parseFloat(this.items[i].precio) * parseFloat(this.items[i].cantidad); }
-      for (let i of this.items) { 
-        this.total += parseFloat(i.precio) * parseFloat(i.cantidad); 
+      console.log(this.items)
+      if(this.items != null){
+        this.total = 0;
+        // for (var i in this.items) { this.total += parseFloat(this.items[i].precio) * parseFloat(this.items[i].cantidad); }
+        for (let i of this.items) { 
+          this.total += parseFloat(i.precio) * parseFloat(i.cantidad); 
+        }
+  
+        this.storage.get("nowstore").then((nowstore) => {
+          let tienda = JSON.parse(nowstore);
+          this.dataForPay = {
+            items: this.items,
+            total: this.total,
+            tienda: tienda
+          }
+          console.log(this.dataForPay)
+        });
       }
 
-      this.storage.get("nowstore").then((nowstore) => {
-        let tienda = JSON.parse(nowstore);
-        this.dataForPay = {
-          items: this.items,
-          total: this.total,
-          tienda: tienda
-        }
-        console.log(this.dataForPay)
-      });
     });     
   }
 

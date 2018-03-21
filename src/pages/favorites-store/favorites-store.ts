@@ -45,8 +45,10 @@ export class FavoritesStorePage {
     this.tiendas = filterStore;
   }
 
-  goToProductsList(){
-    this.navCtrl.push('ListProductsStorePage');
+  goToProductsList(tienda){
+    this.navCtrl.push('ListProductsStorePage', {
+      tienda: tienda
+    });
   }  
 
 }

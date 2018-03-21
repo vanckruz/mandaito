@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="themeorange">
     <ion-title>
       Login
     </ion-title>
@@ -7,8 +7,8 @@
 </ion-header>
 
 <ion-content padding>
+  <img src="assets/imgs/logounbg.png">
   <ion-card padding>
-
     <form [formGroup]="form" novalidate>
       <ion-item color="theme-blue">
         <ion-label floating>Email</ion-label>
@@ -26,12 +26,12 @@
         <ion-label color="danger">*Requerido</ion-label>
       </div>
       <div class="btn-login">
-        <button full ion-button (click)="login()">Ingresar</button>
+        <button full ion-button (click)="login()" color="themeorange">Ingresar</button>
       </div>
     </form>
     <div class="bottons_a">    
-      <button full ion-button outline color="theme-purple" clear class="bt1" >Olvidé la contraseña</button>
-      <button full ion-button outline color="theme-purple" clear class="bt2" (click)="goToSignIn()">Aún no tengo cuenta</button>
+      <button full ion-button outline color="theme-purple" clear class="bt1" color="themeorange">Olvidé la contraseña</button>
+      <button full ion-button outline color="theme-purple" clear class="bt2" (click)="goToSignIn()" color="themeorange">Aún no tengo cuenta</button>
     </div>
   </ion-card>
 

@@ -7,7 +7,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { LoginProvider } from '../providers/login/login';
 import { RegisterUserProvider } from '../providers/register-user/register-user';
 import { CountriesProvider } from '../providers/countries/countries';
@@ -21,7 +20,6 @@ import { PaymentsProvider } from '../providers/payments/payments';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,6 @@ import { PaymentsProvider } from '../providers/payments/payments';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
   ],
   providers: [
     StatusBar,

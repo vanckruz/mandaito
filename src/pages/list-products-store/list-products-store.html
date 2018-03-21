@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="themeorange">
     <ion-title>Productos</ion-title>
   </ion-navbar>
 
@@ -22,7 +22,7 @@
             <p>{{ producto.descripcion }}</p>
             <p class="precio">Precio: <b text-right>{{ producto.precio | number }}₡</b></p>
           </ion-card-content>
-          <button ion-button full color="primary" (click)="add(producto)">
+          <button ion-button full color="themeorange" (click)="add(producto)">
             <ion-icon name="cart"></ion-icon> Añadir
           </button>
         </ion-card>
@@ -38,7 +38,7 @@
   </ion-card>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="goToMyCart()">
+    <button ion-fab (click)="goToMyCart()" color="themeorange">
       <ion-icon name="cart"></ion-icon>
     </button>
   </ion-fab>

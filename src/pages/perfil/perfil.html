@@ -67,6 +67,10 @@
             Métodos de pago
             <ion-icon name="add" item-right (click)="addMethod()"></ion-icon>
           </ion-list-header>
+          <ion-item *ngFor="let item of user.metodos">
+            {{ item.tarjetanombre }} - {{ item.tarjetafecha }}
+            <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
+          </ion-item>
         </div>
         <div *ngSwitchCase="'address'">
           <ion-list-header>

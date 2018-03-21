@@ -28,11 +28,22 @@ export class CartPage {
       for (let i of this.items) { 
         this.total += parseFloat(i.precio) * parseFloat(i.cantidad); 
       }
-      
+
+      this.storage.get("nowstore").then((nowstore) => {
+        let tienda = JSON.parse(nowstore);
+        this.dataForPay = {
+          items: this.items,
+          total: this.total,
+          tienda: tienda
+        }
+        console.log(this.dataForPay)
+      });
     });     
   }
 
   ProccessPayment(){
-    this.navCtrl.push("AddCardPage");
+    this.navCtrl.push("ProccessPaymentPage",{
+      cart: this.dataForPay
+    });
   }
 }

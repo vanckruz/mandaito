@@ -43,25 +43,29 @@ export class ListStorePage {
           if(data.response.datos){
 
             let tiendas = data.response.datos
-            
-            tiendas.forEach( (element, index) => {
-              element.horaabierto = moment(element.horaabierto, "HH:mm A").format('LT');
-              element.horacierre = moment(element.horacierre, "HH:mm A").format('LT');
-              
-              this.storage.get("tiendasFavoritas").then((fav) => {
-                let favoritas = JSON.parse(fav);
-                favoritas.forEach(element2 => {
-                  console.log(element, element2)
-                  if (element.idtienda == element2.idtienda){
-                    element.favorito = true;
-                  }else{
-                    element.favorito = false;
+            if(tiendas != null){
+
+              tiendas.forEach( (element, index) => {
+                element.horaabierto = moment(element.horaabierto, "HH:mm A").format('LT');
+                element.horacierre = moment(element.horacierre, "HH:mm A").format('LT');
+                
+                this.storage.get("tiendasFavoritas").then((fav) => {
+                  let favoritas = JSON.parse(fav);
+                  if(favoritas != null){
+                    favoritas.forEach(element2 => {
+                      console.log(element, element2)
+                      if (element.idtienda == element2.idtienda){
+                        element.favorito = true;
+                      }else{
+                        element.favorito = false;
+                      }
+                    });
                   }
                 });
-              });
-
-            });//First For Each
-            
+                
+              });//First For Each
+            }
+              
             console.log(tiendas)
             this.tiendas = tiendas;
           }

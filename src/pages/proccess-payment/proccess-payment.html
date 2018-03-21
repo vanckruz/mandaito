@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Procesar pago</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="form" novalidate *ngIf="user">
+      <ion-slides #tratamientoSlider effect="slide">
+        <!--Step 1 Métodos-->
+        <ion-slide>
+          <ion-label>Seleccione método de pago</ion-label>
+          <ion-select name="idusuariometodo" formControlName="idusuariometodo" #idusuariometodo>
+            <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">Tarjeta: {{ metodo.tarjetanombre }}</ion-option>
+          </ion-select>
+          <ion-buttons>
+            <button class="right controls" ion-button icon-right (click)="next()" [disabled]="form.controls.idusuariometodo.errors">
+              Siguiente
+              <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-slide>
+        
+        <!--Step 2 dirección-->
+        <ion-slide>
+          <ion-label>Seleccione direccion de envio</ion-label>
+          <ion-select name="idusuariodireccion" formControlName="idusuariodireccion" #idusuariodireccion>
+            <ion-option [value]="direccion.idusuariodireccion" *ngFor="let direccion of user.direcciones">Dirección: {{ direccion.direccion1 }} - {{ direccion.direccion2 }}</ion-option>
+          </ion-select>
+          <ion-buttons>
+            <button class="controls" ion-button icon-left (click)="prev()">
+              <ion-icon name="arrow-back"></ion-icon> Anterior
+            </button>
+            <button class="controls" ion-button icon-right (click)="next()" [disabled]="form.controls.idusuariodireccion.errors">
+              Siguiente
+              <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-slide>
+        
+        <!--Step 3 detalle y confirmación-->
+        <ion-slide>
+          <ion-item *ngFor="let item of cart.items;let i = index;">{{ item.descripcion }} - {{ item.cantidad }} * {{ item.precio }} = {{ item.total }}</ion-item>
+          <ion-item>Total: {{ cart.total }}</ion-item>
+          <button full ion-button (click)="pay()" color="primary">Pagar</button>
+        </ion-slide>
+      </ion-slides>
+    </form>
+</ion-content>

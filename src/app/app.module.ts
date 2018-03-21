@@ -16,6 +16,7 @@ import { TiendasProvider } from '../providers/tiendas/tiendas';
 import { ProductosProvider } from '../providers/productos/productos';
 import { ProvinciasProvider } from '../providers/provincias/provincias';
 import { PerfilProvider } from '../providers/perfil/perfil';
+import { PaymentsProvider } from '../providers/payments/payments';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PerfilProvider } from '../providers/perfil/perfil';
     TiendasProvider,
     ProductosProvider,
     ProvinciasProvider,
-    PerfilProvider
+    PerfilProvider,
+    PaymentsProvider
   ]
 })
 export class AppModule {}

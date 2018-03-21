@@ -7,8 +7,8 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-grid *ngIf="items != undefined">
+<ion-content *ngIf="items != undefined">
+  <ion-grid *ngIf="items.length > 0">
     <ion-row class="lavander headers">
       <ion-col col-3> </ion-col>
       <ion-col col-3>Nombre</ion-col>
@@ -27,8 +27,11 @@
       <ion-col class="lightgreen">{{total}}₡</ion-col>
     </ion-row>
   </ion-grid>
+  <ion-card *ngIf="items.length == 0">
+    <b>No tienes productos en el carrito de compras</b>
+  </ion-card>
   <ion-footer>
-    <button ion-button (click)="ProccessPayment()" full>Procesar pago</button>
+    <button ion-button (click)="ProccessPayment()" full [disabled]="items.length == 0">Procesar pago</button>
   </ion-footer>
 </ion-content>
 

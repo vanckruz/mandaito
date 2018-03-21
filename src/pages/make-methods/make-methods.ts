@@ -23,7 +23,7 @@ export class MakeMethodsPage {
     this.form = this.fb.group({
       tipotarjeta: ['', Validators.required],
       tarjetanro: ['', Validators.required],
-      tarjetaombre: ['', Validators.required],
+      tarjetanombre: ['', Validators.required],
       tarjetafecha: ['', Validators.required],
     });      
     this.user = this.navParams.get("user");

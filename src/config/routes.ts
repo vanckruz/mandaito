@@ -16,7 +16,7 @@ export const routes = {
         return `${ROOT}/perfil/${$idPerfil}/direccion/guardar`
     },
     metodos: ($idPerfil) => {
-        return `${ROOT}/perfil/${$idPerfil}/metodos/guardar`
+        return `${ROOT}/perfil/${$idPerfil}/metodo/guardar`
     },    
     categories: () => {
         return `${ROOT}/categoriatienda/all`
@@ -26,5 +26,8 @@ export const routes = {
     },
     products:  ($idStore) => {
         return `${ROOT}/producto/${$idStore}`
-    }    
+    },
+    order: ($idPerfil) => {
+        return `${ROOT}/order/${$idPerfil}`
+    }
 }

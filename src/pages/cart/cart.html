@@ -19,12 +19,12 @@
     <ion-row *ngFor="let item of items">
         <ion-col col-3><img [src]="item.foto"></ion-col>
         <ion-col col-3>{{ item.descripcion }}</ion-col>
-        <ion-col col-3>{{ item.precio }}₡</ion-col>
+        <ion-col col-3>₡{{ item.precio }}</ion-col>
         <ion-col col-3>{{ item.cantidad }}</ion-col>
     </ion-row>
     <ion-row class="headers">
       <ion-col class="lavander">Total</ion-col>
-      <ion-col class="lightgreen">{{total}}₡</ion-col>
+      <ion-col class="lightgreen">₡{{total}}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-card *ngIf="!items" padding>

@@ -29,5 +29,8 @@ export const routes = {
     },
     order: ($idPerfil) => {
         return `${ROOT}/order/${$idPerfil}`
+    },
+    orderActive: ($idPerfil) => {
+        return `${ROOT}/order/${$idPerfil}/activa`
     }
 }

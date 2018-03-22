@@ -8,35 +8,18 @@
 
 
 <ion-content padding>
-  <ion-searchbar placeholder="Número de orden">
-  </ion-searchbar>
-
-  <ion-list>
-    <ion-item>
+  <div *ngIf="order">
+    <ion-item><b>Orden#</b> <span item-right>{{ order.idfactura }}</span></ion-item>
+    <ion-item><b>Fecha: </b><span>{{ order.fecha.split("|")[0] }}</span><span item-right><b>Hora: </b>{{ order.fecha.split("|")[1] }}</span></ion-item>
+    <img [src]="order.fototienda" class="imgtienda">
+    <hr>
+    <p class="t15em" padding>{{ order.tienda }}</p>
+    <ion-item *ngFor="let item of order.productos">
       <ion-thumbnail item-start>
-        <img src="http://lorempixel.com/400/200/food/">
+        <img [src]="item.fotoproducto">
       </ion-thumbnail>
-      <h2>Pan fresco</h2>
-      <p>Orden #45689sds6</p>
-      <button ion-button clear item-end (click)="detailtracking()">View</button>
+      <span>{{ item.producto }}</span>
     </ion-item>
-
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="http://lorempixel.com/400/200/food/">
-      </ion-thumbnail>
-      <h2>Pepsi</h2>
-      <p>Orden #45689sds6</p>
-      <button ion-button clear item-end (click)="detailtracking()">View</button>
-    </ion-item>
-
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="http://lorempixel.com/400/200/food/">
-      </ion-thumbnail>
-      <h2>Papas fritas</h2>
-      <p>Orden #45689sds6</p>
-      <button ion-button clear item-end (click)="detailtracking()">View</button>
-    </ion-item>
-  </ion-list>
+    <ion-item><b>Total: </b><span item-right>₡{{ order.total }}</span></ion-item>
+  </div>
 </ion-content>

@@ -23,6 +23,7 @@ export const routes = {
     },
     stores: ($idCategoria) => {
         return `${ROOT}/tienda/${$idCategoria}`
+        // return `${ROOT}/tienda/${$idCategoria}/${$lat}/${$long}`
     },
     products:  ($idStore) => {
         return `${ROOT}/producto/${$idStore}`

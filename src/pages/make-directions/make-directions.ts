@@ -54,4 +54,8 @@ export class MakeDirectionsPage {
     }    
   }
 
+  goToDetail() {
+    this.navCtrl.push("DetailDeliveryPage");
+  }  
+  
 }

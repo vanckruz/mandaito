@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { routes } from '../../config/routes';
@@ -10,7 +10,16 @@ export class TiendasProvider {
     console.log('Hello TiendasProvider Provider');
   }
 
-  get($id): Observable<any> {
-    return this.http.get(routes.stores($id));
+  get($id, $lat, $long): Observable<any> {
+
+    let Params = new HttpParams();
+
+    console.log($lat, $long)
+    if($lat != undefined && $long != undefined){
+      Params = Params.append('email', $lat);
+      Params = Params.append('name', $long);
+    }
+
+    return this.http.get(routes.stores($id), {params: Params});
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 
@@ -18,19 +18,37 @@ export class MakeMethodsPage {
     public fb: FormBuilder,
     public loading: LoadingController,
     public toast: ToastController,
-    public perfil: PerfilProvider
+    public perfil: PerfilProvider,
+    private _modal: ModalController
   ){
     this.form = this.fb.group({
       tipotarjeta: ['', Validators.required],
       tarjetanro: ['', Validators.required],
       tarjetanombre: ['', Validators.required],
       tarjetafecha: ['', Validators.required],
+      cvv: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern('([0-9])*$'),
+        Validators.maxLength(4),
+        Validators.minLength(4),
+      ])],
+      pais: ['', Validators.required],
     });      
     this.user = this.navParams.get("user");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MakeMethodsPage');
+  }
+
+  showCountries() {
+    let popover = this._modal.create("CountriesListPage");
+    popover.present();
+
+    popover.onDidDismiss((data: any) => {
+      console.log(data)
+      this.form.patchValue({ pais: data.name })
+    });//Dismiss popover
   }
 
   save() {

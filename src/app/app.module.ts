@@ -18,6 +18,8 @@ import { PerfilProvider } from '../providers/perfil/perfil';
 import { PaymentsProvider } from '../providers/payments/payments';
 import { OrderProvider } from '../providers/order/order';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -49,7 +51,8 @@ import { OrderProvider } from '../providers/order/order';
     ProvinciasProvider,
     PerfilProvider,
     PaymentsProvider,
-    OrderProvider
+    OrderProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

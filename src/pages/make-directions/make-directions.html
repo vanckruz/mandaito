@@ -68,4 +68,50 @@
       </ion-row>
     </ion-grid>
   </form>
+
+  
+  <!-- *ngFor="let address of addresses" -->
+    <!-- <ion-searchbar>
+    </ion-searchbar>
+  <ion-card (click)="goToDetail()">
+    <ion-list>
+      <ion-item>
+        <ion-icon name="navigate" item-start></ion-icon>
+        <p class="address-info">
+          <span>Av Rómulo Gallegos</span>
+          <span>Caracas</span>
+          <span>Entrega en la puerta edificio 6</span>
+        </p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  
+  <div class="cog">
+    <ion-list radio-group [(ngModel)]="when">
+      <ion-list-header> Cuándo </ion-list-header>
+      <ion-item>
+        <ion-icon name="time" item-start></ion-icon>
+        <ion-label>Lo antes posible</ion-label>
+        <ion-radio name="tiempo" color="secondary" checked="true" item-end value="fast"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="calendar" item-start></ion-icon>
+        <ion-label>Programar un pedido</ion-label>
+        <ion-radio name="tiempo" color="secondary" item-end value="programmed"></ion-radio>
+      </ion-item>
+    </ion-list>
+  
+    <ion-list *ngIf="when == 'programmed'">
+      <ion-list-header> Programar: </ion-list-header>
+      <ion-item>
+        <ion-label>Fecha</ion-label>
+        <ion-datetime displayFormat="YYYY/MM/DD" [min]="min" [max]="max"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Hora</ion-label>
+        <ion-datetime displayFormat="hh:mm A"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  
+  </div> -->
 </ion-content>

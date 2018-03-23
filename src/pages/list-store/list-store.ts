@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { TiendasProvider } from '../../providers/tiendas/tiendas';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -14,6 +15,8 @@ export class ListStorePage {
   tiendas: any;
   color: string = 'primary';
   searchTerm: string;
+  latitud: any;
+  longitud: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -21,8 +24,10 @@ export class ListStorePage {
     public tiendasProvider: TiendasProvider,
     private loading: LoadingController,
     public storage: Storage,
-    public toast: ToastController
+    public toast: ToastController,
+    private geolocation: Geolocation
   ){
+    this.getPosition();
     this.categoria = this.navParams.get("categoria");
     console.log(this.categoria);
   }
@@ -32,11 +37,27 @@ export class ListStorePage {
     this.getTiendas();
   }
 
+  getPosition(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitud = resp.coords.latitude;
+      this.longitud = resp.coords.longitude;
+      console.log(this.latitud, this.longitud)
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      this.latitud = data.coords.latitude;
+      this.longitud = data.coords.longitude;
+    });    
+  }
+
   getTiendas(){
     if(this.categoria != undefined){
       let loading = this.loading.create({ content: 'Cargando...' });
       loading.present().then(() => {
-        this.tiendasProvider.get(this.categoria.idcategoriatienda).subscribe((data) => {
+        this.tiendasProvider.get(this.categoria.idcategoriatienda, this.latitud, this.longitud).subscribe((data) => {
           
           loading.dismiss();
           console.log(data);

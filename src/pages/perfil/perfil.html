@@ -16,7 +16,7 @@
       </div>
 
       <ion-toolbar>
-        <ion-segment [(ngModel)]="perfilOptions" color="dark">
+        <ion-segment [(ngModel)]="perfilOptions" color="themeorange">
           <ion-segment-button value="perfil" selected="true">
             <ion-icon name="camera"></ion-icon>
           </ion-segment-button>
@@ -67,10 +67,17 @@
             Métodos de pago
             <ion-icon name="add" item-right (click)="addMethod()"></ion-icon>
           </ion-list-header>
-          <ion-item *ngFor="let item of user.metodos">
-            {{ item.tarjetanombre }} - {{ item.tarjetafecha }}
-            <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
-          </ion-item>
+          <ion-card *ngFor="let item of user.metodos">
+            <ion-item>
+              <ion-icon name="card" item-start></ion-icon>
+              <p class="address-info">
+                <span>{{ item.tarjetanombre }}</span><br>
+                <span>{{ item.tarjetafecha }}</span>
+              </p>
+              <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
+            </ion-item>
+          </ion-card>
+
         </div>
         <div *ngSwitchCase="'address'">
           <ion-list-header>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CategoriasProvider } from '../../providers/categorias/categorias';
 
 import { Pipe, PipeTransform } from '@angular/core';
@@ -17,7 +18,8 @@ export class PrincipalMenuPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public categoriasProvider: CategoriasProvider,
-    public loading: LoadingController
+    public loading: LoadingController,
+    public _sanitizer: DomSanitizer
   ){
 
   }
@@ -38,6 +40,10 @@ export class PrincipalMenuPage {
         console.log(this.categorias)
       }
     );    
+  }
+
+  sanitizeImage(image: string) {
+    return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
   }
 
   filterCategories() {

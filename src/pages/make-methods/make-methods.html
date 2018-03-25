@@ -41,6 +41,15 @@
           </ion-item>
           <div padding *ngIf="form.controls.tarjetanro.errors && form.controls.tarjetanro.dirty">
             <ion-label color="danger" *ngIf="form.controls.tarjetanro.errors.required">*Requerido</ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.pattern">
+              *Ingrese un número
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.minlength">
+              *Ingrese de 4 dígitos
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.maxlength">
+              *Máximo de 4 dígitos
+            </ion-label>
           </div>
         </ion-col>
       </ion-row>

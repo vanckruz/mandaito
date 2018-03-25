@@ -23,7 +23,12 @@ export class MakeMethodsPage {
   ){
     this.form = this.fb.group({
       tipotarjeta: ['', Validators.required],
-      tarjetanro: ['', Validators.required],
+      tarjetanro: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern('([0-9])*$'),
+        Validators.maxLength(16),
+        Validators.minLength(16),
+      ])],
       tarjetanombre: ['', Validators.required],
       tarjetafecha: ['', Validators.required],
       cvv: ['', Validators.compose([

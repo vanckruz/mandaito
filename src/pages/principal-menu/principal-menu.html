@@ -16,8 +16,8 @@
 		</ion-searchbar>
 		<ion-row>
 			<ion-col col-6 *ngFor="let categoria of categorias">
-				<ion-card  (click)="goToStores(categoria)">
-					<img [src]="categoria.foto">
+				<ion-card  (click)="goToStores(categoria)" [style.background]="sanitizeImage(categoria.foto)">
+					<!-- <img [src]="categoria.foto"> -->
 					<div class="desc">{{ categoria.descripcion }}</div>
 				</ion-card>
 			</ion-col>

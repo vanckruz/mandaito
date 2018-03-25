@@ -3,7 +3,7 @@ page-perfil {
     .imgbox{
         width: 100%;
         overflow: hidden;
-        background: #f1f1f1;
+        background: color($colors, themeorange);
         padding: 1em;
         img{
             width: 9em;

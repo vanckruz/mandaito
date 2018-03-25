@@ -27,6 +27,11 @@
         </ion-row>
       </ion-card-content>
       <ion-row>
+        <ion-col>
+          Te encuentras a {{ showDistance(tienda.distancia) }} de distancia
+        </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col col-10><b padding>Horario De: {{ tienda.horaabierto }} a {{ tienda.horacierre }}</b> </ion-col>
         <ion-col col-2>
           <button ion-button outline [color]="!tienda.favorito ? 'primary': 'danger'"  (click)="addFavorite(tienda)">

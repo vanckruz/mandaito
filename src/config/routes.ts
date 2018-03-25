@@ -21,9 +21,12 @@ export const routes = {
     categories: () => {
         return `${ROOT}/categoriatienda/all`
     },
-    stores: ($idCategoria) => {
-        return `${ROOT}/tienda/${$idCategoria}`
-        // return `${ROOT}/tienda/${$idCategoria}/${$lat}/${$long}`
+    stores: ($idCategoria, $lat, $long) => {
+        if ($lat != undefined && $long != undefined) {
+            return `${ROOT}/tienda/${$idCategoria}/${$lat}/${$long}`
+        }else{
+            return `${ROOT}/tienda/${$idCategoria}`
+        }        
     },
     products:  ($idStore) => {
         return `${ROOT}/producto/${$idStore}`

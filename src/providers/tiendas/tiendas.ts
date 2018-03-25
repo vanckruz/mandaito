@@ -20,6 +20,7 @@ export class TiendasProvider {
       Params = Params.append('name', $long);
     }
 
-    return this.http.get(routes.stores($id), {params: Params});
+    // return this.http.get(routes.stores($id, $lat, $long), {params: Params});
+    return this.http.get(routes.stores($id, $lat, $long));
   }
 }

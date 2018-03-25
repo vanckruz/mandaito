@@ -27,35 +27,42 @@ export class ListStorePage {
     public toast: ToastController,
     private geolocation: Geolocation
   ){
-    this.getPosition();
+    // this.getPosition();
     this.categoria = this.navParams.get("categoria");
-    console.log(this.categoria);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListStorePage');
-    this.getTiendas();
+    this.getPosition();
   }
 
   getPosition(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.latitud = resp.coords.latitude;
-      this.longitud = resp.coords.longitude;
-      console.log(this.latitud, this.longitud)
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-      this.latitud = data.coords.latitude;
-      this.longitud = data.coords.longitude;
-    });    
+    let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
+    loading.present().then(() => {
+      this.geolocation.getCurrentPosition().then((resp) => {
+        this.latitud = resp.coords.latitude;
+        this.longitud = resp.coords.longitude;
+        console.log(this.latitud, this.longitud)
+        loading.dismiss();
+        this.getTiendas();
+      }).catch((error) => {
+        console.log('Error getting location', error);
+      });
+  
+      let watch = this.geolocation.watchPosition();
+      watch.subscribe((data) => {
+        console.log(data)
+        // this.latitud = data.coords.latitude;
+        // this.longitud = data.coords.longitude;
+      });    
+    });//loading
   }
 
   getTiendas(){
+    console.log(this.latitud, this.longitud)
     if(this.categoria != undefined){
       let loading = this.loading.create({ content: 'Cargando...' });
+
       loading.present().then(() => {
         this.tiendasProvider.get(this.categoria.idcategoriatienda, this.latitud, this.longitud).subscribe((data) => {
           
@@ -147,6 +154,16 @@ export class ListStorePage {
         this.storage.set("tiendasFavoritas", JSON.stringify(favoritas));    
       }
     });
+  }
+
+  showDistance(valor){
+    if (valor.split(".")[0] > 0){
+      return (Math.round(parseFloat(valor) * 100) / 100)+" km";
+    } else if (valor.split(".")[0] == 0){
+      return (String(Math.round(parseFloat(valor) * 100) / 100).split(".")[1])+" m";
+    }else{
+      return "";
+    }
   }
 
   filterStores(){

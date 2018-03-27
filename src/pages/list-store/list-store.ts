@@ -27,44 +27,29 @@ export class ListStorePage {
     public toast: ToastController,
     private geolocation: Geolocation
   ){
-    // this.getPosition();
     this.categoria = this.navParams.get("categoria");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListStorePage');
-    this.getPosition();
+    this.getNearbyStores();
   }
 
-  getPosition(){
-    let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
-    loading.present().then(() => {
-      this.geolocation.getCurrentPosition().then((resp) => {
-        this.latitud = resp.coords.latitude;
-        this.longitud = resp.coords.longitude;
-        console.log(this.latitud, this.longitud)
-        loading.dismiss();
-        this.getTiendas();
-      }).catch((error) => {
-        console.log('Error getting location', error);
-      });
-  
-      let watch = this.geolocation.watchPosition();
-      watch.subscribe((data) => {
-        console.log(data)
-        // this.latitud = data.coords.latitude;
-        // this.longitud = data.coords.longitude;
-      });    
-    });//loading
+  getNearbyStores(){
+    this.storage.get("position").then((pos) => {
+      let posicion = JSON.parse(pos);
+      console.log("tiendas", posicion)
+      this.getTiendas(posicion.latitud, posicion.longitud);      
+    });
+ 
   }
 
-  getTiendas(){
-    console.log(this.latitud, this.longitud)
+  getTiendas(lat, lng){
     if(this.categoria != undefined){
       let loading = this.loading.create({ content: 'Cargando...' });
 
       loading.present().then(() => {
-        this.tiendasProvider.get(this.categoria.idcategoriatienda, this.latitud, this.longitud).subscribe((data) => {
+        this.tiendasProvider.get(this.categoria.idcategoriatienda, lat, lng).subscribe((data) => {
           
           loading.dismiss();
           console.log(data);
@@ -173,7 +158,7 @@ export class ListStorePage {
       });
 
     } else {
-      this.getTiendas();
+      this.getNearbyStores();
     }
   }
 

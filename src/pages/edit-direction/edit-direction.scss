@@ -1,0 +1,13 @@
+page-edit-direction {
+	.address-info{
+		span{
+			display: block;
+		}
+	}
+	.cog{
+		margin-top: 2em;
+		& *{
+			font-size: 1em;
+		}
+	} 
+}

@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color="themeorange">
-    <ion-title>Nueva dirección</ion-title>
+    <ion-title>Editar dirección</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -60,7 +60,7 @@
             <ion-label color="danger" *ngIf="form.controls.codigopostal.errors.required">*Requerido</ion-label>
           </div>
         </ion-col>
-        </ion-row>
+      </ion-row>
       <ion-row>
         <ion-col>
           <button full ion-button (click)="save()" [disabled]="form.invalid" color="themeorange">Guardar</button>
@@ -68,7 +68,7 @@
       </ion-row>
     </ion-grid>
   </form>
- 
+
   <!-- <div class="cog">
     <ion-list radio-group [(ngModel)]="when">
       <ion-list-header> Cuándo </ion-list-header>
@@ -94,7 +94,7 @@
         <ion-label>Hora</ion-label>
         <ion-datetime displayFormat="hh:mm A"></ion-datetime>
       </ion-item>
-    </ion-list> -->
-  
-  </div>
+    </ion-list> 
+  </div>-->
+
 </ion-content>

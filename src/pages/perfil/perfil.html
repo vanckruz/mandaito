@@ -56,7 +56,7 @@
           </ion-item>
         
           <ion-footer>
-            <button full ion-button (click)="editPerfil()" color="themeorange">
+            <button full ion-button (click)="editPerfil(user.perfil)" color="themeorange">
               <ion-icon name="ios-contact-outline" item-left color="theme-white"></ion-icon>&nbsp; Editar perfil
             </button>
           </ion-footer>
@@ -74,19 +74,31 @@
                 <span>{{ item.tarjetanombre }}</span><br>
                 <span>{{ item.tarjetafecha }}</span>
               </p>
-              <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
+              <!-- <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon> -->
+              <button ion-button color="dark" item-right outline (click)="presentPopoverMethod(item)" class="round">
+                <ion-icon name="md-more"></ion-icon>
+              </button>
             </ion-item>
           </ion-card>
 
         </div>
         <div *ngSwitchCase="'address'">
-          <ion-list-header>
-            Direcciones de Envios <ion-icon name="add" item-right (click)="addDirection()"></ion-icon>
-          </ion-list-header>
-          <ion-item *ngFor="let item of user.direcciones">
-            {{ item.ciudad }} - {{ item.provincia }}
-            <ion-icon ios="ios-create" md="md-create" item-right (click)="editDirection(item)"></ion-icon>
-          </ion-item>
+          <ion-list>
+            <ion-list-header>
+              Direcciones de Envios <ion-icon name="add" item-right (click)="addDirection()"></ion-icon>
+            </ion-list-header>
+            <ion-item *ngFor="let item of user.direcciones">
+              <ion-icon name="navigate" item-start></ion-icon>
+              <p class="address-info">
+                <span>{{ item.ciudad }}</span>
+                <span>{{ item.provincia }}</span>
+              </p>
+              <button ion-button color="dark" item-right outline (click)="presentPopoverDirection(item)" class="round">
+                <ion-icon name="md-more"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-list>
+
         </div>
         <div *ngSwitchCase="'history'">
           <a ion-item>

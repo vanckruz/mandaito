@@ -8,5 +8,41 @@
 
 
 <ion-content padding>
-
+  <div *ngIf="user">
+    <form [formGroup]="form" novalidate>
+      <ion-item color="theme-blue">
+        <ion-label floating>Nombres</ion-label>
+        <ion-input type="text" name="nombre" formControlName="nombre" #nombre></ion-input>
+      </ion-item>
+      <!-- <div padding *ngIf="form.controls.email.errors && form.controls.email.dirty">
+        <ion-label color="danger">*Requerido</ion-label>
+      </div> -->
+      
+      <ion-item color="theme-blue">
+        <ion-label floating>Apellidos</ion-label>
+        <ion-input type="apellido" name="apellido" formControlName="apellido" #apellido></ion-input>
+      </ion-item>
+      <!-- <div padding *ngIf="form.controls.password.errors && form.controls.password.dirty">
+        <ion-label color="danger">*Requerido</ion-label>
+      </div> -->
+      <ion-item color="theme-blue">
+        <ion-label floating>Teléfono</ion-label>
+        <ion-input type="apellido" name="telefono" formControlName="telefono" #telefono></ion-input>
+      </ion-item>
+      
+      <ion-item [ngClass]="{'greenborder': provincia.value != ''}">
+        <ion-label floating>Provincia</ion-label>
+        <ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()"></ion-input>
+        <input type="hidden" name="idprovincia" formControlName="idprovincia" #idprovincia>
+      </ion-item>
+      <!-- <div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.touched">
+        <ion-label color="danger" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
+      </div> -->
+      
+      <div class="btn-login">
+        <button full ion-button (click)="edit()" color="themeorange">Actualizar</button>
+      </div>
+    </form>
+  </div>
 </ion-content>
+  

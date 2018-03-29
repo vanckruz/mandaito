@@ -1,0 +1,104 @@
+<ion-header>
+
+  <ion-navbar color="themeorange">
+    <ion-title>Editar método</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form form [formGroup]="form" novalidate>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>Tipo de tarjeta</ion-label>s
+            <ion-select name="tipotarjeta" formControlName="tipotarjeta" #tipotarjeta>
+              <ion-option value="1">Crédito</ion-option>
+              <ion-option value="2">Débito</ion-option>
+            </ion-select>
+          </ion-item>
+          <div padding *ngIf="form.controls.tipotarjeta.errors && form.controls.tipotarjeta.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tipotarjeta.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>Nombre</ion-label>s
+            <ion-input type="text" name="tarjetanombre" formControlName="tarjetanombre" #tarjetanombre></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetanombre.errors && form.controls.tarjetanombre.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetanombre.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label stacked>Número</ion-label>
+            <ion-input type="text" name="tarjetanro" formControlName="tarjetanro" #tarjetanro></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetanro.errors && form.controls.tarjetanro.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetanro.errors.required">*Requerido</ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.pattern">
+              *Ingrese un número
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.minlength">
+              *Ingrese de 4 dígitos
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.maxlength">
+              *Máximo de 4 dígitos
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>Fecha</ion-label>
+            <ion-datetime displayFormat="MM/YYYY" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha placeholder="MM/AA"></ion-datetime>
+            <!-- <ion-input type="date" [min]="min" [max]="max" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha></ion-input> -->
+          </ion-item>
+          <div padding *ngIf="form.controls.tarjetafecha.errors && form.controls.tarjetafecha.dirty">
+            <ion-label color="danger" *ngIf="form.controls.tarjetafecha.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked>CVV</ion-label>
+            <ion-input type="text" name="cvv" formControlName="cvv" #ccv class="cvv"></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.cvv.errors && form.controls.cvv.dirty">
+            <ion-label color="danger" *ngIf="form.controls.cvv.errors.required">*Requerido</ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.cvv.errors.pattern">
+              *Ingrese un número
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.cvv.errors.minlength">
+              *Ingrese de 4 dígitos
+            </ion-label>
+            <ion-label text-left color="danger" class="not" *ngIf="form.controls.cvv.errors.maxlength">
+              *Máximo de 4 dígitos
+            </ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item [ngClass]="{'greenborder': pais.value != ''}">
+            <ion-label stacked>País</ion-label>
+            <ion-input type="text" name="pais" formControlName="pais" #pais (focus)="showCountries()"></ion-input>
+          </ion-item>
+          <div padding *ngIf="form.controls.pais.errors && form.controls.pais.touched">
+            <ion-label color="danger" *ngIf="form.controls.pais.errors.required">*Requerido</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button full ion-button (click)="save()" color="themeorange">Guardar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

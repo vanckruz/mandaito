@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, SegmentButton, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, SegmentButton, NavController, NavParams, LoadingController, AlertController, ToastController, PopoverController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 import { Storage } from '@ionic/storage';
@@ -26,7 +26,10 @@ export class PerfilPage {
     public fb: FormBuilder,
     public perfilProvider: PerfilProvider,
     public storage: Storage,
-    public loading: LoadingController
+    public loading: LoadingController,
+    public _alert: AlertController,
+    public toastCtrl: ToastController,
+    private _popover: PopoverController,
   ){
     this.myForm = fb.group({
       mapStyle: ['active', Validators.required]
@@ -58,8 +61,10 @@ export class PerfilPage {
   }
 
   
-  editPerfil() {
-    this.navCtrl.push('EditPerfilPage');
+  editPerfil(user) {
+    this.navCtrl.push('EditPerfilPage',{
+      user: user
+    });
   }
   
   addMethod(){
@@ -94,4 +99,118 @@ export class PerfilPage {
     console.log('Submitting form', this.myForm.value);
     ev.preventDefault();
   }
+
+  presentPopoverMethod(item) {
+    console.log(item)
+    let popover = this._popover.create("OptionsPage");
+    popover.present();
+
+    popover.onDidDismiss((data: any) => {
+      if (data === 1) {
+        this.navCtrl.push("EditMethodPage", {
+          user: this.user,
+          metodo: item
+        })
+      }
+      if (data === 2) {
+        this.presentConfirmMethod(item);
+      }
+    });//Dismiss popover
+
+  }
+
+  presentConfirmMethod(metodo) {
+    let alert = this._alert.create({
+      title: 'Confirmar',
+      message: '¿Estás seguro?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            let loading = this.loading.create({ content: 'Cargando...' });
+            loading.present();
+            this.perfilProvider.eliminarMetodo(this.user.perfil.idusuario, metodo.idusuariometodo).subscribe((data) => {
+              loading.dismiss();
+              this.toastMessage("Tarjeta eliminada").present();
+              this.navCtrl.popToRoot();
+            }, (error) => {
+              console.log(error)
+              loading.dismiss();
+              this.toastMessage("Error al eliminar").present();
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }//MEtodos options  
+
+
+  presentPopoverDirection(item) {
+    let popover = this._popover.create("OptionsPage");
+    popover.present();
+
+    popover.onDidDismiss((data: any) => {
+      if (data === 1) {
+        this.navCtrl.push("EditDirectionPage", {
+          user: this.user,
+          direccion: item
+        })
+      }
+      if (data === 2) {
+        this.presentConfirmDirection(item);
+      }
+    });//Dismiss popover
+
+  }
+
+  presentConfirmDirection(direccion) {
+    let alert = this._alert.create({
+      title: 'Confirmar',
+      message: '¿Estás seguro?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            let loading = this.loading.create({ content: 'Cargando...' });
+            loading.present();
+            this.perfilProvider.eliminarDireccion(this.user.perfil.idusuario, direccion.idusuariodireccion).subscribe((data) => {
+              loading.dismiss();
+              this.toastMessage("Dirección eliminada").present();
+              this.navCtrl.popToRoot();
+            }, (error) => {
+              console.log(error)
+              loading.dismiss();
+              this.toastMessage("Error al eliminar").present();
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }//MEtodos options    
+
+  toastMessage(message): any {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'top'
+    });
+
+    return toast;
+  }    
 }  

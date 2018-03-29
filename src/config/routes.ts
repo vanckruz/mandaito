@@ -12,12 +12,27 @@ export const routes = {
     perfil: ($idPerfil) => {
         return `${ROOT}/perfil/${$idPerfil}`
     },
+    editUser: ($idPerfil) => {
+        return `${ROOT}/perfil/${$idPerfil}/actualizar`
+    },
     direcciones: ($idPerfil) => {
         return `${ROOT}/perfil/${$idPerfil}/direccion/guardar`
     },
+    editDireccion: ($idPerfil, $idDireccion) => {
+        return `${ROOT}/perfil/${$idPerfil}/direccion/${$idDireccion}/actualizar`
+    },    
     metodos: ($idPerfil) => {
         return `${ROOT}/perfil/${$idPerfil}/metodo/guardar`
-    },    
+    },  
+    editMetodo: ($idPerfil, $idMetodo) => {
+        return `${ROOT}/perfil/${$idPerfil}/metodo/${$idMetodo}/actualizar`
+    },  
+    deleteMethod: ($idPerfil, $idMetodo) => {
+        return `${ROOT}/perfil/${$idPerfil}/metodo/${$idMetodo}/borrar`
+    },  
+    deleteDirection: ($idPerfil, $idDirection) => {
+        return `${ROOT}/perfil/${$idPerfil}/direccion/${$idDirection}/borrar`
+    },     
     categories: () => {
         return `${ROOT}/categoriatienda/all`
     },

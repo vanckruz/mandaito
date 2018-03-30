@@ -85,12 +85,12 @@
       </ion-row>
       <ion-row>
         <ion-col col-12>
-          <ion-item [ngClass]="{'greenborder': pais.value != ''}">
+          <ion-item [ngClass]="{'greenborder': tarjetapais.value != ''}">
             <ion-label stacked>País</ion-label>
-            <ion-input type="text" name="pais" formControlName="pais" #pais (focus)="showCountries()"></ion-input>
+            <ion-input type="text" name="tarjetapais" formControlName="tarjetapais" #tarjetapais (focus)="showCountries()"></ion-input>
           </ion-item>
-          <div padding *ngIf="form.controls.pais.errors && form.controls.pais.touched">
-            <ion-label color="danger" *ngIf="form.controls.pais.errors.required">*Requerido</ion-label>
+          <div padding *ngIf="form.controls.tarjetapais.errors && form.controls.tarjetapais.touched">
+            <ion-label color="danger" *ngIf="form.controls.tarjetapais.errors.required">*Requerido</ion-label>
           </div>
         </ion-col>
       </ion-row>

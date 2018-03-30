@@ -2,9 +2,16 @@ page-principal-menu {
 
 	ion-content{
 		background: #f1f1f1 !important;
+        ion-searchbar{
+            padding: 0 !important;
+        }		
 		ion-grid{
-			padding: 0 !important;
-		}
+            padding: 0 !important;
+            ion-col{
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+		}        
 		@media (min-width: 576px) { 
 			ion-card{
 				height: 300px !important;
@@ -12,6 +19,7 @@ page-principal-menu {
 		 }
 		ion-card{
 			// min-height: 150px !important;
+			border-radius: none !important;
 			display: flex;
 			align-items: center;
 			position: relative;

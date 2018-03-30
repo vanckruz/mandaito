@@ -2,4 +2,12 @@ page-list-store {
     ion-content{
         background: #f1f1f1 !important;
     }
+    ion-searchbar{
+        padding: 0 !important;
+    }    
+    ion-card{
+        margin: 0 !important;
+        width: 100% !important;
+        border-top: 1px dotted #f1f1f1;
+    }
 }

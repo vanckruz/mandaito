@@ -27,9 +27,8 @@ export class EditPerfilPage {
     this.form = this.fb.group({
       nombre: this.user.nombre,
       apellido: this.user.apellido,
-      email: this.user.email,
       telefono: this.user.telefono,
-      idprovincia: '',
+      idprovincia: this.user.idprovincia,
       provincia: this.user.provincia
     });
   }

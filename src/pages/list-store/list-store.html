@@ -11,9 +11,8 @@
   <div *ngIf="tiendas">
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()"></ion-searchbar>
     <ion-card *ngFor="let tienda of tiendas; let i = index;">
-      
+      <img [src]="tienda.foto" full (click)="goToProductsList(tienda)">
       <ion-card-content (click)="goToProductsList(tienda)">
-        <img [src]="tienda.foto">
         <ion-row>
           <ion-col>
             <strong>{{ tienda.descripcion }}</strong>

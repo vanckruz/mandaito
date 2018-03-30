@@ -39,7 +39,7 @@ export class EditMethodPage {
         Validators.maxLength(4),
         Validators.minLength(4),
       ])],
-      pais: this.metodo.tarjetapais
+      tarjetapais: this.metodo.tarjetapais
     });
   }
 
@@ -53,7 +53,7 @@ export class EditMethodPage {
 
     popover.onDidDismiss((data: any) => {
       console.log(data)
-      this.form.patchValue({ pais: data.name })
+      this.form.patchValue({ tarjetapais: data.name })
     });//Dismiss popover
   }
 
@@ -64,7 +64,7 @@ export class EditMethodPage {
     this.perfil.editMethod(this.user.perfil.idusuario, this.metodo.idusuariometodo, this.form.value).subscribe(data => {
       console.log(data)
       loading.dismiss();
-      let toast = this.toast.create({ message: data.msg, duration: 3000, position: 'top' });
+      let toast = this.toast.create({ message: "Tarjeta actualizada", duration: 3000, position: 'top' });
       toast.present();
       this.navCtrl.popToRoot();
     }, (error) => {

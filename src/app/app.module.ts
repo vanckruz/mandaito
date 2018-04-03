@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +21,7 @@ import { OrderProvider } from '../providers/order/order';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     MyApp,
   ],
@@ -31,6 +32,10 @@ import { Geolocation } from '@ionic-native/geolocation';
       name: '__MiMandaito',
       driverOrder: ['sqlite', 'indexeddb', 'websql']
     }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: "AIzaSyCTihzOZ4Uwl-QfqBZ6Vvcw1eSC0JaGyFc",
+    //   libraries: ["places"]
+    // }),    
     ReactiveFormsModule,
     HttpClientModule
   ],

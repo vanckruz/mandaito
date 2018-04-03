@@ -7,8 +7,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <form form [formGroup]="form" novalidate>
+<ion-content>
+  <!-- <form form [formGroup]="form" novalidate>
     <ion-grid>
       <ion-row>
         <ion-col col-6>
@@ -67,8 +67,27 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>
- 
+  </form> -->
+    <ion-item>
+      <ion-searchbar id="searchbar" #searchbar [(ngModel)]="searchTerm" (ionInput)="searchPlace()">
+      </ion-searchbar>
+    </ion-item>
+
+    <!-- <ion-input type="search" id="searchbar" #searchbar [(ngModel)]="searchTerm" (keyup)="searchPlace()"></ion-input> -->
+    
+    <!-- *ngFor="let address of addresses" -->
+    <!-- <ion-card (click)="goToDetail()">
+      <ion-list>
+        <ion-item>
+          <ion-icon name="navigate" item-start></ion-icon>
+          <p class="address-info">
+            <span>Av Rómulo Gallegos</span>
+            <span>Caracas</span>
+            <span>Entrega en la puerta edificio 6</span>
+          </p>
+        </ion-item>
+      </ion-list>
+    </ion-card> -->
   <!-- <div class="cog">
     <ion-list radio-group [(ngModel)]="when">
       <ion-list-header> Cuándo </ion-list-header>
@@ -94,7 +113,12 @@
         <ion-label>Hora</ion-label>
         <ion-datetime displayFormat="hh:mm A"></ion-datetime>
       </ion-item>
-    </ion-list> -->
+    </ion-list>
   
-  </div>
+  </div> -->
+    <ion-footer>
+      <button full ion-button (click)="savePlace()" color="themeorange" [disabled]="searchbar.value == '' && place == undefined">
+        <ion-icon name="compass" item-left color="theme-white"></ion-icon>&nbsp; Guardar
+      </button>
+    </ion-footer>
 </ion-content>

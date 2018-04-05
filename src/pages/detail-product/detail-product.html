@@ -7,24 +7,22 @@
 </ion-header>
 
 
-<ion-content padding>
-
-<ion-card *ngIf="producto">
-  <ion-card-content>
-    <img [src]="producto.foto">
-    <div class="desc">
-      <ion-note>{{ producto.tiendanombre }}</ion-note>
-    </div>
-    <p>{{ producto.descripcion }}</p>
-    <p class="precio">Precio:
-      <b text-right>{{ producto.precio | number }}₡</b>
-    </p>
-  </ion-card-content>
-</ion-card>
-
-  <ion-fab right bottom>
+<ion-content>
+  <ion-card *ngIf="producto">
+    <ion-card-content>
+      <img [src]="producto.foto || producto.fotoproducto">
+      <div class="desc">
+        <ion-note>{{ producto.tiendanombre }}</ion-note>
+      </div>
+      <p>{{ producto.descripcion || producto.producto}}</p>
+      <p class="precio">Precio:
+        <b text-right>{{ producto.precio | number }}₡</b>
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-fab right bottom>
     <button ion-fab color="themeorange">
       <ion-icon name="cart" (click)="goToMyCart()"> </ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

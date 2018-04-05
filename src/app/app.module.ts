@@ -17,8 +17,11 @@ import { ProvinciasProvider } from '../providers/provincias/provincias';
 import { PerfilProvider } from '../providers/perfil/perfil';
 import { PaymentsProvider } from '../providers/payments/payments';
 import { OrderProvider } from '../providers/order/order';
-
+import { firebaseConfig } from '../config/environment';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { RealtimegeoProvider } from '../providers/realtimegeo/realtimegeo';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -37,7 +40,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     //   libraries: ["places"]
     // }),    
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +62,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     PerfilProvider,
     PaymentsProvider,
     OrderProvider,
-    Geolocation
+    Geolocation,
+    RealtimegeoProvider
   ]
 })
 export class AppModule {}

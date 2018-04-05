@@ -12,8 +12,10 @@
 
 <ion-content>
 	<ion-grid *ngIf="categorias">
-		<ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCategories()" (ionCancel)="getCategorias()">
-		</ion-searchbar>
+		<ion-item color="themeorange">
+			<ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCategories()" (ionCancel)="getCategorias()">
+			</ion-searchbar>
+		</ion-item>
 		<ion-row>
 			<ion-col col-6 *ngFor="let categoria of categorias">
 				<ion-card  (click)="goToStores(categoria)" [style.background]="sanitizeImage(categoria.foto)">

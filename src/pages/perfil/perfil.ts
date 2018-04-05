@@ -154,7 +154,11 @@ export class PerfilPage {
 
 
   presentPopoverDirection(item) {
-    let popover = this._popover.create("OptionsPage");
+    let popover = this._popover.create("OptionsPage",{
+      opciones: {
+        editar: true
+      }
+    });
     popover.present();
 
     popover.onDidDismiss((data: any) => {

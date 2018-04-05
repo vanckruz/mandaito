@@ -7,19 +7,10 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div *ngIf="order != null && order.productos.length > 0">
-    <ion-item><b>Orden#</b> <span item-right>{{ order.idfactura }}</span></ion-item>
-    <ion-item><b>Fecha: </b><span>{{ order.fecha.split("|")[0] }}</span><span item-right><b>Hora: </b>{{ order.fecha.split("|")[1] }}</span></ion-item>
-    <img [src]="order.fototienda" class="imgtienda">
-    <hr>
-    <p class="t15em" padding>{{ order.tienda }}</p>
-    <ion-item *ngFor="let item of order.productos">
-      <ion-thumbnail item-start>
-        <img [src]="item.fotoproducto">
-      </ion-thumbnail>
-      <span>{{ item.producto }}</span>
-    </ion-item>
-    <ion-item><b>Total: </b><span item-right>₡{{ order.total }}</span></ion-item>
-  </div>
+<ion-content>
+  <div #map id="map" style="height:100%;"></div>
+
+  <ion-fab bottom left>
+    <button ion-fab mini color="themeorange" (click)="detailtracking()"><ion-icon name="eye"></ion-icon></button>
+  </ion-fab>
 </ion-content>

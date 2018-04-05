@@ -90,8 +90,7 @@
             <ion-item *ngFor="let item of user.direcciones">
               <ion-icon name="navigate" item-start></ion-icon>
               <p class="address-info">
-                <span>{{ item.ciudad }}</span>
-                <span>{{ item.provincia }}</span>
+                <span>{{ item.direccion }}</span>
               </p>
               <button ion-button color="dark" item-right outline (click)="presentPopoverDirection(item)" class="round">
                 <ion-icon name="md-more"></ion-icon>

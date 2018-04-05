@@ -41,7 +41,6 @@ export class ListStorePage {
       console.log("tiendas", posicion)
       this.getTiendas(posicion.latitud, posicion.longitud);      
     });
- 
   }
 
   getTiendas(lat, lng){

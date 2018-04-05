@@ -7,8 +7,11 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'options.html',
 })
 export class OptionsPage {
+  opciones: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+    this.opciones = this.navParams.get("opciones");
+    console.log(this.navParams.get("opciones"))
   }
 
   ionViewDidLoad() {

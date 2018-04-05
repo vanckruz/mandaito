@@ -1,9 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, Slides, Events, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Slides, Events, Content, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentsProvider } from '../../providers/payments/payments';
+import { Order } from '../../config/interfaces';
+import { RealtimegeoProvider } from '../../providers/realtimegeo/realtimegeo';
 
 @IonicPage()
 @Component({
@@ -27,7 +29,9 @@ export class ProccessPaymentPage {
     public storage: Storage,
     public perfilProvider: PerfilProvider,
     public fb: FormBuilder,
-    public paymentsProvider: PaymentsProvider
+    public paymentsProvider: PaymentsProvider,
+    private orderTracking: RealtimegeoProvider,
+    private alertCtrl: AlertController
   ){
     this.cart = this.navParams.get("cart");
     this.getPerfil();
@@ -74,26 +78,48 @@ export class ProccessPaymentPage {
     this.slides.lockSwipeToPrev(true);
   }
 
+  confirmPay(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirmación',
+      message: '¿Desea confirmar el pago?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.pay();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   pay(){
-    console.log(this.form.value)
     let data = this.form.value;
     data.productos = this.cart.items;
     data.total = this.cart.total;
     data.tienda = this.cart.tienda;
-    console.log(data, this.user)
-
     let loading = this.loadingCtrl.create({ content: 'Cargando...' });
     loading.present();
-
     this.paymentsProvider.pay(this.user.perfil.idusuario, data).subscribe((data) =>{
-      console.log(data)
       loading.dismiss();
-      let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto", duration: 3000, position: 'top' });
+      this.orderTracking.addOrder({
+        idOrder: data.response.idfactura,
+        idUser: this.user.perfil.idusuario,
+        status: true,
+      }).then((ref) =>{
+        console.log(ref, ref.key)
+      })
+      let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su identificador es: " + data.response.idfactura, duration: 8000, position: 'top' });
       toast.present();
       this.storage.remove("nowstore");
       this.storage.remove("carrito");
       this.navCtrl.popToRoot();      
-    });
+    });//Payment provider
   }
 
 }

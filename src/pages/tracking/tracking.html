@@ -11,9 +11,19 @@
   <ion-toolbar *ngIf="orderFlag">
     Tú orden se encuentra a {{ orderDirection.distance.text }} de distancia y llegará en aproximadamente {{ orderDirection.duration.text }}
   </ion-toolbar>
-  <div #map id="map" style="height:100%;"></div>
+  <div *ngIf="!emptyOderFlag">
+    <ion-card padding>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="information" item-start></ion-icon>
+        </ion-label>
+        <b item-end>No tienes una orden activa</b>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div #map id="map"></div>
 
-  <ion-fab bottom left>
+  <ion-fab bottom left *ngIf="emptyOderFlag">
     <button ion-fab mini color="themeorange" (click)="detailtracking()"><ion-icon name="eye"></ion-icon></button>
   </ion-fab>
 </ion-content>

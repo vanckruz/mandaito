@@ -32,15 +32,47 @@ export class ListStorePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListStorePage');
-    this.getNearbyStores();
+    this.getPosition();     
   }
 
   getNearbyStores(){
     this.storage.get("position").then((pos) => {
       let posicion = JSON.parse(pos);
       console.log("tiendas", posicion)
-      this.getTiendas(posicion.latitud, posicion.longitud);      
+      this.getTiendas(posicion.latitud, posicion.longitud); 
     });
+  }
+
+
+  getPosition() {
+    this.storage.get("position").then((pos) => {
+      let posicion = JSON.parse(pos);
+      console.log(posicion, typeof posicion)
+      if (posicion === null) {
+        let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
+        loading.present().then(() => {
+          this.geolocation.getCurrentPosition().then((resp) => {
+            console.log(resp.coords.latitude, resp.coords.longitude)
+
+            loading.dismiss();
+
+            let position = {
+              latitud: resp.coords.latitude,
+              longitud: resp.coords.longitude
+            }
+
+            this.storage.set("position", JSON.stringify(position)).then((data) => {
+              this.getTiendas(posicion.latitud, posicion.longitud)
+            })
+
+          }).catch((error) => {
+            console.log('Error getting location', error);
+          });//Get current position
+        });//loading
+      } else {
+        this.getNearbyStores();
+      }
+    });//storage
   }
 
   getTiendas(lat, lng){

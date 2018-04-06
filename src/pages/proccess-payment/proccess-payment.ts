@@ -113,6 +113,7 @@ export class ProccessPaymentPage {
         status: true,
       }).then((ref) =>{
         console.log(ref, ref.key)
+        this.storage.set("keyTracking", JSON.stringify({key: ref.key}));
       })
       let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su identificador es: " + data.response.idfactura, duration: 8000, position: 'top' });
       toast.present();

@@ -14,7 +14,11 @@ declare var google: any;
 export class TrackingPage {
   @ViewChild('map') mapElement: ElementRef;
   order: any;
+  latLngUser: any;
+  map: any;
   orderFirebase: Order;  
+  orderFlag: boolean = false;
+  orderDirection: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -23,47 +27,56 @@ export class TrackingPage {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     public storage: Storage,  
-    private orderTracking: RealtimegeoProvider
+    private orderTracking: RealtimegeoProvider,
   ){
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TrackingPage');
+    this.getMyTrackingOrder();
     this.loadMap();
     // this.getPerfil();
   }
   
   getMyTrackingOrder(){
-    this.orderTracking.getDetailOrder("-L9LVUv2aRc9aaITHaeq")
-    .valueChanges()
-    .subscribe(
-    (data)=> {
-      console.log(data)
-    })
+    this.storage.get("keyTracking").then((id) => {
+      let clave = JSON.parse(id);    
+      console.log(clave)
+      this.orderTracking.getDetailOrder(clave.key)
+      .valueChanges()
+      .subscribe(
+      (data)=> {
+        console.log(data)
+        this.orderFirebase = data;
+
+        if (this.orderFirebase.lat != undefined && this.orderFirebase.lng != undefined){
+          this.drawRoute(this.orderFirebase.lat, this.orderFirebase.lng);
+        }
+      })
+    });
   }
 
   loadMap(){
-
     this.storage.get("position").then((pos) => {
       let posicion = JSON.parse(pos);
 
       console.log("tiendas", posicion)
 
-      let latLng = new google.maps.LatLng(posicion.latitud, posicion.longitud);
+      this.latLngUser = new google.maps.LatLng(posicion.latitud, posicion.longitud);
   
       let mapOptions = {
-        center: latLng,
+        center: this.latLngUser,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
   
-      let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       let infowindow = new google.maps.InfoWindow();
 
       let markerUser = new google.maps.Marker({
-        position: latLng,
-        map: map,
+        position: this.latLngUser,
+        map: this.map,
         title: 'Te encuentras en aquí',
         icon: 'assets/icon/smiley_happy.png'
       })
@@ -71,42 +84,47 @@ export class TrackingPage {
       markerUser.addListener('click', function () {
         new google.maps.InfoWindow({
           content: "Usted se encuentra aquí"
-        }).open(map, markerUser);
+        }).open(this.map, markerUser);
       });     
 
-      let markerOrder = new google.maps.Marker({
-        position: new google.maps.LatLng(10.3444700, -67.0432500),
-        map: map,
-        title: 'Los teques',
-        icon: 'assets/icon/bag.png'
-      });          
-
-      markerOrder.addListener('click', function () {
-        new google.maps.InfoWindow({
-          content: "Tu orden se encuentra aquí"
-        }).open(map, markerOrder);
-      });    
-// --
-      let directionsService = new google.maps.DirectionsService;
-      let directionsDisplay = new google.maps.DirectionsRenderer({ polylineOptions: { strokeColor: "#ff4402" } });
-      
-      directionsService.route({
-        origin: latLng,
-        destination: new google.maps.LatLng(10.3444700, -67.0432500),
-        travelMode: 'DRIVING'
-      }, (response, status) => {
-        if (status === 'OK') {
-          directionsDisplay.setDirections(response);
-          console.log(response.routes[0].legs[0])
-
-        } else {
-          window.alert('Error conectando a google ' + status);
-        }
-      });
-      directionsDisplay.setMap(map);
-      directionsDisplay.setOptions({ suppressMarkers: true });   
-    });
+    });//Posición
         
+  }
+
+  drawRoute(lat, lng){
+    let markerOrder = new google.maps.Marker({
+      position: new google.maps.LatLng(lat, lng),
+      map: this.map,
+      title: 'Los teques',
+      icon: 'assets/icon/bag.png'
+    });
+
+    markerOrder.addListener('click', function () {
+      new google.maps.InfoWindow({
+        content: "Tu orden se encuentra aquí"
+      }).open(this.map, markerOrder);
+    });
+
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer({ polylineOptions: { strokeColor: "#ff4402" } });
+
+    directionsService.route({
+      origin: this.latLngUser,
+      destination: new google.maps.LatLng(lat, lng),
+      travelMode: 'DRIVING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+        console.log(response.routes[0].legs[0])
+        this.orderFlag = true;
+        this.orderDirection = response.routes[0].legs[0];
+      } else {
+        window.alert('Error conectando a google ' + status);
+      }
+    });
+
+    directionsDisplay.setMap(this.map);
+    directionsDisplay.setOptions({ suppressMarkers: true });   
   }
 
   getPerfil() {

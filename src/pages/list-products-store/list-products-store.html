@@ -9,7 +9,9 @@
 
 <ion-content>
   <ion-grid *ngIf="productos">
-    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterProducts()" (ionCancel)="getProductos()"></ion-searchbar>
+    <ion-item color="themeorange">    
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterProducts()" (ionCancel)="getProductos()"></ion-searchbar>
+    </ion-item>
     <b padding>{{tienda.descripcion}}</b>
     <ion-row>
       <ion-col col-4 *ngFor="let producto of productos">

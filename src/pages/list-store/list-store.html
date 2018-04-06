@@ -9,7 +9,9 @@
 
 <ion-content>
   <div *ngIf="tiendas">
-    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()"></ion-searchbar>
+    <ion-item color="themeorange">    
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()"></ion-searchbar>
+    </ion-item>
     <ion-card *ngFor="let tienda of tiendas; let i = index;">
       <img [src]="tienda.foto" full (click)="goToProductsList(tienda)">
       <ion-card-content (click)="goToProductsList(tienda)">

@@ -8,114 +8,12 @@
 
 
 <ion-content>
-  <!-- <form form [formGroup]="form" novalidate>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label floating>Dirección 1</ion-label>s
-            <ion-input type="text" name="direccion1" formControlName="direccion1" #direccion1></ion-input>
-          </ion-item>
-          <div padding *ngIf="form.controls.direccion1.errors && form.controls.direccion1.dirty">
-            <ion-label color="danger" *ngIf="form.controls.direccion1.errors.required">*Requerido</ion-label>
-          </div>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label floating>Dirección 2</ion-label>
-            <ion-input type="text" name="direccion2" formControlName="direccion2" #direccion2></ion-input>
-          </ion-item>
-          <div padding *ngIf="form.controls.direccion2.errors && form.controls.direccion2.dirty">
-            <ion-label color="danger" *ngIf="form.controls.direccion2.errors.required">*Requerido</ion-label>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label floating>Provincia</ion-label>s
-            <ion-input type="text" name="provincia" formControlName="provincia" #provincia></ion-input>
-          </ion-item>
-          <div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.dirty">
-            <ion-label color="danger" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
-          </div>
-        </ion-col>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label floating>Ciudad</ion-label>
-            <ion-input type="text" name="ciudad" formControlName="ciudad" #ciudad></ion-input>
-          </ion-item>
-          <div padding *ngIf="form.controls.ciudad.errors && form.controls.ciudad.dirty">
-            <ion-label color="danger" *ngIf="form.controls.ciudad.errors.required">*Requerido</ion-label>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <ion-item>
-            <ion-label floating>Código postal</ion-label>
-            <ion-input type="text" name="codigopostal" formControlName="codigopostal" #codigopostal></ion-input>
-          </ion-item>
-          <div padding *ngIf="form.controls.codigopostal.errors && form.controls.codigopostal.dirty">
-            <ion-label color="danger" *ngIf="form.controls.codigopostal.errors.required">*Requerido</ion-label>
-          </div>
-        </ion-col>
-        </ion-row>
-      <ion-row>
-        <ion-col>
-          <button full ion-button (click)="save()" [disabled]="form.invalid" color="themeorange">Guardar</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form> -->
     <ion-item>
       <ion-searchbar id="searchbar" #searchbar [(ngModel)]="searchTerm" (ionInput)="searchPlace()">
       </ion-searchbar>
     </ion-item>
 
-    <!-- <ion-input type="search" id="searchbar" #searchbar [(ngModel)]="searchTerm" (keyup)="searchPlace()"></ion-input> -->
-    
-    <!-- *ngFor="let address of addresses" -->
-    <!-- <ion-card (click)="goToDetail()">
-      <ion-list>
-        <ion-item>
-          <ion-icon name="navigate" item-start></ion-icon>
-          <p class="address-info">
-            <span>Av Rómulo Gallegos</span>
-            <span>Caracas</span>
-            <span>Entrega en la puerta edificio 6</span>
-          </p>
-        </ion-item>
-      </ion-list>
-    </ion-card> -->
-  <!-- <div class="cog">
-    <ion-list radio-group [(ngModel)]="when">
-      <ion-list-header> Cuándo </ion-list-header>
-      <ion-item>
-        <ion-icon name="time" item-start></ion-icon>
-        <ion-label>Lo antes posible</ion-label>
-        <ion-radio name="tiempo" color="secondary" checked="true" item-end value="fast"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="calendar" item-start></ion-icon>
-        <ion-label>Programar un pedido</ion-label>
-        <ion-radio name="tiempo" color="secondary" item-end value="programmed"></ion-radio>
-      </ion-item>
-    </ion-list>
-  
-    <ion-list *ngIf="when == 'programmed'">
-      <ion-list-header> Programar: </ion-list-header>
-      <ion-item>
-        <ion-label>Fecha</ion-label>
-        <ion-datetime displayFormat="YYYY/MM/DD" [min]="min" [max]="max"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hora</ion-label>
-        <ion-datetime displayFormat="hh:mm A"></ion-datetime>
-      </ion-item>
-    </ion-list>
-  
-  </div> -->
+    <div #map id="map"></div>
     <ion-footer>
       <button full ion-button (click)="savePlace()" color="themeorange" [disabled]="searchbar.value == '' && place == undefined">
         <ion-icon name="compass" item-left color="theme-white"></ion-icon>&nbsp; Guardar

@@ -113,7 +113,8 @@ export class TrackingPage {
       position: this.latLngUser,
       map: this.map,
       title: 'Te encuentras en aquí',
-      icon: 'assets/icon/smiley_happy.png'
+      icon: 'assets/icon/smiley_happy.png',
+      animation: google.maps.Animation.DROP,      
     })
     
     markerUser.addListener('click', function () {
@@ -132,7 +133,8 @@ export class TrackingPage {
         position: currentPositionOrder,
         map: this.map,
         title: 'Tu orden se encuentra aquí',
-        icon: 'assets/icon/bag.png'
+        icon: 'assets/icon/bag.png',
+        animation: google.maps.Animation.DROP,        
       });
       this.markerOrder.addListener('click', function () {
         new google.maps.InfoWindow({

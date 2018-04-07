@@ -12,7 +12,9 @@
       <ion-slides #tratamientoSlider effect="slide">
         <!--Step 1 Métodos-->
         <ion-slide>
-          <div class="step">1</div>
+          <div class="number">
+            <div class="step">1</div>
+          </div>
           <ion-card>
             <ion-card-header class="bordersB">
               <b>Paso 1 Seleccione método de pago</b>
@@ -21,7 +23,7 @@
               <ion-item>
                 <ion-label><ion-icon name="card" item-start></ion-icon></ion-label>
                 <ion-select name="idusuariometodo" formControlName="idusuariometodo" #idusuariometodo class="selects">
-                  <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">Tarjeta: {{ metodo.tarjetanombre }}</ion-option>
+                  <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">Tarjeta: ... {{ metodo.tarjetanro.substr(-4) }}</ion-option>
                 </ion-select>
               </ion-item>
             </ion-card-content>
@@ -36,7 +38,9 @@
         
         <!--Step 2 dirección-->
         <ion-slide>
-          <div class="step">2</div>          
+          <div class="number">
+            <div class="step">2</div>
+          </div>
           <ion-card>
             <ion-card-header class="bordersB">
               <b>Paso 2 Seleccione direccion de envio</b>
@@ -63,7 +67,9 @@
         
         <!--Step 3 detalle y confirmación-->
         <ion-slide>
-          <!-- <div class="step">3</div> -->
+          <div class="number">
+            <div class="step">3</div>
+          </div>
           <ion-list>
             <ion-list-header>Paso 3 Descripción de la orden</ion-list-header>
             <ion-item *ngFor="let item of cart.items;let i = index;">

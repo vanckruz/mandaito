@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,8 @@ import { PerfilProvider } from '../../providers/perfil/perfil';
 export class MakeMethodsPage {
   form: FormGroup;
   user: any;
+  min: any; 
+  max: any; 
 
   constructor(
     public navCtrl: NavController,
@@ -21,6 +24,9 @@ export class MakeMethodsPage {
     public perfil: PerfilProvider,
     private _modal: ModalController
   ){
+    this.min = moment(Date.now()).format("YYYY");    
+    this.max = moment(Date.now()).add(5, 'y').format("YYYY");    
+    
     this.form = this.fb.group({
       tipotarjeta: ['', Validators.required],
       tarjetanro: ['', Validators.compose([
@@ -34,8 +40,8 @@ export class MakeMethodsPage {
       cvv: ['', Validators.compose([
         Validators.required,
         Validators.pattern('([0-9])*$'),
-        Validators.maxLength(4),
-        Validators.minLength(4),
+        Validators.maxLength(3),
+        Validators.minLength(3),
       ])],
       pais: ['', Validators.required],
     });      

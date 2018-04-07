@@ -5,5 +5,7 @@ export interface Order{
     status: boolean,
     lat?: number,
     lng?: number,
-    idMensajero?: number
+    idMensajero?: number,
+    usuarioNombre?: string,
+    tiendaNombre?: string,
 }

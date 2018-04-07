@@ -30,12 +30,12 @@ export class RealtimegeoProvider {
     return this.ordersListRef.push(order);
   }
 
-  editOrder(order: Order) {
-    return this.ordersListRef.update(order.key, order);
+  editOrder(key, order) {
+    return this.ordersListRef.update(key, order);
   }
 
-  removeOrder(order: Order) {
-    return this.ordersListRef.remove(order.key);
+  removeOrder(key) {
+    return this.ordersListRef.remove(key);
   }  
 
 }

@@ -114,6 +114,11 @@ export class ProccessPaymentPage {
       }).then((ref) =>{
         console.log(ref, ref.key)
         this.storage.set("keyTracking", JSON.stringify({key: ref.key}));
+        this.orderTracking.editOrder(ref.key, {
+          usuarioNombre: `${this.user.perfil.nombre} ${this.user.perfil.apellido}`,
+          tiendaNombre: `${this.cart.tienda.descripcion}`,
+          key: ref.key
+        }).then((ref) => console.log(ref))
       })
       let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su identificador es: " + data.response.idfactura, duration: 8000, position: 'top' });
       toast.present();

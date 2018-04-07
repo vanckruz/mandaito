@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,8 @@ export class EditMethodPage {
   form: FormGroup;
   user: any;
   metodo: any;
+  min: any; 
+  max: any; 
 
   constructor(
     public navCtrl: NavController,
@@ -24,6 +27,8 @@ export class EditMethodPage {
   ) {
     this.user = this.navParams.get("user");
     this.metodo = this.navParams.get("metodo");
+    this.min = moment(Date.now()).format("YYYY");    
+    this.max = moment(Date.now()).add(5, 'y').format("YYYY");    
 
     this.form = this.fb.group({
       tipotarjeta: this.metodo.tipotarjeta,

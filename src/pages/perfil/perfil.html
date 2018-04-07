@@ -55,11 +55,15 @@
             <span item-right>{{ user.perfil.provincia }}</span>
           </ion-item>
         
-          <ion-footer>
-            <button full ion-button (click)="editPerfil(user.perfil)" color="themeorange">
-              <ion-icon name="ios-contact-outline" item-left color="theme-white"></ion-icon>&nbsp; Editar perfil
-            </button>
-          </ion-footer>
+          <!-- <ion-footer> </ion-footer> -->
+          <!-- <button full ion-button (click)="editPerfil(user.perfil)" color="themeorange">
+            <ion-icon name="ios-contact-outline" item-left color="theme-white"></ion-icon>&nbsp; Editar perfil
+          </button> -->
+            <ion-fab top right>
+              <button ion-fab mini color="light" (click)="editPerfil(user.perfil)">
+                <ion-icon name="md-create"></ion-icon>
+              </button>
+            </ion-fab>
         </div>
         <!--Perfil-->
         <div *ngSwitchCase="'card'">

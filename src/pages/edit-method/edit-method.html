@@ -45,10 +45,10 @@
               *Ingrese un número
             </ion-label>
             <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.minlength">
-              *Ingrese de 4 dígitos
+              *Mínimo 16 dígitos
             </ion-label>
             <ion-label text-left color="danger" class="not" *ngIf="form.controls.tarjetanro.errors.maxlength">
-              *Máximo de 4 dígitos
+              *Máximo de 16 dígitos
             </ion-label>
           </div>
         </ion-col>
@@ -57,7 +57,7 @@
         <ion-col col-6>
           <ion-item>
             <ion-label stacked>Fecha</ion-label>
-            <ion-datetime displayFormat="MM/YYYY" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha placeholder="MM/AA"></ion-datetime>
+            <ion-datetime displayFormat="MM/YY" [min]="min" [max]="max" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha placeholder="MM/AA"></ion-datetime>            
             <!-- <ion-input type="date" [min]="min" [max]="max" name="tarjetafecha" formControlName="tarjetafecha" #tarjetafecha></ion-input> -->
           </ion-item>
           <div padding *ngIf="form.controls.tarjetafecha.errors && form.controls.tarjetafecha.dirty">
@@ -67,7 +67,7 @@
         <ion-col col-6>
           <ion-item>
             <ion-label stacked>CVV</ion-label>
-            <ion-input type="text" name="cvv" formControlName="cvv" #ccv class="cvv"></ion-input>
+            <ion-input type="password" name="cvv" formControlName="cvv" #ccv class="cvv"></ion-input>
           </ion-item>
           <div padding *ngIf="form.controls.cvv.errors && form.controls.cvv.dirty">
             <ion-label color="danger" *ngIf="form.controls.cvv.errors.required">*Requerido</ion-label>

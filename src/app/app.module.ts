@@ -34,11 +34,7 @@ import { RealtimegeoProvider } from '../providers/realtimegeo/realtimegeo';
     IonicStorageModule.forRoot({
       name: '__MiMandaito',
       driverOrder: ['sqlite', 'indexeddb', 'websql']
-    }),
-    // AgmCoreModule.forRoot({
-    //   apiKey: "AIzaSyCTihzOZ4Uwl-QfqBZ6Vvcw1eSC0JaGyFc",
-    //   libraries: ["places"]
-    // }),    
+    }),  
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),

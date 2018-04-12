@@ -26,17 +26,7 @@ export class PrincipalMenuPage {
     private geolocation: Geolocation,
     public storage: Storage
   ){
-    // let watch = this.geolocation.watchPosition();
-    // watch.subscribe((data) => {
-    //   console.log("en el watch 2: ", data.coords, data.coords.latitude, data.coords.longitude)
 
-    //   this.position = {
-    //     latitud: data.coords.latitude,
-    //     longitud: data.coords.longitude
-    //   }
-
-    //   this.storage.set("position", JSON.stringify(this.position));
-    // });
   }
 
   ionViewDidLoad() {

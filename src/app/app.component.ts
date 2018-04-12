@@ -38,45 +38,22 @@ export class MyApp {
 
   }
 
-  getPosition(callback){
+  getPosition(){
     this.storage.get("position").then((pos) => {
       let posicion = JSON.parse(pos);
       console.log(posicion, typeof posicion)
+
       if (posicion == null) {    
-        let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
-        loading.present().then(() => {    
-            this.geolocation.getCurrentPosition().then((resp) => {
-              console.log(resp.coords.latitude, resp.coords.longitude)
-
-              loading.dismiss();
-              
-              this.position = {
-                latitud: resp.coords.latitude,
-                longitud: resp.coords.longitude
-              }
-
-              this.storage.set("position", JSON.stringify(this.position)).then((data) => callback())
-
-            }).catch((error) => {
-              console.log('Error getting location', error);
-            });//Get current position
-        });//loading
+        this.nav.setRoot("MakeDirectionsPage",{
+          inicial: true,
+          user: this.user
+        });
+        // this.storage.set("position", JSON.stringify(this.position)).then((data) => callback())
       }else{
         this.nav.setRoot("PrincipalMenuPage");
       }
     });//storage
       
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-      console.log("en el watch: ", data.coords, data.coords.latitude, data.coords.longitude)
-
-      this.position = {
-        latitud: data.coords.latitude,
-        longitud: data.coords.longitude
-      }
-
-      this.storage.set("position", JSON.stringify(this.position));
-    });
   }
 
   checkLogin() {
@@ -86,10 +63,8 @@ export class MyApp {
         this.nav.setRoot("WelcomePage");
       } else {
         this.user = JSON.parse(user);
-        this.menuCtrl.enable(true);
-        let loading = this.loading.create({content: "cargando"});
-        
-        this.getPosition(() => this.nav.setRoot("PrincipalMenuPage"));
+        this.menuCtrl.enable(true);        
+        this.getPosition();
       }
 
     });//storage user

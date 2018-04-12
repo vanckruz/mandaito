@@ -17,7 +17,7 @@ export class ProccessPaymentPage {
   dataPayment: any;
   cart: any;
   form: FormGroup;
-  @ViewChild(Slides) slides: Slides;
+  @ViewChild(Slides) paySlide: Slides;
   @ViewChild(Content) content: Content;
 
   constructor(
@@ -37,17 +37,26 @@ export class ProccessPaymentPage {
     this.getPerfil();
     this.form = this.fb.group({
       idusuariometodo: ['', Validators.required],
-      idusuariodireccion: ['', Validators.required]
-    });       
+      idusuariodireccion: ''
+    });    
+    this.storage.get("position").then(direccion =>{
+      let dir = JSON.parse(direccion);
+      this.form.patchValue({ idusuariodireccion: dir.idusuariodireccion})
+    })
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProccessPaymentPage', this.cart);
-    if (this.slides != undefined) {
-      this.slides.lockSwipeToNext(true);
-      this.slides.lockSwipeToPrev(true);
-    }    
+    console.log('ionViewDidLoad ProccessPaymentPage' );
   }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter ProccessPaymentPage',  this.paySlide);
+    if (this.paySlide != undefined) {
+      this.paySlide.lockSwipeToNext(true);
+      this.paySlide.lockSwipeToPrev(true);
+    }
+  }
+
 
   getPerfil() {
     this.storage.get('user').then((user) => {
@@ -66,16 +75,16 @@ export class ProccessPaymentPage {
   }
 
   next(step = null) {
-    this.slides.lockSwipeToNext(false);
-    this.slides.slideNext();
-    this.slides.lockSwipeToNext(true);
-    this.content.scrollTop = 0;
+    this.paySlide.lockSwipeToNext(false);
+    this.paySlide.slideNext();
+    this.paySlide.lockSwipeToNext(true);
+    // this.content.scrollTop = 0;
   }
 
   prev() {
-    this.slides.lockSwipeToPrev(false);
-    this.slides.slidePrev();
-    this.slides.lockSwipeToPrev(true);
+    this.paySlide.lockSwipeToPrev(false);
+    this.paySlide.slidePrev();
+    this.paySlide.lockSwipeToPrev(true);
   }
 
   confirmPay(){
@@ -107,19 +116,24 @@ export class ProccessPaymentPage {
     loading.present();
     this.paymentsProvider.pay(this.user.perfil.idusuario, data).subscribe((data) =>{
       loading.dismiss();
-      this.orderTracking.addOrder({
+      this.orderTracking.addOrder("f5op1989",{
         idOrder: data.response.idfactura,
-        idUser: this.user.perfil.idusuario,
         status: true,
-      }).then((ref) =>{
-        console.log(ref, ref.key)
-        this.storage.set("keyTracking", JSON.stringify({key: ref.key}));
-        this.orderTracking.editOrder(ref.key, {
-          usuarioNombre: `${this.user.perfil.nombre} ${this.user.perfil.apellido}`,
-          tiendaNombre: `${this.cart.tienda.descripcion}`,
-          key: ref.key
-        }).then((ref) => console.log(ref))
+        usuario: this.user.perfil,
+        tienda: this.cart.tienda
+      }).then((data)=>{
+        console.log(data);
       })
+      this.storage.set("keyTracking", JSON.stringify({ key: "f5op1989" }));
+      // .then((ref) => {
+      //   console.log(ref)
+      //   this.storage.set("keyTracking", JSON.stringify({ key: ref.key }));
+      //   this.orderTracking.editOrder(ref.key, {
+      //     usuarioNombre: `${this.user.perfil.nombre} ${this.user.perfil.apellido}`,
+      //     tiendaNombre: `${this.cart.tienda.descripcion}`,
+      //     key: ref.key
+      //   }).then((ref) => console.log(ref))
+      // })
       let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su identificador es: " + data.response.idfactura, duration: 8000, position: 'top' });
       toast.present();
       this.storage.remove("nowstore");

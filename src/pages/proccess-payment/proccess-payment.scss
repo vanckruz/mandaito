@@ -3,16 +3,35 @@ page-proccess-payment {
         background: #f1f1f1 !important;
     }
     ion-slides{
-        height: 90vh;
         ion-toolbar{
             position: absolute;
             top: 0;
         }
+        // ion-slide{
+        //     align-items: flex-start !important;
+        // }
+        ion-slide{
+            ion-list{
+                height: 85vh;
+                overflow-y: scroll;
+            }
+            ion-footer{
+                right: inherit !important;
+                left: inherit !important;
+                position: fixed !important;
+            }
+        }            
+        .boxSlide1{
+            height: 90vh;
+        }
+        .boxSlide2{
+
+        }    
     }
+ 
     .number{
         width: 100%;
         height: 200px;
-        position: relative;
     }
     .step{
         width: 150px;

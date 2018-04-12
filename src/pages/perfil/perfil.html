@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <div>
     <div class="full" *ngIf="user">
       <div class="imgbox">
@@ -91,8 +91,8 @@
             <ion-list-header>
               Direcciones de Envios <ion-icon name="add" item-right (click)="addDirection()"></ion-icon>
             </ion-list-header>
-            <ion-item *ngFor="let item of user.direcciones">
-              <ion-icon name="navigate" item-start></ion-icon>
+            <ion-item *ngFor="let item of user.direcciones" [color]="!item.selected ? 'whited': 'secondary'">
+              <ion-icon name="pin" item-start></ion-icon>
               <p class="address-info">
                 <span>{{ item.direccion }}</span>
               </p>

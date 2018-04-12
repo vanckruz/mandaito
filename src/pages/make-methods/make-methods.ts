@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, ModalController, Events } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
+import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
 
 @IonicPage()
@@ -21,8 +22,10 @@ export class MakeMethodsPage {
     public fb: FormBuilder,
     public loading: LoadingController,
     public toast: ToastController,
-    public perfil: PerfilProvider,
-    private _modal: ModalController
+    public perfilProvider: PerfilProvider,
+    private _modal: ModalController,
+    public storage: Storage,    
+    public events: Events
   ){
     this.min = moment(Date.now()).format("YYYY");    
     this.max = moment(Date.now()).add(5, 'y').format("YYYY");    
@@ -62,17 +65,56 @@ export class MakeMethodsPage {
     });//Dismiss popover
   }
 
+  getPerfil() {
+    this.storage.get('user').then((user) => {
+      console.log(user)
+      if (!user) {
+        this.navCtrl.setRoot("WelcomePage");
+      } else {
+        let usuario = JSON.parse(user);
+        let loading = this.loading.create({ content: "cargando" });
+        loading.present();
+        this.perfilProvider.get(usuario.idusuario).subscribe((data) => {
+          this.user = data.response.datos;
+          console.log(data.response.datos)
+          loading.dismiss();
+          this.events.publish("userLogin", this.user);
+          if (this.user.direcciones != null) {
+
+            this.user.direcciones.forEach((element, index) => {
+
+              this.storage.get("position").then((pos) => {
+                let posicion = JSON.parse(pos);
+                if (posicion != null) {
+                  if (element.idusuariodireccion == posicion.idusuariodireccion) {
+                    element.selected = true;
+                  } else {
+                    element.selected = false;
+                  }
+                }
+              });//storage
+
+            });//First For Each
+          }
+
+        });
+      }
+
+    });//storage user    
+  }
+
   save() {
     if (this.form.valid) {
       let loading = this.loading.create({ content: 'Cargando...' });
       loading.present();
       console.log(this.form.value)
-      this.perfil.setMethods(this.user.idusuario, this.form.value).subscribe(data => {
+      this.perfilProvider.setMethods(this.user.idusuario, this.form.value).subscribe(data => {
         console.log(data)
         loading.dismiss();
         let toast = this.toast.create({ message: data.msg, duration: 3000, position: 'top' });
         toast.present();
-        this.navCtrl.popToRoot();
+        this.getPerfil();
+        this.navCtrl.pop();
       }, (error) => {
         loading.dismiss();
         let toast = this.toast.create({ message: "Error al guardar", duration: 3000, position: 'top' });

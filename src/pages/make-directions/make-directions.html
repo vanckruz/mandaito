@@ -1,21 +1,25 @@
 <ion-header>
 
   <ion-navbar color="themeorange">
-    <ion-title>Nueva dirección</ion-title>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Escoger dirección</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content>
-    <ion-item>
+    <ion-item color="themeorange">
       <ion-searchbar id="searchbar" #searchbar [(ngModel)]="searchTerm" (ionInput)="searchPlace()">
       </ion-searchbar>
     </ion-item>
 
     <div #map id="map"></div>
     <ion-footer>
-      <button full ion-button (click)="savePlace()" color="themeorange" [disabled]="searchbar.value == '' && place == undefined">
+      <button full ion-button (click)="savePlace()" color="themeorange">
         <ion-icon name="compass" item-left color="theme-white"></ion-icon>&nbsp; Guardar
       </button>
     </ion-footer>

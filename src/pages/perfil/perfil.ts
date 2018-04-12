@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, SegmentButton, NavController, NavParams, LoadingController, AlertController, ToastController, PopoverController } from 'ionic-angular';
+import { IonicPage, SegmentButton, NavController, NavParams, LoadingController, AlertController, ToastController, PopoverController, Events } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 import { Storage } from '@ionic/storage';
@@ -10,15 +10,12 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'perfil.html',
 })
 export class PerfilPage {
-  relationship: string = 'enemies';
-  modelStyle: string = 'B';
-  appType: string = 'free';
-  icons: string = 'camera';
   isDisabledB: boolean = true;
   isDisabledS: boolean = false;
   perfilOptions: string = 'perfil';
   myForm: any;
   user: any;
+  directionActive: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -30,10 +27,15 @@ export class PerfilPage {
     public _alert: AlertController,
     public toastCtrl: ToastController,
     private _popover: PopoverController,
+    private events: Events
   ){
     this.myForm = fb.group({
       mapStyle: ['active', Validators.required]
     });
+    this.events.subscribe("userLogin", (user) => {
+      this.user = user;
+    });
+
   }
 
   ionViewDidLoad() {
@@ -54,6 +56,25 @@ export class PerfilPage {
           this.user = data.response.datos;
           console.log(data.response.datos)
           loading.dismiss();
+
+          if (this.user.direcciones != null) {
+
+            this.user.direcciones.forEach((element, index) => {
+
+              this.storage.get("position").then((pos) => {
+                let posicion = JSON.parse(pos);
+                if (posicion != null) {
+                  if (element.idusuariodireccion == posicion.idusuariodireccion) {
+                      element.selected = true;
+                    } else {
+                      element.selected = false;
+                    }
+                }
+              });//storage
+
+            });//First For Each
+          }          
+          
         });
       }
 
@@ -139,7 +160,7 @@ export class PerfilPage {
             this.perfilProvider.eliminarMetodo(this.user.perfil.idusuario, metodo.idusuariometodo).subscribe((data) => {
               loading.dismiss();
               this.toastMessage("Tarjeta eliminada").present();
-              this.navCtrl.popToRoot();
+              this.getPerfil();
             }, (error) => {
               console.log(error)
               loading.dismiss();
@@ -163,10 +184,12 @@ export class PerfilPage {
 
     popover.onDidDismiss((data: any) => {
       if (data === 1) {
-        this.navCtrl.push("EditDirectionPage", {
-          user: this.user,
-          direccion: item
-        })
+        console.log(item)
+        this.storage.set("position", JSON.stringify(item))
+        // this.user.direcciones = this.user.direcciones;
+        // this.user.direcciones = [];
+        this.getPerfil();
+        // this.perfilOptions = 'address';
       }
       if (data === 2) {
         this.presentConfirmDirection(item);
@@ -195,7 +218,7 @@ export class PerfilPage {
             this.perfilProvider.eliminarDireccion(this.user.perfil.idusuario, direccion.idusuariodireccion).subscribe((data) => {
               loading.dismiss();
               this.toastMessage("Dirección eliminada").present();
-              this.navCtrl.popToRoot();
+              this.getPerfil();
             }, (error) => {
               console.log(error)
               loading.dismiss();

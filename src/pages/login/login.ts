@@ -58,7 +58,22 @@ export class LoginPage {
           console.log(userJson)
           this.events.publish("userLogin", userJson);
           this.menuCtrl.enable(true);
-          this.navCtrl.setRoot("PrincipalMenuPage");    
+          // this.navCtrl.setRoot("PrincipalMenuPage");    
+
+          this.storage.get("position").then((pos) => {
+            let posicion = JSON.parse(pos);
+            console.log(posicion, typeof posicion)
+
+            if (posicion === null) {
+              this.navCtrl.setRoot("MakeDirectionsPage", {
+                inicial: true,
+                user: userJson
+              });    
+            }else{
+              this.navCtrl.setRoot("PrincipalMenuPage");    
+            }
+          });
+
         });      
       }else{
         let toast = this.toastCtrl.create({

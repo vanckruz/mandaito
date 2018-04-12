@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, NgZone, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 import { Storage } from '@ionic/storage';
@@ -11,9 +11,9 @@ declare var google: any;
   selector: 'page-make-directions',
   templateUrl: 'make-directions.html',
 })
-export class MakeDirectionsPage implements OnInit{
+export class MakeDirectionsPage implements OnInit {
 
-  @ViewChild("searchbar") searchbar: ElementRef;  
+  @ViewChild("searchbar") searchbar: ElementRef;
   @ViewChild('map') mapElement: ElementRef;
   user: any;
   searchTerm: string;
@@ -23,59 +23,56 @@ export class MakeDirectionsPage implements OnInit{
   markerUser: any;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public fb: FormBuilder,
-    public loading: LoadingController,  
+    public loading: LoadingController,
     public toast: ToastController,
     public perfil: PerfilProvider,
     public storage: Storage,
     public geolocation: Geolocation,
-  ){
+  ) {
 
     this.user = this.navParams.get("user");
   }
 
   ionViewDidLoad() {
     console.log(this.place)
-    console.log('ionViewDidLoad MakeDirectionsPage', this.user );
+    console.log('ionViewDidLoad MakeDirectionsPage');
     this.getPosition();
   }
-  
-  ngOnInit() { 
+
+  ngOnInit() {
     console.log('onInit');
   }
 
   getPosition() {
-    this.storage.get("position").then((pos) => {
-      let posicion = JSON.parse(pos);
-      console.log(posicion, typeof posicion)
+    // this.storage.get("position").then((pos) => {
+    //   let posicion = JSON.parse(pos);
+    //   console.log(posicion, typeof posicion)
 
-      if (posicion === null) {
-        let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
-        loading.present().then(() => {
-          this.geolocation.getCurrentPosition().then((resp) => {
-            loading.dismiss();
-            let position = {
-              latitud: resp.coords.latitude,
-              longitud: resp.coords.longitude
-            }
-
-            this.storage.set("position", JSON.stringify(position)).then((data) => {
-              this.loadMap(data)
-            })
-          }).catch((error) => {
-            console.log('Error getting location', error);
-          });//Get current position
-        });//loading
-      } else {
-        this.loadMap(posicion);
-      }
-    });
+      // if (posicion === null) {
+      let loading = this.loading.create({ content: 'Obteniendo Ubicación por favor espere...' });
+      loading.present().then(() => {
+        this.geolocation.getCurrentPosition().then((resp) => {
+          loading.dismiss();
+          let position = {
+            latitud: resp.coords.latitude,
+            longitud: resp.coords.longitude
+          }
+          
+          this.loadMap(position)
+        }).catch((error) => {
+          console.log('Error getting location', error);
+        });//Get current position
+      });//loading
+      // } else {
+      //   this.loadMap(posicion);
+      // }
+    // });
   }
 
   loadMap(posicion) {
-    console.log("posicion tracking", posicion)
 
     this.latLngUser = new google.maps.LatLng(posicion.latitud, posicion.longitud);
 
@@ -97,6 +94,8 @@ export class MakeDirectionsPage implements OnInit{
       animation: google.maps.Animation.DROP,
     })
 
+    console.log("posicion tracking", posicion, typeof posicion,posicion.latitud, posicion.longitud, this.map, this.latLngUser)
+    
     this.markerUser.addListener('click', () => {
       new google.maps.InfoWindow({
         content: "Usted se encuentra aquí"
@@ -112,8 +111,8 @@ export class MakeDirectionsPage implements OnInit{
           console.log(results[0]);
           let result = results[0];
           this.place = {
-            longitud: result.geometry.location.lat(),
-            latitud: result.geometry.location.lng(),
+            longitud: result.geometry.location.lng(),
+            latitud: result.geometry.location.lat(),
             direccion: result.formatted_address
           }
           let windowContent = `
@@ -123,10 +122,10 @@ export class MakeDirectionsPage implements OnInit{
           </header>
           <div class="card-content">
             <div class="textf">
-              ${ result.formatted_address }
+              ${ result.formatted_address}
             </div>
             </div>      
-          </div>`;          
+          </div>`;
           let infoWindowsDirection = new google.maps.InfoWindow();
           infoWindowsDirection.setContent(windowContent);
           infoWindowsDirection.open(this.map, this.markerUser);
@@ -134,60 +133,60 @@ export class MakeDirectionsPage implements OnInit{
         } else {
           // alert('Geocode was not successful for the following reason: ' + status);
           let toast = this.toast.create({ message: "ha sobrepasado el límite de consultas", duration: 3000, position: 'top' });
-          toast.present();          
+          toast.present();
         }
-      });this.markerUser.position.lat()
-    });    
-  
+      }); this.markerUser.position.lat()
+    });
+
   }
-  
-  searchPlace(){
+
+  searchPlace() {
     let input = document.getElementById("searchbar");
     console.log(input.getElementsByClassName("searchbar-input"))
     // const inputElement = (<HTMLInputElement>this.searchbar.nativeElement);   
-    const inputElement = (<HTMLInputElement>input.getElementsByClassName("searchbar-input")[0]);   
+    const inputElement = (<HTMLInputElement>input.getElementsByClassName("searchbar-input")[0]);
     let autocomplete = new google.maps.places.Autocomplete(inputElement);
 
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
       let dataPlace = autocomplete.getPlace();
       this.place = {
-        longitud: dataPlace.geometry.location.lat(),
-        latitud: dataPlace.geometry.location.lng(),
+        longitud: dataPlace.geometry.location.lng(),
+        latitud: dataPlace.geometry.location.lat(),
         direccion: dataPlace.formatted_address
       }
       let latLng = new google.maps.LatLng(dataPlace.geometry.location.lat(), dataPlace.geometry.location.lng());
       this.map.setCenter(latLng)
       this.markerUser.setPosition(latLng)
       console.log(this.place);
-    });    
+    });
 
   }
 
-  savePlace(){
+  savePlace() {
     let input = document.getElementById("searchbar");
-    const inputElement = (<HTMLInputElement>input.getElementsByClassName("searchbar-input")[0]);   
+    const inputElement = (<HTMLInputElement>input.getElementsByClassName("searchbar-input")[0]);
     console.log(this.place)
     if (this.place != undefined) {
       let loading = this.loading.create({ content: 'Cargando...' });
       loading.present();
       console.log(this.place)
       this.perfil.setDirections(this.user.idusuario, this.place).subscribe(data => {
-        console.log(data)
+        console.log(data.response.objDireccion)
         loading.dismiss();
         let toast = this.toast.create({ message: "Dirección guardada con exito", duration: 5000, position: 'top' });
         toast.present();
-        this.navCtrl.popToRoot();
+        this.storage.set("position", JSON.stringify(data.response.objDireccion)).then(() => this.navCtrl.setRoot("PrincipalMenuPage"))
       }, (error) => {
         loading.dismiss();
         let toast = this.toast.create({ message: "Error al guardar", duration: 3000, position: 'top' });
         toast.present();
       });
 
-    }  
+    }
   }
 
   goToDetail() {
     this.navCtrl.push("DetailDeliveryPage");
-  }  
-  
+  }
+
 }

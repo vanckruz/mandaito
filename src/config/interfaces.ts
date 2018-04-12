@@ -1,11 +1,10 @@
 export interface Order{
-    key?: string;
     idOrder: number,
-    idUser: number,
     status: boolean,
-    lat?: number,
+    key?: string;
     lng?: number,
-    idMensajero?: number,
-    usuarioNombre?: string,
-    tiendaNombre?: string,
+    lat?: number,
+    mensajero?: any,
+    usuario?: any,
+    tienda?: any,
 }

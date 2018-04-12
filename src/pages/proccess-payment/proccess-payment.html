@@ -1,43 +1,42 @@
 <ion-header>
 
   <ion-navbar color="themeorange">
-    <ion-title>Procesar pago</ion-title>
+    <ion-title>Procesar orden</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
     <form [formGroup]="form" novalidate *ngIf="user">
-      <ion-slides #tratamientoSlider effect="slide">
+      <ion-slides #paySlide effect="slide">
         <!--Step 1 Métodos-->
-        <ion-slide>
-          <div class="number">
-            <div class="step">1</div>
+        <ion-slide class="slide1">
+          <div class="boxSlide1">
+            <ion-card>
+              <ion-card-header class="bordersB">
+                <b>Paso 1 Seleccione método de pago</b>
+              </ion-card-header>
+              <ion-card-content text-center>
+                <ion-item>
+                  <ion-label><ion-icon name="card" item-start></ion-icon></ion-label>
+                  <ion-select name="idusuariometodo" formControlName="idusuariometodo" #idusuariometodo class="selects">
+                    <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">xxxx xxxx xxxx {{ metodo.tarjetanro.substr(-4) }}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+            <ion-footer>
+              <button class="right controls" ion-button icon-right (click)="next()" [disabled]="form.controls.idusuariometodo.errors" full color="themeorange">
+                Siguiente
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
+            </ion-footer>
           </div>
-          <ion-card>
-            <ion-card-header class="bordersB">
-              <b>Paso 1 Seleccione método de pago</b>
-            </ion-card-header>
-            <ion-card-content text-center>
-              <ion-item>
-                <ion-label><ion-icon name="card" item-start></ion-icon></ion-label>
-                <ion-select name="idusuariometodo" formControlName="idusuariometodo" #idusuariometodo class="selects">
-                  <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">Tarjeta: ... {{ metodo.tarjetanro.substr(-4) }}</ion-option>
-                </ion-select>
-              </ion-item>
-            </ion-card-content>
-          </ion-card>
-          <ion-buttons>
-            <button class="right controls" ion-button icon-right (click)="next()" [disabled]="form.controls.idusuariometodo.errors" full color="themeorange">
-              Siguiente
-              <ion-icon name="arrow-forward"></ion-icon>
-            </button>
-          </ion-buttons>
         </ion-slide>
         
         <!--Step 2 dirección-->
-        <ion-slide>
+        <!-- <ion-slide>
           <div class="number">
             <div class="step">2</div>
           </div>
@@ -64,29 +63,39 @@
             </button>
           </ion-buttons>
         </ion-slide>
-        
-        <!--Step 3 detalle y confirmación-->
-        <ion-slide>
-          <div class="number">
-            <div class="step">3</div>
-          </div>
-          <ion-list>
-            <ion-list-header>Paso 3 Descripción de la orden</ion-list-header>
-            <ion-item *ngFor="let item of cart.items;let i = index;">
-              <ion-thumbnail item-start>
-                <img [src]="item.foto">
-              </ion-thumbnail>
-              <h2>{{ item.descripcion }}</h2>
-              <p>Cantidad: {{ item.cantidad }}</p>
-              <p>Precio: ₡{{ item.precio }}</p>
-              <p>Total: ₡{{ item.total }}</p>
-              <button ion-button clear item-end [navPush]="'DetailProductPage'" [navParams]="{producto:item}">Ver</button>
-            </ion-item>
-            <ion-item><ion-label item-start>Total:</ion-label> <span item-end>₡{{ cart.total }}</span></ion-item>
-          </ion-list>
+         -->
 
+        <!--Step 3 detalle y confirmación-->
+        <ion-slide class="slide2">
+          <!-- <div class="number">
+            <div class="step">2</div>
+          </div> -->
+          <div class="boxSlide2">
+            <ion-list>
+              <ion-list-header>Paso 2 Descripción de la orden</ion-list-header>
+              <ion-item *ngFor="let item of cart.items;let i = index;">
+                <ion-thumbnail item-start>
+                  <img [src]="item.foto">
+                </ion-thumbnail>
+                <h2>{{ item.descripcion }}</h2>
+                <p>Cantidad: {{ item.cantidad }}</p>
+                <p>Precio: ₡{{ item.precio }}</p>
+                <p>Total: ₡{{ item.total }}</p>
+                <!-- <button ion-button clear item-end [navPush]="'DetailProductPage'" [navParams]="{producto:item}">Ver</button> -->
+              </ion-item>
+              <ion-item><ion-label item-start>Total:</ion-label> <span item-end>₡{{ cart.total }}</span></ion-item>
+            </ion-list>
+            <!-- <ion-fab top right>
+              <button ion-fab mini color="themeorange" (click)="confirmPay()">
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+            </ion-fab> -->
+          </div>
           <ion-footer>
-            <button full ion-button (click)="confirmPay()" color="themeorange">Pagar</button>
+            <button full ion-button color="themeorange" (click)="confirmPay()">
+              Confirmar
+              <ion-icon name="checkmark" item-end></ion-icon>
+            </button>              
           </ion-footer>
         </ion-slide>
       </ion-slides>

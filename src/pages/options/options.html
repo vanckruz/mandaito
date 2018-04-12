@@ -1,5 +1,6 @@
 <ion-list>
   <ion-list-header>Opciones</ion-list-header>
   <button ion-item (click)="close(1)" *ngIf="!opciones">Editar</button>
+  <button ion-item (click)="close(1)" *ngIf="opciones">Seleccionar como principal</button>
   <button ion-item (click)="close(2)">Eliminar</button>
 </ion-list>

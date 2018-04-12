@@ -55,10 +55,12 @@ export class TrackingPage {
         .subscribe(
         (data)=> {
           console.log(data)
-          this.orderFirebase = data;
-          this.emptyOderFlag = true;
-          if (this.orderFirebase.lat != undefined && this.orderFirebase.lng != undefined){
-            this.drawRoute(this.orderFirebase.lat, this.orderFirebase.lng);
+          if (data !== null){
+            this.orderFirebase = data;
+            this.emptyOderFlag = true;
+            if (this.orderFirebase.lat != undefined && this.orderFirebase.lng != undefined){
+              this.drawRoute(this.orderFirebase.lat, this.orderFirebase.lng);
+            }
           }
         })
       }else{

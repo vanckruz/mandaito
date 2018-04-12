@@ -26,8 +26,16 @@ export class RealtimegeoProvider {
     return this.ordersListRef;
   }
 
-  addOrder(order: Order) {
-    return this.ordersListRef.push(order);
+  addOrder(key, order: Order) {
+    return this.db.object<Order>(`ordersList/${key}`).set(order);
+
+    // return this.db.database.ref("orderList/FA004").set(order);    
+
+    // return new Promise( (resolve, reject) => {
+    //   let ref = this.db.database.ref("orderList/FA004");
+    //   ref.set(order);   
+    //   resolve("key:"+ref.key)
+    // });    
   }
 
   editOrder(key, order) {

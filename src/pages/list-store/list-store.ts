@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Events } from 'ionic-angular';
 import { TiendasProvider } from '../../providers/tiendas/tiendas';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
@@ -17,6 +17,7 @@ export class ListStorePage {
   searchTerm: string;
   latitud: any;
   longitud: any;
+  user: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -25,21 +26,34 @@ export class ListStorePage {
     private loading: LoadingController,
     public storage: Storage,
     public toast: ToastController,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private events: Events
   ){
     this.categoria = this.navParams.get("categoria");
+    this.events.subscribe("userLogin", (user) => {
+      this.user = user;
+    });    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListStorePage');
-    this.getPosition();     
+    this.getNearbyStores();     
   }
 
   getNearbyStores(){
     this.storage.get("position").then((pos) => {
       let posicion = JSON.parse(pos);
       console.log("tiendas", posicion)
-      this.getTiendas(posicion.latitud, posicion.longitud); 
+
+      if (posicion == null) {
+        this.navCtrl.setRoot("MakeDirectionsPage", {
+          inicial: true,
+          user: this.user
+        });
+        // this.storage.set("position", JSON.stringify(this.position)).then((data) => callback())
+      } else {
+        this.getTiendas(posicion.latitud, posicion.longitud); 
+      }      
     });
   }
 

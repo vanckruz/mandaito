@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentsProvider } from '../../providers/payments/payments';
 import { Order } from '../../config/interfaces';
 import { RealtimegeoProvider } from '../../providers/realtimegeo/realtimegeo';
+import { OrderProvider } from '../../providers/order/order';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,8 @@ export class ProccessPaymentPage {
     public fb: FormBuilder,
     public paymentsProvider: PaymentsProvider,
     private orderTracking: RealtimegeoProvider,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public orderProvider: OrderProvider
   ){
     this.cart = this.navParams.get("cart");
     this.getPerfil();
@@ -130,21 +132,19 @@ export class ProccessPaymentPage {
       }).then((data)=>{
         console.log(data);
       })
+
+
+      this.orderProvider.changeStatus(data.response.orden.nroorden, { estatus: 0 }).subscribe((res) => {
+        console.log(res)
+      });
+
       this.storage.set("keyTracking", JSON.stringify({ key: data.response.orden.nroorden }));
-      // .then((ref) => {
-      //   console.log(ref)
-      //   this.storage.set("keyTracking", JSON.stringify({ key: ref.key }));
-      //   this.orderTracking.editOrder(ref.key, {
-      //     usuarioNombre: `${this.user.perfil.nombre} ${this.user.perfil.apellido}`,
-      //     tiendaNombre: `${this.cart.tienda.descripcion}`,
-      //     key: ref.key
-      //   }).then((ref) => console.log(ref))
-      // })
       let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su número de orden es: " + data.response.orden.nroorden, duration: 8000, position: 'top' });
       toast.present();
       this.storage.remove("nowstore");
       this.storage.remove("carrito");
       this.navCtrl.setRoot("TrackingPage");      
+
     });//Payment provider
   }
 

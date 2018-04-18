@@ -16,4 +16,8 @@ export class RegisterUserProvider {
 
     return this.http.post(routes.registerUser(), user, { headers: headers });
   }
+
+  verifyEmail(correo): Observable<any>{
+    return this.http.get(routes.verifyEmail(correo));
+  }  
 }

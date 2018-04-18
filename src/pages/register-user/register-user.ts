@@ -10,7 +10,9 @@ import { RegisterUserProvider } from '../../providers/register-user/register-use
 })
 export class RegisterUserPage {
   form: FormGroup;
-
+  emailError: number = 0;
+  blurEmail: boolean = false;
+  
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
@@ -31,6 +33,7 @@ export class RegisterUserPage {
       idprovincia: ['', Validators.required],
       telefono: ['', Validators.required],
       code: ['', Validators.required],
+      tipo: 2
       //password: ['', Validators.required]
     });  
   }
@@ -89,4 +92,24 @@ export class RegisterUserPage {
 
     }
   }
+
+  userValid(emailValue) {
+    // let like = this.myTrim(e.target.value);
+    // let str = emailValue.value;
+    let strParse = new String(emailValue.value);
+    let like = strParse.trim();
+    emailValue.value = like;
+    console.log(like);
+
+    this.registerUserProvider.verifyEmail(like).subscribe((data) => {
+      this.blurEmail = true;
+      if (data.response.existe) {
+        this.emailError = 1;
+      } else {
+        this.emailError = 0;
+      }
+      console.log(data.response, this.emailError);
+
+    });
+  }    
 }

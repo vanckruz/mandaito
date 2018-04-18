@@ -27,15 +27,7 @@ export class RealtimegeoProvider {
   }
 
   addOrder(key, order: Order) {
-    return this.db.object<Order>(`ordersList/${key}`).set(order);
-
-    // return this.db.database.ref("orderList/FA004").set(order);    
-
-    // return new Promise( (resolve, reject) => {
-    //   let ref = this.db.database.ref("orderList/FA004");
-    //   ref.set(order);   
-    //   resolve("key:"+ref.key)
-    // });    
+    return this.db.object<Order>(`ordersList/${key}`).set(order);   
   }
 
   editOrder(key, order) {

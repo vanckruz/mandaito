@@ -3,6 +3,9 @@ export const routes = {
     login: () => {
         return `${ROOT}/login`
     },
+    verifyEmail: ($email) => {
+        return `${ROOT}/correo/${$email}`
+    },
     registerUser: () => {
         return `${ROOT}/register`
     },
@@ -51,5 +54,17 @@ export const routes = {
     },
     orderActive: ($idPerfil) => {
         return `${ROOT}/order/${$idPerfil}/activa`
-    }
+    },
+    detailOrden: ($idPerfil, $idOrden) => {
+        return `${ROOT}/order/${$idPerfil}/${$idOrden}`
+    }, 
+    statusOrden: ($numOrden) => {
+        return `${ROOT}/order/${$numOrden}/status/modificar`
+    },
+    calificar: ($numOrden) => {
+        return `${ROOT}/order/${$numOrden}/calificar`
+    },   
+    cerrar: ($numOrden) => {
+        return `${ROOT}/order/${$numOrden}/cerrar`
+    }     
 }

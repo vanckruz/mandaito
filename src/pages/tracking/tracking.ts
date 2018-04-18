@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, AlertController  } from 'ionic-angular';
 import { OrderProvider } from '../../providers/order/order';
 import { RealtimegeoProvider } from '../../providers/realtimegeo/realtimegeo';
 import { Storage } from '@ionic/storage';
@@ -33,7 +33,8 @@ export class TrackingPage {
     private loadingCtrl: LoadingController,
     public storage: Storage,  
     private orderTracking: RealtimegeoProvider,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private alertCtrl: AlertController
   ){
 
   }
@@ -45,9 +46,19 @@ export class TrackingPage {
     // this.getPerfil();
   }
   
+  presentAlert($msg) {
+    let alert = this.alertCtrl.create({
+      title: 'Notificación',
+      subTitle: $msg,
+      buttons: ['aceptar']
+    });
+    alert.present();
+  }
+
+  
   getMyTrackingOrder(){
     this.storage.get("keyTracking").then((id) => {
-      let clave = JSON.parse(id);    
+      let clave = JSON.parse(id);//Firebase key 
       console.log(clave)
       if(clave !== null){
         this.orderTracking.getDetailOrder(clave.key)
@@ -56,12 +67,35 @@ export class TrackingPage {
         (data)=> {
           console.log(data)
           if (data !== null){
-            this.orderFirebase = data;
             this.emptyOderFlag = true;
-            if (this.orderFirebase.lat != undefined && this.orderFirebase.lng != undefined){
-              this.drawRoute(this.orderFirebase.lat, this.orderFirebase.lng);
+            this.orderFirebase = data;
+
+            if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMarket && !this.orderFirebase.takeMensajero) {
+              this.presentAlert("Su orden ha sido tomada por el comercio y está siendo preparada");
             }
-          }
+
+            if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMensajero && this.orderFirebase.takeMensajero){
+              this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
+            }
+
+            if (this.orderFirebase.mensajero !== undefined){
+              console.log(this.orderFirebase.mensajero.lat, this.orderFirebase.mensajero.lng)
+              this.drawRoute(this.orderFirebase.mensajero.lat, this.orderFirebase.mensajero.lng);
+            }
+
+            if (this.orderFirebase.status === 3) {
+              this.navCtrl.setRoot("RankMensajeroPage", {
+                data: this.orderFirebase
+              })
+            }
+
+            if (this.orderFirebase.status === 4) {
+              this.navCtrl.setRoot("ObervationOrderPage", {
+                data: this.orderFirebase
+              })
+            }            
+
+          }//If la data de firebase no existe
         })
       }else{
         this.emptyOderFlag = false;
@@ -116,7 +150,7 @@ export class TrackingPage {
       map: this.map,
       title: 'Te encuentras en aquí',
       icon: 'assets/icon/smiley_happy.png',
-      animation: google.maps.Animation.DROP,      
+      // animation: google.maps.Animation.DROP,      
     })
     
     markerUser.addListener('click', function () {
@@ -136,12 +170,12 @@ export class TrackingPage {
         map: this.map,
         title: 'Tu orden se encuentra aquí',
         icon: 'assets/icon/bag.png',
-        animation: google.maps.Animation.DROP,        
+        // animation: google.maps.Animation.DROP,        
       });
       this.markerOrder.addListener('click', function () {
         new google.maps.InfoWindow({
           content: "Tu orden se encuentra aquí"
-        }).open(this.map, this.orderComponentsForMap.markerOrder);
+        }).open(this.map, this.markerOrder);
       });
     }else{
       this.markerOrder.setPosition(currentPositionOrder);

@@ -34,10 +34,14 @@ export class DetailTrackingPage {
       let usuario = JSON.parse(user);
       let loading = this.loadingCtrl.create({ content: "cargando" });
       loading.present();
-      this.orderProvider.getActive(usuario.idusuario).subscribe((data) => {
-        this.order = data.response.datos;
-        console.log(data)
-        loading.dismiss();
+
+      this.storage.get('keyTracking').then((key) => {
+        let idOrder = JSON.parse(key);
+        this.orderProvider.detailOrder(usuario.idusuario, idOrder.key).subscribe((data) => {
+          this.order = data.response.datos;
+          console.log(data)
+          loading.dismiss();
+        });
       });
 
     });//storage user    

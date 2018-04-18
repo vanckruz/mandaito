@@ -35,8 +35,12 @@
 				<ion-col col-6>
 					<ion-item>
 						<ion-label floating>Correo</ion-label>
-						<ion-input type="text" name="correo" formControlName="correo" #correo></ion-input>
+						<ion-input type="text" name="correo" formControlName="correo" #correo (ionBlur)="userValid(correo)"></ion-input>
 					</ion-item>
+					<div *ngIf="blurEmail">
+						<ion-label color="danger" *ngIf="emailError == 1 ">Email no disponible</ion-label>
+						<ion-label color="theme-green" *ngIf="emailError == 0">Email disponible</ion-label>
+					</div>
 					<div padding *ngIf="form.controls.correo.errors && form.controls.correo.dirty">
 						<ion-label color="danger" *ngIf="form.controls.correo.errors.required">*Requerido</ion-label>
 					</div>

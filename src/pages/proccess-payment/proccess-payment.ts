@@ -90,7 +90,7 @@ export class ProccessPaymentPage {
   confirmPay(){
     let alert = this.alertCtrl.create({
       title: 'Confirmación',
-      message: '¿Desea confirmar el pago?',
+      message: '¿Desea confirmar la orden?',
       buttons: [
         {
           text: 'Cancelar',
@@ -116,15 +116,21 @@ export class ProccessPaymentPage {
     loading.present();
     this.paymentsProvider.pay(this.user.perfil.idusuario, data).subscribe((data) =>{
       loading.dismiss();
-      this.orderTracking.addOrder("f5op1989",{
-        idOrder: data.response.idfactura,
-        status: true,
+      this.orderTracking.addOrder(data.response.orden.nroorden,{
+        idOrder: data.response.orden.nroorden,
+        status: 0,
+        takeMarket: false,
+        takeMensajero: false,
+        firstNotificationMarket: false,
+        firstNotificationMensajero: false,
+        firstNotificationStar: false,
+        firstNotificationObservation: false,
         usuario: this.user.perfil,
         tienda: this.cart.tienda
       }).then((data)=>{
         console.log(data);
       })
-      this.storage.set("keyTracking", JSON.stringify({ key: "f5op1989" }));
+      this.storage.set("keyTracking", JSON.stringify({ key: data.response.orden.nroorden }));
       // .then((ref) => {
       //   console.log(ref)
       //   this.storage.set("keyTracking", JSON.stringify({ key: ref.key }));
@@ -134,11 +140,11 @@ export class ProccessPaymentPage {
       //     key: ref.key
       //   }).then((ref) => console.log(ref))
       // })
-      let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su identificador es: " + data.response.idfactura, duration: 8000, position: 'top' });
+      let toast = this.toastCtrl.create({ message: "Orden generada con éxito y llegará pronto su número de orden es: " + data.response.orden.nroorden, duration: 8000, position: 'top' });
       toast.present();
       this.storage.remove("nowstore");
       this.storage.remove("carrito");
-      this.navCtrl.popToRoot();      
+      this.navCtrl.setRoot("TrackingPage");      
     });//Payment provider
   }
 

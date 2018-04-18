@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar color="themeorange">
+    <ion-title>Obervaciones sobre la entrega</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="box">
+    <ion-card padding>
+      <ion-item>
+        <ion-label stacked>Observación</ion-label>
+        <ion-textarea placeholder="Describe tu experiencia" [(ngModel)]="note" name="note" rows="4" cols="50"></ion-textarea>
+      </ion-item>
+      <button ion-button full color="themeorange" (click)="close()">Enviar</button>
+    </ion-card>
+  </div>
+</ion-content>

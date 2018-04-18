@@ -63,8 +63,17 @@ export class MyApp {
         this.nav.setRoot("WelcomePage");
       } else {
         this.user = JSON.parse(user);
-        this.menuCtrl.enable(true);        
-        this.getPosition();
+        this.menuCtrl.enable(true);                
+
+        this.storage.get("keyTracking").then((key) => {
+          let clave = JSON.parse(key);
+          console.log(clave, typeof clave)
+          if(clave !== null){
+            this.nav.setRoot("TrackingPage");
+          }else{
+            this.getPosition();
+          }
+        })//storage
       }
 
     });//storage user

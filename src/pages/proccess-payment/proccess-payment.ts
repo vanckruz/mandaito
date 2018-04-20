@@ -18,6 +18,7 @@ export class ProccessPaymentPage {
   dataPayment: any;
   cart: any;
   form: FormGroup;
+  direction: any;
   @ViewChild(Slides) paySlide: Slides;
   @ViewChild(Content) content: Content;
 
@@ -42,8 +43,8 @@ export class ProccessPaymentPage {
       idusuariodireccion: ''
     });    
     this.storage.get("position").then(direccion =>{
-      let dir = JSON.parse(direccion);
-      this.form.patchValue({ idusuariodireccion: dir.idusuariodireccion})
+      this.direction = JSON.parse(direccion);
+      this.form.patchValue({ idusuariodireccion: this.direction.idusuariodireccion})
     })
   }
 
@@ -115,6 +116,9 @@ export class ProccessPaymentPage {
     data.total = this.cart.total;
     data.tienda = this.cart.tienda;
     let loading = this.loadingCtrl.create({ content: 'Cargando...' });
+    this.user.perfil.latitud = this.direction.latitud;
+    this.user.perfil.longitud = this.direction.longitud;
+
     loading.present();
     this.paymentsProvider.pay(this.user.perfil.idusuario, data).subscribe((data) =>{
       loading.dismiss();
@@ -125,8 +129,6 @@ export class ProccessPaymentPage {
         takeMensajero: false,
         firstNotificationMarket: false,
         firstNotificationMensajero: false,
-        firstNotificationStar: false,
-        firstNotificationObservation: false,
         usuario: this.user.perfil,
         tienda: this.cart.tienda
       }).then((data)=>{

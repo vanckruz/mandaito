@@ -40,9 +40,7 @@ export class ObervationOrderPage {
     this.orderProvider.closeOrder(this.data.idOrder, payload).subscribe((data) => {
       console.log(data)
       loading.dismiss();
-      this.realtimegeoProvider.editOrder(this.data.idOrder, {
-        status: 5
-      }).then(() => {
+      this.realtimegeoProvider.removeOrder(this.data.idOrder).then(() => {
         this.orderProvider.changeStatus(this.data.idOrder, { estatus: 5 }).subscribe((res) => {
           console.log(res)
           this.storage.remove("keyTracking")

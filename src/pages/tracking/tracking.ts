@@ -70,11 +70,13 @@ export class TrackingPage {
             this.emptyOderFlag = true;
             this.orderFirebase = data;
 
-            if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMarket && !this.orderFirebase.takeMensajero) {
+            // if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMarket && !this.orderFirebase.takeMensajero) {
+            if (this.orderFirebase.status === 1) {
               this.presentAlert("Su orden ha sido tomada por el comercio y está siendo preparada");
             }
 
-            if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMensajero && this.orderFirebase.takeMensajero){
+            // if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMensajero && this.orderFirebase.takeMensajero){
+            if (this.orderFirebase.status === 2){
               this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
             }
 

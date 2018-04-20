@@ -10,8 +10,6 @@ export interface Order{
     firstNotificationMarket?: boolean,
     firstNotificationMensajero?: boolean,
     takeMensajero?: boolean,
-    firstNotificationStar?: boolean,
-    firstNotificationObservation?: boolean,
     mensajero?: any,
     usuario?: any,
     tienda?: any,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { PerfilProvider } from '../../providers/perfil/perfil';
 
 @IonicPage()
 @Component({
@@ -11,8 +12,10 @@ export class CartPage {
   items: any;
   total: any;
   dataForPay: any;
+  user: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public loading: LoadingController, public perfilProvider: PerfilProvider) {
+    this.getPerfil();
   }
 
   ionViewDidLoad() {
@@ -46,9 +49,33 @@ export class CartPage {
     });     
   }
 
+  sumTotal(a, b){
+    return parseFloat(a)+parseFloat(b);
+  }
+
   ProccessPayment(){
     this.navCtrl.push("ProccessPaymentPage",{
       cart: this.dataForPay
     });
   }
+
+  getPerfil() {
+    this.storage.get('user').then((user) => {
+      console.log(user)
+      if (!user) {
+        this.navCtrl.setRoot("WelcomePage");
+      } else {
+        let usuario = JSON.parse(user);
+        let loading = this.loading.create({ content: "cargando" });
+        loading.present();
+        this.perfilProvider.get(usuario.idusuario).subscribe((data) => {
+          this.user = data.response.datos;
+          console.log(data.response.datos)
+          loading.dismiss();
+        });
+      }
+
+    });//storage user    
+  }
+
 }

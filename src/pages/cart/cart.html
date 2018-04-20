@@ -23,10 +23,22 @@
         <ion-col col-3>{{ item.cantidad }}</ion-col>
     </ion-row>
     <ion-row class="headers">
-      <ion-col class="lavander">Total</ion-col>
+      <ion-col class="lavander">Subtotal</ion-col>
       <ion-col class="lightgreen">₡{{total}}</ion-col>
     </ion-row>
+
+    <ion-row class="headers" *ngIf="user">
+      <ion-col class="lavander">Viaje</ion-col>
+      <ion-col class="lightgreen">₡{{ user.precios.precioviaje }}</ion-col>
+    </ion-row>
+
+    <ion-row class="headers" *ngIf="user">
+      <ion-col class="lavander">Total</ion-col>
+      <ion-col class="lightgreen">₡{{ sumTotal(total, user.precios.precioviaje) }}</ion-col>
+    </ion-row>
   </ion-grid>
+
+  
   <ion-card *ngIf="!items" padding>
     <b>No tienes productos en el carrito de compras</b>
   </ion-card>

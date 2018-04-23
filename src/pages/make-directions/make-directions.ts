@@ -94,13 +94,42 @@ export class MakeDirectionsPage implements OnInit {
       animation: google.maps.Animation.DROP,
     })
 
-    console.log("posicion tracking", posicion, typeof posicion,posicion.latitud, posicion.longitud, this.map, this.latLngUser)
+    console.log("posicion tracking", this.markerUser, posicion, typeof posicion,posicion.latitud, posicion.longitud, this.map, this.latLngUser)
     
     this.markerUser.addListener('click', () => {
       new google.maps.InfoWindow({
         content: "Usted se encuentra aquí"
       }).open(this.map, this.markerUser);
     });
+
+    let geocoder = new google.maps.Geocoder();
+    let latlng = { lat: this.markerUser.position.lat(), lng: this.markerUser.position.lng() };
+    geocoder.geocode({ 'location': latlng }, (results, status) => {
+      if (status === 'OK') {
+        console.log(results[0]);
+        let result = results[0];
+        this.place = {
+          longitud: result.geometry.location.lng(),
+          latitud: result.geometry.location.lat(),
+          direccion: result.formatted_address
+        }
+        let windowContent = `
+          <div class="card">
+          <header class="card-header">
+          <b>Dirección</b>
+          </header>
+          <div class="card-content">
+            <div class="textf">
+              ${ result.formatted_address}
+            </div>
+            </div>      
+          </div>`;
+        let infoWindowsDirection = new google.maps.InfoWindow();
+        infoWindowsDirection.setContent(windowContent);
+        infoWindowsDirection.open(this.map, this.markerUser);
+        console.log("in init",this.place)
+      }
+    });        
 
     this.markerUser.addListener('dragend', () => {
       console.log(this.markerUser);

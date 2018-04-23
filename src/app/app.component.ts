@@ -81,6 +81,7 @@ export class MyApp {
 
   logout() {
     this.storage.remove('user');
+    this.storage.remove('position');
     let loading = this.loading.create({content: 'Cargando...'});
     loading.present().then(() => {
       loading.dismiss().then(() => {

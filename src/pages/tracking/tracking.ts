@@ -80,7 +80,7 @@ export class TrackingPage {
               this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
             }
 
-            if (this.orderFirebase.mensajero !== undefined){
+            if (this.orderFirebase.status === 2 && this.orderFirebase.mensajero !== undefined){
               console.log(this.orderFirebase.mensajero.lat, this.orderFirebase.mensajero.lng)
               this.drawRoute(this.orderFirebase.mensajero.lat, this.orderFirebase.mensajero.lng);
             }
@@ -165,8 +165,7 @@ export class TrackingPage {
 
   drawRoute(lat, lng){
     let currentPositionOrder = new google.maps.LatLng(lat, lng)
-    console.log(this.markerOrder, typeof this.markerOrder)
-    if (this.markerOrder === undefined){
+    if (this.markerOrder == undefined){
       this.markerOrder = new google.maps.Marker({
         position: currentPositionOrder,
         map: this.map,
@@ -182,6 +181,7 @@ export class TrackingPage {
     }else{
       this.markerOrder.setPosition(currentPositionOrder);
     }
+    console.log(this.markerOrder, typeof this.markerOrder, this.latLngUser)
 
     this.directionsService = new google.maps.DirectionsService;
     if (this.directionsDisplay === undefined){
@@ -190,9 +190,10 @@ export class TrackingPage {
 
     this.directionsService.route({
       origin: this.latLngUser,
-      destination: new google.maps.LatLng(lat, lng),
+      destination: currentPositionOrder,
       travelMode: 'DRIVING'
     }, (response, status) => {
+      console.log(response, status)
       if (status === 'OK') {
         this.directionsDisplay.setDirections(response);
         console.log(response.routes[0].legs[0])

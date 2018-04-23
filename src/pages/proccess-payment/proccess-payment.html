@@ -83,7 +83,9 @@
                 <p>Total: ₡{{ item.total }}</p>
                 <!-- <button ion-button clear item-end [navPush]="'DetailProductPage'" [navParams]="{producto:item}">Ver</button> -->
               </ion-item>
-              <ion-item><ion-label item-start>Total:</ion-label> <span item-end>₡{{ cart.total }}</span></ion-item>
+              <ion-item><ion-label item-start>Subtotal:</ion-label> <span item-end>₡{{ cart.total }}</span></ion-item>
+              <ion-item><ion-label item-start>Viaje:</ion-label> <span item-end>₡{{ precioviaje }}</span></ion-item>
+              <ion-item><ion-label item-start>Total:</ion-label> <span item-end>₡{{ sumTotal(cart.total, precioviaje) }}</span></ion-item>
             </ion-list>
             <!-- <ion-fab top right>
               <button ion-fab mini color="themeorange" (click)="confirmPay()">

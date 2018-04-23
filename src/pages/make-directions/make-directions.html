@@ -19,7 +19,7 @@
 
     <div #map id="map"></div>
     <ion-footer>
-      <button full ion-button (click)="savePlace()" color="themeorange">
+      <button full ion-button (click)="savePlace()" color="themeorange" [disabled]="!place">
         <ion-icon name="compass" item-left color="theme-white"></ion-icon>&nbsp; Guardar
       </button>
     </ion-footer>

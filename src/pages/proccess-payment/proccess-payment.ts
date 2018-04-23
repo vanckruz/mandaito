@@ -19,6 +19,7 @@ export class ProccessPaymentPage {
   cart: any;
   form: FormGroup;
   direction: any;
+  precioviaje: any;
   @ViewChild(Slides) paySlide: Slides;
   @ViewChild(Content) content: Content;
 
@@ -37,6 +38,7 @@ export class ProccessPaymentPage {
     public orderProvider: OrderProvider
   ){
     this.cart = this.navParams.get("cart");
+    this.precioviaje = this.navParams.get("precioviaje");
     this.getPerfil();
     this.form = this.fb.group({
       idusuariometodo: ['', Validators.required],
@@ -90,6 +92,10 @@ export class ProccessPaymentPage {
     this.paySlide.lockSwipeToPrev(true);
   }
 
+  sumTotal(a, b) {
+    return parseFloat(a) + parseFloat(b);
+  }
+  
   confirmPay(){
     let alert = this.alertCtrl.create({
       title: 'Confirmación',
@@ -131,8 +137,15 @@ export class ProccessPaymentPage {
         firstNotificationMensajero: false,
         usuario: this.user.perfil,
         tienda: this.cart.tienda
-      }).then((data)=>{
-        console.log(data);
+      }).then((dat)=>{
+        console.log(dat);
+
+        this.orderTracking.editOrder(data.response.orden.nroorden, {
+          firstNotification: true
+        }).then((data) => {
+          console.log(data)
+        });  
+
       })
 
 

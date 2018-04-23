@@ -55,7 +55,8 @@ export class CartPage {
 
   ProccessPayment(){
     this.navCtrl.push("ProccessPaymentPage",{
-      cart: this.dataForPay
+      cart: this.dataForPay,
+      precioviaje: this.user.precios.precioviaje
     });
   }
 

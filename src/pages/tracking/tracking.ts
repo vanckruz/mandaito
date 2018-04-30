@@ -24,6 +24,8 @@ export class TrackingPage {
   markerOrder: any;
   directionsService: any;
   directionsDisplay: any;
+  showAlertStore: boolean = false;
+  showAlertMensajero: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -70,14 +72,14 @@ export class TrackingPage {
             this.emptyOderFlag = true;
             this.orderFirebase = data;
 
-            // if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMarket && !this.orderFirebase.takeMensajero) {
             if (this.orderFirebase.status === 1) {
-              this.presentAlert("Su orden ha sido tomada por el comercio y está siendo preparada");
+              // this.presentAlert("Su orden ha sido tomada por el comercio y está siendo preparada");
+              this.showAlertStore = true;
             }
-
-            // if (this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMensajero && this.orderFirebase.takeMensajero){
+            
             if (this.orderFirebase.status === 2){
-              this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
+              // this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
+              this.showAlertMensajero = true;
             }
 
             if (this.orderFirebase.status === 2 && this.orderFirebase.mensajero !== undefined){
@@ -223,6 +225,14 @@ export class TrackingPage {
       });
 
     });//storage user    
+  }
+
+  closeAlertStore(){
+    this.showAlertStore = false;
+  }
+
+  closeAlertMensajero(){
+    this.showAlertMensajero = false;
   }
 
   detailtracking(){

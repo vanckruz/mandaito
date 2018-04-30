@@ -6,6 +6,12 @@ export const routes = {
     verifyEmail: ($email) => {
         return `${ROOT}/correo/${$email}`
     },
+    validCodeEmail: ($email) => {
+        return `${ROOT}/verificar/${$email}`
+    },
+    reSendCodeEmail: ($email) => {
+        return `${ROOT}/reenviar/verificacion/${$email}`
+    },
     registerUser: () => {
         return `${ROOT}/register`
     },

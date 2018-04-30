@@ -11,7 +11,12 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage {
   form: FormGroup;
-
+  showLogin: boolean = true;
+  showVerifyEmail: boolean = false;
+  emailConfirm: string;
+  showverifyCode: boolean = false;
+  codeConfirm: string;
+  
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -82,6 +87,11 @@ export class LoginPage {
           position: 'top'
         });        
         toast.present();
+        if (data.response.statusLogin == 6){
+          this.showLogin = false;
+          this.showVerifyEmail = true;
+          this.emailConfirm = this.form.value.email;
+        }
       }
     },
       err => {
@@ -96,6 +106,38 @@ export class LoginPage {
       });
   }
 
+  validCode(){
+    let loading = this.loading.create({ content: 'Cargando...' });
+    loading.present();
+    this.loginProvider.validCode(this.emailConfirm, this.codeConfirm).subscribe((data) => {
+      loading.dismiss();
+      this.showVerifyEmail = false;
+      this.showverifyCode = false;      
+      this.showLogin = true;   
+      let toast = this.toastCtrl.create({
+        message: "Email verificado ya puedes iniciar sesión",
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();         
+    })
+  }
+
+  reSendValidCode(){
+     let loading = this.loading.create({ content: 'Cargando...' });
+    loading.present();
+    this.loginProvider.reSendValidCode(this.emailConfirm).subscribe((data) => {
+      loading.dismiss();   
+      this.showVerifyEmail = false;
+      this.showverifyCode = true;
+      let toast = this.toastCtrl.create({
+        message: "Hemos enviado un código de verificación a su email",
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+    })
+  }
 
   goToSignIn(){
     this.navCtrl.push("RegisterUserPage");

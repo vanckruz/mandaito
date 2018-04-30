@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <img src="assets/imgs/logounbg.png">
-  <ion-card padding>
+  <ion-card padding *ngIf="showLogin">
     <form [formGroup]="form" novalidate>
       <ion-item color="theme-blue">
         <ion-label floating>Email</ion-label>
@@ -33,6 +33,32 @@
       <button full ion-button outline color="theme-purple" clear class="bt1" color="themeorange">Olvidé la contraseña</button>
       <button full ion-button outline color="theme-purple" clear class="bt2" (click)="goToSignIn()" color="themeorange">Aún no tengo cuenta</button>
     </div>
+  </ion-card>
+
+  <ion-card *ngIf="showVerifyEmail">
+    <ion-card-content>
+      <ion-item color="theme-blue">
+        <ion-label stacked>Ingresa tu email</ion-label>
+        <ion-input type="email" [(ngModel)]="emailConfirm"></ion-input>
+      </ion-item>
+      <ion-label></ion-label>
+      <ion-buttons right>
+        <button ion-button color="theme-orange" (click)="reSendValidCode()">Reenviar código</button>
+      </ion-buttons>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="showverifyCode">
+    <ion-card-content>
+      <ion-item color="theme-blue">
+        <ion-label stacked>Ingresa el código enviado a tu email</ion-label>
+        <ion-input type="email" [(ngModel)]="codeConfirm"></ion-input>
+      </ion-item>
+      <ion-label></ion-label>
+      <ion-buttons right>
+        <button ion-button color="theme-orange" (click)="validCode()">Validar código</button>
+      </ion-buttons>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

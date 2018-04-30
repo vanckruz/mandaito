@@ -12,7 +12,12 @@ export class RegisterUserPage {
   form: FormGroup;
   emailError: number = 0;
   blurEmail: boolean = false;
-  
+  showRegister: boolean = true;
+  showverifyCode: boolean = false;
+  emailConfirm: string;
+  codeConfirm: string;
+  user: any;
+
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
@@ -28,13 +33,17 @@ export class RegisterUserPage {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      correo: ['', Validators.required],
+      correo: ['', Validators.compose([
+        Validators.required,
+        Validators.email,
+      ])],
       provincia: ['', Validators.required],
       idprovincia: ['', Validators.required],
       telefono: ['', Validators.required],
-      code: ['', Validators.required],
-      tipo: 2
-      //password: ['', Validators.required]
+      code: ['+506', Validators.required],
+      clave: ['', Validators.required],
+      clave2: '',
+      tipo: 2,
     });  
   }
 
@@ -48,8 +57,10 @@ export class RegisterUserPage {
     popover.present();
     
     popover.onDidDismiss((data: any) => {
-      console.log(data)
-      this.form.patchValue({code: '+'+data.callingCodes[0]})
+      console.log(data, typeof data)
+      if (data != null) {
+        this.form.patchValue({code: '+'+data.callingCodes[0]})
+      }
     });//Dismiss popover
   }
 
@@ -58,8 +69,10 @@ export class RegisterUserPage {
     popover.present();
 
     popover.onDidDismiss((data: any) => {
-      console.log(data)
-      this.form.patchValue({ provincia: data.descripcion, idprovincia: data.idprovincia })
+      console.log(data, typeof data)
+      if(data !== null){
+        this.form.patchValue({ provincia: data.descripcion, idprovincia: data.idprovincia })
+      }
     });//Dismiss popover
   }
 
@@ -79,15 +92,18 @@ export class RegisterUserPage {
       this.form.patchValue({ telefono: this.form.value.code + this.form.value.telefono})
       delete this.form.value.provincia;
       delete this.form.value.code;
+      delete this.form.value.clave2;
 
       console.log(this.form.value)
 
-      this.registerUserProvider.register(this.form.value).subscribe( data => {
-        console.log(data)
+      this.registerUserProvider.register(this.form.value).subscribe(data => {
+        console.log(data)       
+        this.user = data.response.objUsuario;
         loading.dismiss();
-        let toast = this.toastCtrl.create({ message: "Registro exitoso le estaremos enviando un correo con su clave de inicio de sesión", duration: 3000, position: 'top' });
+        let toast = this.toastCtrl.create({ message: "Registro exitoso le estaremos enviando un correo con un código de validación", duration: 3000, position: 'top' });
         toast.present();     
-        this.navCtrl.setRoot("LoginPage")   
+        this.showRegister = false;  
+        this.showverifyCode = true;  
       });
 
     }
@@ -112,4 +128,22 @@ export class RegisterUserPage {
 
     });
   }    
+
+  validCode() {
+    let loading = this.loading.create({ content: 'Cargando...' });
+    loading.present();
+    this.registerUserProvider.validCode(this.user.correo, this.codeConfirm).subscribe((data) => {
+      loading.dismiss();
+      // this.showverifyCode = false;
+      let toast = this.toastCtrl.create({
+        message: "Email verificado correctamente",
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+      this.navCtrl.push("MakeMethodRegisterPage", {
+        user: this.user
+      })
+    })
+  }  
 }

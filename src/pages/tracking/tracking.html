@@ -1,7 +1,17 @@
 <ion-header>
 
   <ion-navbar color="themeorange">
-    <ion-title>Tracking</ion-title>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Tracking</ion-title>
+    <ion-buttons right *ngIf="emptyOderFlag">
+      <button ion-button (click)="detailtracking()">
+        <ion-icon name="eye" class="menuI"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -14,9 +24,26 @@
   <ion-toolbar *ngIf="!emptyOderFlag" color="themeorange">
     <p class="infor2"><ion-icon name="information-circle"></ion-icon> No tienes una orden activa</p>
   </ion-toolbar>
-  <div #map id="map"></div>
+  <div #map id="map" [ngClass]="{'mapInside':orderFlag}"></div>
+  
+  <div class="notificationAlert" *ngIf="showAlertStore">
+    <img src="/assets/imgs/tick.png">
+    <P class="msgConfirm">Su orden ha sido tomada por el comercio y está siendo preparada</P>
+    <ion-footer>
+      <button ion-button full color="light" (click)="closeAlertStore()">Aceptar</button>
+    </ion-footer>
+  </div>
 
-  <ion-fab bottom left *ngIf="emptyOderFlag"> <!--Mostrar solo si hay datos por lo que seeria el inverso de emptyOderFlag-->
+  <div class="notificationAlert" *ngIf="showAlertMensajero">
+    <img src="/assets/imgs/tick.png">    
+    <P class="msgConfirm">Su orden ha sido tomada por un mensajero, ya va en camino</P>
+    <ion-footer>
+      <button ion-button full color="light" (click)="closeAlertMensajero()">Aceptar</button>
+    </ion-footer>
+  </div>
+
+  <!--Mostrar solo si hay datos por lo que seeria el inverso de emptyOderFlag-->
+  <!-- <ion-fab bottom left *ngIf="emptyOderFlag"> 
     <button ion-fab mini color="themeorange" (click)="detailtracking()"><ion-icon name="eye"></ion-icon></button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

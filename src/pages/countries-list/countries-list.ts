@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
-import { CountriesProvider } from '../../providers/countries/countries';
+// import { CountriesProvider } from '../../providers/countries/countries';
+import { COUNTRIES } from '../../constants/countries';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,7 @@ export class CountriesListPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public countries: CountriesProvider,
+    // public countries: CountriesProvider,
     public viewCtrl: ViewController,
     public loading: LoadingController
   ){
@@ -25,12 +26,15 @@ export class CountriesListPage {
 
     loading.present();
     
-    this.countries.get().subscribe(
-        data => {
-          loading.dismiss();
-          this.countriesList = data;
-        }
-    );
+    // this.countries.get().subscribe(
+    //     data => {
+    //       loading.dismiss();
+    //       this.countriesList = data;
+    //     }
+    // );
+    
+    this.countriesList = COUNTRIES;
+    loading.dismiss();
   }
 
   passCallingPhone(country){

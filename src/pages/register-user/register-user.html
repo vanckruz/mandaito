@@ -1,93 +1,114 @@
 <ion-header>
-
-  <ion-navbar color="themeorange">
-    <ion-title>Registro</ion-title>
+	
+	<ion-navbar color="themeorange">
+		<ion-title>Registro</ion-title>
   </ion-navbar>
-
+	
 </ion-header>
 
 
 <ion-content padding>
-	<form form [formGroup]="form" novalidate>
-		<ion-grid>
-		  <ion-row>
-		    <ion-col col-6>  
-					<ion-item>
-						<ion-label floating>Nombre</ion-label>s
-						<ion-input type="text" name="nombre" formControlName="nombre" #nombre></ion-input>
-					</ion-item>
-					<div padding *ngIf="form.controls.nombre.errors && form.controls.nombre.dirty">
-						<ion-label color="danger" *ngIf="form.controls.nombre.errors.required">*Requerido</ion-label>
+	<div *ngIf="showRegister">
+		<form form [formGroup]="form" novalidate>
+			<ion-grid>
+				<ion-row>
+					<ion-col col-6>  
+						<ion-item>
+							<ion-label stacked>Nombre</ion-label>s
+							<ion-input type="text" name="nombre" formControlName="nombre" #nombre></ion-input>
+						</ion-item>
+						<div padding *ngIf="form.controls.nombre.errors && form.controls.nombre.dirty">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.nombre.errors.required">*Requerido</ion-label>
+						</div>
+					</ion-col>
+					<ion-col col-6>  
+						<ion-item>
+							<ion-label stacked>Apellidos</ion-label>
+							<ion-input type="text" name="apellido" formControlName="apellido" #apellido></ion-input>
+						</ion-item>
+						<div padding *ngIf="form.controls.apellido.errors && form.controls.apellido.dirty">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.apellido.errors.required">*Requerido</ion-label>
+						</div>
+					</ion-col>		
+				</ion-row>
+				
+				<ion-row>
+					<ion-col col-6>
+						<ion-item>
+							<ion-label stacked>Correo</ion-label>
+							<ion-input type="text" name="correo" formControlName="correo" #correo (ionBlur)="userValid(correo)"></ion-input>
+						</ion-item>
+						<div *ngIf="blurEmail">
+							<ion-label color="danger" *ngIf="emailError == 1 ">Email no disponible</ion-label>
+							<ion-label color="theme-green" *ngIf="emailError == 0">Email disponible</ion-label>
+						</div>
+						<div padding *ngIf="form.controls.correo.errors && form.controls.correo.dirty">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.correo.errors.required">*Requerido</ion-label>
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.correo.errors.email">Email invalido</ion-label>
+						</div>
+					</ion-col>
+					<ion-col col-6>
+						<ion-item [ngClass]="{'greenborder': provincia.value != ''}">
+							<ion-label stacked>Provincia</ion-label>
+							<ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()" readonly></ion-input>
+							<input type="hidden" name="idprovincia" formControlName="idprovincia" #idprovincia>
+						</ion-item>
+						<div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.touched">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
+						</div>
+					</ion-col>
+				</ion-row>
+				
+				<ion-row>
+					<ion-col col-4>  
+						<ion-item [ngClass]="{'greenborder': code.value != ''}">
+							<ion-label stacked>Prefijo</ion-label>
+							<ion-input type="text" name="code" formControlName="code" #code (focus)="showCountries()" readonly></ion-input>
+						</ion-item>
+						<div padding *ngIf="form.controls.code.errors && form.controls.code.touched">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.code.errors.required">*Requerido</ion-label>
+						</div>
+					</ion-col>
+					<ion-col col-8>  
+						<ion-item>
+							<ion-label stacked>Teléfono</ion-label>
+							<ion-input type="text" name="telefono" formControlName="telefono" #telefono></ion-input>
+						</ion-item>
+						<div padding *ngIf="form.controls.telefono.errors && form.controls.telefono.dirty">
+							<ion-label color="danger" class="infoT" *ngIf="form.controls.telefono.errors.required">*Requerido</ion-label>
+						</div>
+					</ion-col>		
+				</ion-row>		  
+				
+				<ion-row>
+					<ion-col>
+						<ion-item>
+							<ion-label stacked>Clave</ion-label>
+							<ion-input type="password" name="clave" formControlName="clave" #clave></ion-input>
+						</ion-item>
+					</ion-col>
+
+					<ion-col>
+						<ion-item>
+							<ion-label stacked>Confirmar clave</ion-label>
+							<ion-input type="password" name="clave2" formControlName="clave2" #clave2></ion-input>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+				
+				<ion-row>
+					<div padding *ngIf="form.controls.clave.errors && form.controls.clave.dirty">
+						<ion-label color="danger" class="infoT" *ngIf="form.controls.clave.errors.required">*Requerido</ion-label>
 					</div>
-				</ion-col>
-		    <ion-col col-6>  
-		      <ion-item>
-			    	<ion-label floating>Apellidos</ion-label>
-			   		<ion-input type="text" name="apellido" formControlName="apellido" #apellido></ion-input>
-					</ion-item>
-					<div padding *ngIf="form.controls.apellido.errors && form.controls.apellido.dirty">
-						<ion-label color="danger" *ngIf="form.controls.apellido.errors.required">*Requerido</ion-label>
+					<div padding *ngIf="form.controls.clave2.dirty">
+						<ion-label color="danger" class="infoT" *ngIf="clave.value != clave2.value">Las claves no coinciden</ion-label>
 					</div>
-				</ion-col>		
-		  </ion-row>
-			
-			<ion-row>
-				<ion-col col-6>
-					<ion-item>
-						<ion-label floating>Correo</ion-label>
-						<ion-input type="text" name="correo" formControlName="correo" #correo (ionBlur)="userValid(correo)"></ion-input>
-					</ion-item>
-					<div *ngIf="blurEmail">
-						<ion-label color="danger" *ngIf="emailError == 1 ">Email no disponible</ion-label>
-						<ion-label color="theme-green" *ngIf="emailError == 0">Email disponible</ion-label>
-					</div>
-					<div padding *ngIf="form.controls.correo.errors && form.controls.correo.dirty">
-						<ion-label color="danger" *ngIf="form.controls.correo.errors.required">*Requerido</ion-label>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<ion-item [ngClass]="{'greenborder': provincia.value != ''}">
-						<ion-label floating>Provincia</ion-label>
-						<ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()"></ion-input>
-						<input type="hidden" name="idprovincia" formControlName="idprovincia" #idprovincia>
-					</ion-item>
-					<div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.touched">
-						<ion-label color="danger" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
-					</div>
-				</ion-col>
-			</ion-row>
-			
-		  <ion-row>
-				<ion-col col-4>  
-					<ion-item [ngClass]="{'greenborder': code.value != ''}">
-						<ion-label floating>Prefijo</ion-label>
-						<ion-input type="text" name="code" formControlName="code" #code (focus)="showCountries()"></ion-input>
-					</ion-item>
-					<div padding *ngIf="form.controls.code.errors && form.controls.code.touched">
-						<ion-label color="danger" *ngIf="form.controls.code.errors.required">*Requerido</ion-label>
-					</div>
-				</ion-col>
-		    <ion-col col-8>  
-					<ion-item>
-						<ion-label floating>Teléfono</ion-label>
-						<ion-input type="text" name="telefono" formControlName="telefono" #telefono></ion-input>
-					</ion-item>
-					<div padding *ngIf="form.controls.telefono.errors && form.controls.telefono.dirty">
-						<ion-label color="danger" *ngIf="form.controls.telefono.errors.required">*Requerido</ion-label>
-					</div>
-				</ion-col>		
-		  </ion-row>		  
-			
-			<!--<ion-row>
-				<ion-col>
-					<ion-item>
-						<ion-label floating>Contraseña</ion-label>
-						<ion-input type="text" name="password" formControlName="password" #password></ion-input>
-					</ion-item>
-				</ion-col>
-			</ion-row>-->
-			
-			<ion-row>
+				</ion-row>
+			</ion-grid>
+		</form>
+		
+		<ion-footer>
+			<ion-row padding>
 				<ion-col>
 					<span>Al hacer click en "Registrarse" confirmo que he leido y aceptado los 
 						<a (click)="goToConditions()">terminos y condiciones</a> y las <a (click)="goToPolicies()">politicas de privacidad</a>
@@ -97,9 +118,23 @@
 			
 			<ion-row>
 				<ion-col>
-					<button full ion-button (click)="register()" [disabled]="form.invalid" color="themeorange">Registrarse</button>
+					<button full ion-button (click)="register()" [disabled]="form.invalid || clave.value !== clave2.value" color="themeorange">Registrarse</button>
 				</ion-col>
 			</ion-row>			
-		</ion-grid>
-	</form>
+		</ion-footer>
+	</div>
+
+	<ion-card *ngIf="showverifyCode">
+		<ion-card-content>
+			<ion-item color="theme-blue">
+				<ion-label stacked>Ingresa el código enviado a tu email</ion-label>
+				<ion-input type="email" [(ngModel)]="codeConfirm"></ion-input>
+			</ion-item>
+			<ion-label></ion-label>
+			<ion-buttons right>
+				<button ion-button color="theme-orange" (click)="validCode()">Validar código</button>
+			</ion-buttons>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
+		

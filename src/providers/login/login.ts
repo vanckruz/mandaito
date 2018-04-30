@@ -17,4 +17,16 @@ export class LoginProvider {
     return this.http.post(routes.login(), user, { headers: headers });
   }
 
+  validCode(correo, data): Observable<any> {
+    let datos = JSON.stringify({codigo: data});    
+    let headers = new HttpHeaders().set('Content-Type', 'application/json;charset=utf-8');
+
+    return this.http.post(routes.validCodeEmail(correo), datos, { headers: headers });
+  }
+
+  reSendValidCode(correo): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json;charset=utf-8');
+
+    return this.http.post(routes.reSendCodeEmail(correo), null, { headers: headers });
+  }  
 }

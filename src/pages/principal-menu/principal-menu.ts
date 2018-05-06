@@ -14,6 +14,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class PrincipalMenuPage {
   categorias: any;
+  categoriasAux: any;
   searchTerm: string;
   position: any;
 
@@ -42,6 +43,7 @@ export class PrincipalMenuPage {
       data => {
         loading.dismiss();
         this.categorias = data.response.datos;
+        this.categoriasAux = data.response.datos;
         console.log(this.categorias)
       }
     );    
@@ -53,7 +55,7 @@ export class PrincipalMenuPage {
 
   filterCategories() {
     if (this.searchTerm !== ""){
-      this.categorias = this.categorias.filter((item) => {
+      this.categorias = this.categoriasAux.filter((item) => {
         return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
 

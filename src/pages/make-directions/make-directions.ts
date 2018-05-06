@@ -89,7 +89,7 @@ export class MakeDirectionsPage implements OnInit {
       position: this.latLngUser,
       map: this.map,
       title: 'Te encuentras en aquí',
-      icon: 'assets/icon/smiley_happy.png',
+      icon: 'assets/icon/user.png',
       draggable: true,
       animation: google.maps.Animation.DROP,
     })

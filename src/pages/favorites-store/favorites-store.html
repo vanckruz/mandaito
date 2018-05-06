@@ -37,10 +37,10 @@
     </ion-card>
   </div>
 
-  <ion-card *ngIf="tiendas != undefined && tiendas.length == 0" padding>
+  <ion-card *ngIf="!tiendas" padding>
     <p text-center>
       <ion-icon name="ios-information-circle-outline" class="infoicon"></ion-icon>
     </p>
-    <p class="info"> No tienes tiendas guardadas</p>
+    <p class="info" text-center> No tienes tiendas guardadas</p>
   </ion-card>
 </ion-content>

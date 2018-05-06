@@ -28,11 +28,16 @@ page-perfil {
         border-radius: 50%;
         padding: 1em !important;
     }
-	.address-info{
-		span{
-			display: block;
-		}
-	}    
+    .directionsList{
+        ion-label{
+            white-space: initial !important;
+        }
+    }
+    .history-info{
+        span{
+            display: block;
+        }        
+    }
     .full{
         width: 100%;
         height: 100%;

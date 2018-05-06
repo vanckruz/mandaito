@@ -24,6 +24,7 @@ export class TrackingPage {
   markerOrder: any;
   directionsService: any;
   directionsDisplay: any;
+  idOderTracking: any;
   showAlertStore: boolean = false;
   showAlertMensajero: boolean = false;
 
@@ -63,6 +64,9 @@ export class TrackingPage {
       let clave = JSON.parse(id);//Firebase key 
       console.log(clave)
       if(clave !== null){
+        
+        this.idOderTracking = clave.key;
+
         this.orderTracking.getDetailOrder(clave.key)
         .valueChanges()
         .subscribe(
@@ -72,12 +76,12 @@ export class TrackingPage {
             this.emptyOderFlag = true;
             this.orderFirebase = data;
 
-            if (this.orderFirebase.status === 1) {
+            if (this.orderFirebase.status === 1 && this.orderFirebase.takeMarket && !this.orderFirebase.firstNotificationMarket) {
               // this.presentAlert("Su orden ha sido tomada por el comercio y está siendo preparada");
               this.showAlertStore = true;
             }
             
-            if (this.orderFirebase.status === 2){
+            if (this.orderFirebase.status === 2 && this.orderFirebase.takeMensajero && !this.orderFirebase.firstNotificationMensajero){
               // this.presentAlert("Su orden ha sido tomada por un mensajero, ya va en camino");
               this.showAlertMensajero = true;
             }
@@ -153,7 +157,7 @@ export class TrackingPage {
       position: this.latLngUser,
       map: this.map,
       title: 'Te encuentras en aquí',
-      icon: 'assets/icon/smiley_happy.png',
+      icon: 'assets/icon/user.png',
       // animation: google.maps.Animation.DROP,      
     })
     
@@ -172,7 +176,7 @@ export class TrackingPage {
         position: currentPositionOrder,
         map: this.map,
         title: 'Tu orden se encuentra aquí',
-        icon: 'assets/icon/bag.png',
+        icon: 'assets/icon/tienda.png',
         // animation: google.maps.Animation.DROP,        
       });
       this.markerOrder.addListener('click', function () {
@@ -202,7 +206,7 @@ export class TrackingPage {
         this.orderFlag = true;
         this.orderDirection = response.routes[0].legs[0];
       } else {
-        window.alert('Error conectando a google ' + status);
+        console.log('Error conectando a google ' + status);
       }
     });
 
@@ -229,13 +233,29 @@ export class TrackingPage {
 
   closeAlertStore(){
     this.showAlertStore = false;
+    this.firstNotificationMarketCompleted();
+    
   }
 
   closeAlertMensajero(){
     this.showAlertMensajero = false;
+    this.firstNotificationMensajeroCompleted();
+    
   }
 
   detailtracking(){
     this.navCtrl.push('DetailTrackingPage');
+  }
+
+  firstNotificationMarketCompleted(){
+    this.orderTracking.editOrder(this.idOderTracking, {
+      firstNotificationMarket: true
+    });
+  }
+
+  firstNotificationMensajeroCompleted(){
+    this.orderTracking.editOrder(this.idOderTracking, {
+      firstNotificationMensajero: true
+    });
   }
 }

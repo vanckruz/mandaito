@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PerfilProvider } from '../../providers/perfil/perfil';
 
@@ -14,7 +14,14 @@ export class CartPage {
   dataForPay: any;
   user: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public loading: LoadingController, public perfilProvider: PerfilProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public storage: Storage, 
+    public loading: LoadingController, 
+    public perfilProvider: PerfilProvider,
+    private alertCtrl: AlertController
+  ){
     this.getPerfil();
   }
 
@@ -54,9 +61,26 @@ export class CartPage {
   }
 
   ProccessPayment(){
-    this.navCtrl.push("ProccessPaymentPage",{
-      cart: this.dataForPay,
-      precioviaje: this.user.precios.precioviaje
+    this.storage.get("keyTracking").then((id) => {
+      let clave = JSON.parse(id);//Firebase key 
+      console.log(clave)
+      if (clave === null) {
+        this.navCtrl.push("ProccessPaymentPage",{
+          cart: this.dataForPay,
+          precioviaje: this.user.precios.precioviaje
+        });
+      }else{
+        let alert = this.alertCtrl.create({
+          title: 'Mensaje',
+          subTitle: `Tienes un mandado en progreso su número de orden es ${clave.key}`,
+          buttons: [
+            {
+              text: 'aceptar'
+            }
+          ]
+        });
+        alert.present();           
+      }
     });
   }
 

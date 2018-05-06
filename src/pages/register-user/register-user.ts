@@ -37,8 +37,8 @@ export class RegisterUserPage {
         Validators.required,
         Validators.email,
       ])],
-      provincia: ['', Validators.required],
-      idprovincia: ['', Validators.required],
+      // provincia: ['', Validators.required],
+      // idprovincia: ['', Validators.required],
       telefono: ['', Validators.required],
       code: ['+506', Validators.required],
       clave: ['', Validators.required],
@@ -90,7 +90,7 @@ export class RegisterUserPage {
       loading.present();    
 
       this.form.patchValue({ telefono: this.form.value.code + this.form.value.telefono})
-      delete this.form.value.provincia;
+      // delete this.form.value.provincia;
       delete this.form.value.code;
       delete this.form.value.clave2;
 

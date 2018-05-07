@@ -8,7 +8,7 @@
 
 <ion-content>
   <div *ngIf="order != null && order.productos.length > 0">
-    <img [src]="order.fototienda" class="imgtienda" *ngIf="order.fototienda">
+    <img [src]="order.orden.fototienda" class="imgtienda" *ngIf="order.orden.fototienda">
     <ion-list *ngIf="order.orden">
       <ion-list-header>{{ order.orden.tienda }}</ion-list-header>
       <ion-item>

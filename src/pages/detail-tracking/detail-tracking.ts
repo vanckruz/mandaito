@@ -39,7 +39,12 @@ export class DetailTrackingPage {
         let idOrder = JSON.parse(key);
         this.orderProvider.detailOrder(usuario.idusuario, idOrder.key).subscribe((data) => {
           this.order = data.response.datos;
-          console.log(data)
+          this.order.total = 0;
+          
+          for (let i of this.order.productos) {
+            this.order.total += parseFloat(i.precio) * parseFloat(i.cantidad);
+          }          
+          console.log(this.order)
           loading.dismiss();
         });
       });

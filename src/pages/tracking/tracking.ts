@@ -58,6 +58,9 @@ export class TrackingPage {
     alert.present();
   }
 
+  callMensajero(phone){
+    window.open('tel:' + phone);
+  }
   
   getMyTrackingOrder(){
     this.storage.get("keyTracking").then((id) => {

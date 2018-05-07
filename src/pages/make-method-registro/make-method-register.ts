@@ -32,7 +32,7 @@ export class MakeMethodRegisterPage {
     this.max = moment(Date.now()).add(5, 'y').format("YYYY");    
     
     this.form = this.fb.group({
-      tipotarjeta: ['', Validators.required],
+      // tipotarjeta: ['', Validators.required],
       tarjetanro: ['', Validators.compose([
         Validators.required,
         Validators.pattern('([0-9])*$'),
@@ -47,7 +47,7 @@ export class MakeMethodRegisterPage {
         Validators.maxLength(3),
         Validators.minLength(3),
       ])],
-      pais: ['', Validators.required],
+      // pais: ['', Validators.required],
     });      
     this.user = this.navParams.get("user");
   }

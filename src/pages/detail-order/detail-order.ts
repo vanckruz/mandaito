@@ -34,7 +34,12 @@ export class DetailOrderPage {
     loading.present();
     this.orderProvider.detailOrder(this.user.idusuario, this.orderId).subscribe((data) => {
       this.order = data.response.datos;
-      console.log(data)
+      this.order.total = 0;
+
+      for (let i of this.order.productos) {
+        this.order.total += parseFloat(i.precio) * parseFloat(i.cantidad);
+      }         
+      console.log(this.order)
       loading.dismiss();
     });    
   }

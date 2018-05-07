@@ -43,11 +43,7 @@ export class PrincipalMenuPage {
       data => {
         loading.dismiss();
         this.categorias = data.response.datos;
-<<<<<<< HEAD
-=======
         this.categoriasAux = data.response.datos;
-        console.log(this.categorias)
->>>>>>> cc03801930f0eb77804ed1c50d677592d877cf84
       }
     );    
   }

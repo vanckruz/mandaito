@@ -48,6 +48,9 @@ export class ProccessPaymentPage {
       this.direction = JSON.parse(direccion);
       this.form.patchValue({ idusuariodireccion: this.direction.idusuariodireccion})
     })
+    this.events.subscribe("userLogin", (user) => {
+      this.user = user;
+    });    
   }
 
   ionViewDidLoad() {
@@ -62,6 +65,11 @@ export class ProccessPaymentPage {
     }
   }
 
+  goToMakeCard(){
+    this.navCtrl.push("MakeMethodsPage",{
+      user: this.user
+    });
+  }
 
   getPerfil() {
     this.storage.get('user').then((user) => {
@@ -141,7 +149,7 @@ export class ProccessPaymentPage {
         console.log(dat);
 
         this.orderTracking.editOrder(data.response.orden.nroorden, {
-          firstNotification: true
+          comercioFlag: true
         }).then((data) => {
           console.log(data)
         });  

@@ -24,6 +24,7 @@
                     <ion-option [value]="metodo.idusuariometodo" *ngFor="let metodo of user.metodos">xxxx xxxx xxxx {{ metodo.tarjetanro.substr(-4) }}</ion-option>
                   </ion-select>
                 </ion-item>
+                <button full ion-button color="themeorange" (click)="goToMakeCard()" *ngIf="user.metodos.length === 0">Registrar tarjeta</button>
               </ion-card-content>
             </ion-card>
             <ion-footer>

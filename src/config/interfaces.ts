@@ -1,16 +1,16 @@
 import { take } from "rxjs/operator/take";
 
 export interface Order{
-    idOrder: number,
-    status: number,
     key?: string;
-    lng?: number,
-    lat?: number,
-    takeMarket?: boolean,
-    firstNotificationMarket?: boolean,
-    firstNotificationMensajero?: boolean,
-    takeMensajero?: boolean,
-    mensajero?: any,
-    usuario?: any,
-    tienda?: any,
+    idOrder: number;
+    status: number;
+    lng?: number;
+    lat?: number;
+    usuario?: any;
+    tienda?: any;
+    mensajero?: any;
+    takeMarket?: boolean;
+    takeMensajero?: boolean;
+    firstNotificationMarket?: boolean;
+    firstNotificationMensajero?: boolean;
 }

@@ -91,22 +91,37 @@
             <ion-list-header>
               Direcciones de Envios <ion-icon name="add" item-right (click)="addDirection()"></ion-icon>
             </ion-list-header>
-            <ion-item *ngFor="let item of user.direcciones" [color]="!item.selected ? 'whited': 'secondary'">
+            <ion-item *ngFor="let item of user.direcciones" [color]="!item.selected ? 'whited': 'secondary'" class="directionsList">
               <ion-icon name="pin" item-start></ion-icon>
               <p class="address-info">
-                <span>{{ item.direccion }}</span>
+                {{ item.direccion }}
               </p>
-              <button ion-button color="dark" item-right outline (click)="presentPopoverDirection(item)" class="round">
-                <ion-icon name="md-more"></ion-icon>
+              <button ion-button color="dark" item-right outline (click)="presentPopoverDirection(item)" >
+                <ion-icon name="menu"></ion-icon>
               </button>
             </ion-item>
           </ion-list>
 
         </div>
         <div *ngSwitchCase="'history'">
-          <a ion-item>
-            <ion-label>Historial de Compra</ion-label>
-          </a>
+          <ion-list>
+            <ion-list-header>
+              Historial de Compra
+            </ion-list-header>
+            <ion-card *ngFor="let item of user.historiales">
+              <ion-item>
+                <ion-icon name="logo-buffer" item-start></ion-icon>
+                <p class="history-info">
+                  Nro. orden:<span>{{ item.nroorden }}</span>
+                  <br>
+                  Fecha: <span>{{ item.fecha }}</span>
+                </p>
+                <button ion-button color="dark" item-right outline (click)="detailOrder(item)">
+                  <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+              </ion-item>
+            </ion-card>
+          </ion-list>
         </div>
       </div>
 

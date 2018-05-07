@@ -33,7 +33,7 @@
 				</ion-row>
 				
 				<ion-row>
-					<ion-col col-6>
+					<ion-col col-12>
 						<ion-item>
 							<ion-label stacked>Correo</ion-label>
 							<ion-input type="text" name="correo" formControlName="correo" #correo (ionBlur)="userValid(correo)"></ion-input>
@@ -47,7 +47,7 @@
 							<ion-label color="danger" class="infoT" *ngIf="form.controls.correo.errors.email">Email invalido</ion-label>
 						</div>
 					</ion-col>
-					<ion-col col-6>
+					<!-- <ion-col col-6>
 						<ion-item [ngClass]="{'greenborder': provincia.value != ''}">
 							<ion-label stacked>Provincia</ion-label>
 							<ion-input type="text" name="provincia" formControlName="provincia" #provincia (focus)="showProvincias()" readonly></ion-input>
@@ -56,7 +56,7 @@
 						<div padding *ngIf="form.controls.provincia.errors && form.controls.provincia.touched">
 							<ion-label color="danger" class="infoT" *ngIf="form.controls.provincia.errors.required">*Requerido</ion-label>
 						</div>
-					</ion-col>
+					</ion-col> -->
 				</ion-row>
 				
 				<ion-row>

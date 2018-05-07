@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar color="themeorange">
+    <ion-title>Detalle de la orden</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div *ngIf="order != null && order.productos.length > 0">
+    <img [src]="order.orden.fototienda" class="imgtienda" *ngIf="order.orden.fototienda">
+    <ion-list *ngIf="order.orden">
+      <ion-list-header>{{ order.orden.tienda }}</ion-list-header>
+      <ion-item>
+        <b>Orden#</b>
+        <span item-right>{{ order.orden.nroorden }}</span>
+      </ion-item>
+      <ion-item>
+        <b>Fecha: </b>
+        <span>{{ order.orden.fecha.split(" ")[0] }}</span>
+        <span item-right>
+          <b>Hora: </b>{{ order.orden.fecha.split(" ")[1] }}</span>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item *ngFor="let item of order.productos;let i = index;">
+          <ion-thumbnail item-start *ngIf="item.fotoproducto">
+            <img [src]="item.fotoproducto" *ngIf="item.fotoproducto">
+          </ion-thumbnail>
+          <h2>{{ item.producto }}</h2>
+          <p>Cantidad: {{ item.cantidad }}</p>
+          <p>Precio: ₡{{ item.precio }}</p>
+          <p>Total: ₡{{ (item.cantidad * item.precio) }}</p>
+          <button ion-button clear item-end [navPush]="'DetailProductPage'" [navParams]="{producto:item}">Ver</button>
+        </ion-item>
+        <ion-item>
+          <ion-label item-start>Total:</ion-label>
+          <span item-end>₡{{ order.total }}</span>
+        </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

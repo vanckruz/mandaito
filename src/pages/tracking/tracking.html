@@ -33,10 +33,18 @@
       <button ion-button full color="light" (click)="closeAlertStore()">Aceptar</button>
     </ion-footer>
   </div>
-
   <div class="notificationAlert" *ngIf="showAlertMensajero">
-    <img src="/assets/imgs/tick.png">    
-    <P class="msgConfirm">Su orden ha sido tomada por un mensajero, ya va en camino</P>
+    <!-- <img src="/assets/imgs/tick.png">    
+    <P class="msgConfirm">Su orden ha sido tomada por un mensajero, ya va en camino</P> -->
+    <div *ngIf="orderFirebase.mensajero">
+      <ion-fab right top>
+        <button ion-fab (click)="callMensajero()" color="themeorange">
+          <ion-icon name="call"></ion-icon>
+        </button>
+      </ion-fab>
+      <img [src]="orderFirebase.mensajero.foto">
+      <P class="msgConfirm">Su orden ha sido tomada por {{ orderFirebase.mensajero.nombre }}, ya va en camino</P> -->
+    </div>
     <ion-footer>
       <button ion-button full color="light" (click)="closeAlertMensajero()">Aceptar</button>
     </ion-footer>

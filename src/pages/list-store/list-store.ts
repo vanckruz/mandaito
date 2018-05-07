@@ -13,6 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class ListStorePage {
   categoria: any;
   tiendas: any;
+  tiendasAux: any;
   color: string = 'primary';
   searchTerm: string;
   latitud: any;
@@ -126,6 +127,7 @@ export class ListStorePage {
               
             console.log(tiendas)
             this.tiendas = tiendas;
+            this.tiendasAux = tiendas;
           }
           
         });
@@ -198,7 +200,7 @@ export class ListStorePage {
 
   filterStores(){
     if (this.searchTerm !== "") {
-      this.tiendas = this.tiendas.filter((item) => {
+      this.tiendas = this.tiendasAux.filter((item) => {
         return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
 

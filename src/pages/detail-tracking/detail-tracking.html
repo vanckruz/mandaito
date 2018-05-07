@@ -8,14 +8,14 @@
 
 <ion-content>
   <div *ngIf="order != null && order.productos.length > 0">
-    <img [src]="order.fototienda" class="imgtienda">
+    <img [src]="order.orden.fototienda" class="imgtienda" *ngIf="order.orden.fototienda">
     <ion-list>
       <ion-list-header>{{ order.orden.tienda }}</ion-list-header>
       <ion-item><b>Orden#</b> <span item-right>{{ order.orden.nroorden }}</span></ion-item>
       <ion-item><b>Fecha: </b><span>{{ order.orden.fecha.split(" ")[0] }}</span><span item-right><b>Hora: </b>{{ order.orden.fecha.split(" ")[1] }}</span></ion-item>
       <ion-item *ngFor="let item of order.productos;let i = index;">
         <ion-thumbnail item-start  *ngIf="item.fotoproducto">
-          <img [src]="item.fotoproducto">
+          <img [src]="item.fotoproducto" *ngIf="item.fotoproducto">
         </ion-thumbnail>
         <h2>{{ item.producto }}</h2>
         <p>Cantidad: {{ item.cantidad }}</p>

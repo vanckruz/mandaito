@@ -13,7 +13,7 @@
 <ion-content>
 	<ion-grid *ngIf="categorias">
 		<ion-item color="themeorange">
-			<ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCategories()" (ionCancel)="getCategorias()">
+			<ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCategories()" (ionCancel)="getCategorias()" placeholder="Buscar">
 			</ion-searchbar>
 		</ion-item>
 		<ion-row>

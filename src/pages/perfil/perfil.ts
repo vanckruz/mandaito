@@ -101,6 +101,13 @@ export class PerfilPage {
     });
   }
 
+  detailOrder(item){
+    this.navCtrl.push("DetailOrderPage",{
+      user: this.user.perfil,
+      orderId: item.nroorden
+    })
+  }
+
   toggleBDisabled() {
     this.isDisabledB = !this.isDisabledB;
   }

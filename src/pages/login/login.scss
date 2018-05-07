@@ -2,14 +2,19 @@ page-login {
 	ion-content{
 		background: color($colors, themeorange) !important;
 	}
-	ion-card{
-		background: rgba(255,255,255,0.5) !important;
-	
-		ion-item,ion-input{
-			background: rgba(255,255,255,0) !important;
-		}
+	.imgLogin{
+		width: 70%;
+		margin: auto;
+		display: block;		
 	}
 	.tblue{
 		color: #488aff;
+	}
+	.btn-login{
+		margin-top: 1em;
+		padding: .5em;
+		button{
+			border-radius: 2px;
+		}
 	}
 }

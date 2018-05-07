@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 export class ListProductsStorePage {
   tienda: any;
   productos: any;
+  productosAux: any;
   searchTerm: string;
 
   constructor(
@@ -38,6 +39,7 @@ export class ListProductsStorePage {
       this.productosProvider.get(this.tienda.idtienda).subscribe(
         data => {
           this.productos = data.response.datos;
+          this.productosAux = data.response.datos;
           loading.dismiss();
           console.log(data)
         }
@@ -122,7 +124,7 @@ export class ListProductsStorePage {
 
   filterProducts(){
     if (this.searchTerm !== "") {
-      this.productos = this.productos.filter((item) => {
+      this.productos = this.productosAux.filter((item) => {
         return item.descripcion.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
       });
 

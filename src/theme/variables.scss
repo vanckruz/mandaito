@@ -40,10 +40,13 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   themeyellow: #FAD800,
-  themeorange: #F76707,
+  themeorange: #FF6700,
   themeorange2: #ff4402,
 );
 
+$label-md-text-color-focused: #FF6700;
+$text-input-md-highlight-color: #FF6700;
+$text-input-highlight-color-valid: #FF6700;
 
 // App iOS Variables
 // --------------------------------------------------

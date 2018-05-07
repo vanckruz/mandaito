@@ -10,7 +10,7 @@
 <ion-content>
   <ion-grid *ngIf="productos">
     <ion-item color="themeorange">    
-      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterProducts()" (ionCancel)="getProductos()"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterProducts()" (ionCancel)="getProductos()" placeholder="Buscar"></ion-searchbar>
     </ion-item>
     <b padding>{{tienda.descripcion}}</b>
     <ion-row>
@@ -37,7 +37,7 @@
     <p text-center>
       <ion-icon name="ios-information-circle-outline" class="infoicon"></ion-icon>
     </p>
-    <p class="info"> No tenemos productos registrados en esta tienda</p>
+    <p class="info" text-center> No tenemos productos registrados en esta tienda</p>
   </ion-card>
 
   <ion-fab right bottom>

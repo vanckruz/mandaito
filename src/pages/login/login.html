@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <img src="assets/imgs/logounbg.png">
+  <img src="assets/imgs/login.png" class="imgLogin">
   <ion-card padding *ngIf="showLogin">
     <form [formGroup]="form" novalidate>
       <ion-item color="theme-blue">
@@ -26,7 +26,7 @@
         <ion-label color="danger">*Requerido</ion-label>
       </div>
       <div class="btn-login">
-        <button full ion-button (click)="login()" color="themeorange">Ingresar</button>
+        <button full ion-button (click)="login()" color="themeorange2">Ingresar</button>
       </div>
     </form>
     <div class="bottons_a">    

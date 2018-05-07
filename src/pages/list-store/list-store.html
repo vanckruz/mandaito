@@ -10,7 +10,7 @@
 <ion-content>
   <div *ngIf="tiendas">
     <ion-item color="themeorange">    
-      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterStores()" (ionCancel)="getTiendas()" placeholder="Buscar"></ion-searchbar>
     </ion-item>
     <ion-card *ngFor="let tienda of tiendas; let i = index;">
       <img [src]="tienda.foto" full (click)="goToProductsList(tienda)">
@@ -45,6 +45,7 @@
 
   <ion-card *ngIf="tiendas == null" padding>
     <p text-center><ion-icon name="ios-information-circle-outline" class="infoicon"></ion-icon></p>
-    <p class="info"> No tenemos tiendas registradas en esta categoria</p>
+    <p class="info">Lo sentimos, actualmente no tenemos comercios afiliados dentro de los 10km a la redonda de tu dirección de entrega. Estamos
+    trabajando para ampliar nuestras zonas de cobertura. Próximamente estaremos más cerca de ti. ¡Gracias!</p>
   </ion-card>
 </ion-content>

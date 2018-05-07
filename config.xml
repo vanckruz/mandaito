@@ -1,6 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget android-versionCode="11004" id="mimandadito.user" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Mi Mandadito</name>
+=======
+<widget id="mimandadito.user" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mi mandadito</name>
+>>>>>>> cc03801930f0eb77804ed1c50d677592d877cf84
     <description>Delivery app.</description>
     <author email="contacto@puertaapuertacr.com" href="http://puertaapuertacr.com/">Puerta a Puerta</author>
     <content src="index.html" />

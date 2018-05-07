@@ -42,7 +42,6 @@ export class PrincipalMenuPage {
       data => {
         loading.dismiss();
         this.categorias = data.response.datos;
-        console.log(this.categorias)
       }
     );    
   }

@@ -45,16 +45,17 @@ export class PerfilPage {
 
   getPerfil(){
     this.storage.get('user').then((user) => {
-      console.log(user)
+      
       if (!user) {
         this.navCtrl.setRoot("WelcomePage");
       } else {
         let usuario = JSON.parse(user);
+
         let loading = this.loading.create({ content: "cargando" });
         loading.present();
         this.perfilProvider.get(usuario.idusuario).subscribe((data)=>{
           this.user = data.response.datos;
-          console.log(data.response.datos)
+          console.log("aqui: "+data.response.datos);
           loading.dismiss();
 
           if (this.user.direcciones != null) {

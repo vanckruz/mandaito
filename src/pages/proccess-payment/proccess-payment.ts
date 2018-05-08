@@ -132,7 +132,7 @@ export class ProccessPaymentPage {
     let loading = this.loadingCtrl.create({ content: 'Cargando...' });
     this.user.perfil.latitud = this.direction.latitud;
     this.user.perfil.longitud = this.direction.longitud;
-
+    console.log(this.form.value)
     loading.present();
     this.paymentsProvider.pay(this.user.perfil.idusuario, data).subscribe((data) =>{
       loading.dismiss();

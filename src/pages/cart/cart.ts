@@ -64,23 +64,27 @@ export class CartPage {
     this.storage.get("keyTracking").then((id) => {
       let clave = JSON.parse(id);//Firebase key 
       console.log(clave)
-      if (clave === null) {
         this.navCtrl.push("ProccessPaymentPage",{
           cart: this.dataForPay,
           precioviaje: this.user.precios.precioviaje
         });
-      }else{
-        let alert = this.alertCtrl.create({
-          title: 'Mensaje',
-          subTitle: `Tienes un mandado en progreso su número de orden es ${clave.key}`,
-          buttons: [
-            {
-              text: 'aceptar'
-            }
-          ]
-        });
-        alert.present();           
-      }
+      // if (clave === null) {
+      //   this.navCtrl.push("ProccessPaymentPage",{
+      //     cart: this.dataForPay,
+      //     precioviaje: this.user.precios.precioviaje
+      //   });
+      // }else{
+      //   let alert = this.alertCtrl.create({
+      //     title: 'Mensaje',
+      //     subTitle: `Tienes un mandado en progreso su número de orden es ${clave.key}`,
+      //     buttons: [
+      //       {
+      //         text: 'aceptar'
+      //       }
+      //     ]
+      //   });
+      //   alert.present();           
+      // }
     });
   }
 

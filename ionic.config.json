@@ -1,6 +1,6 @@
 {
   "name": "Mi mandaito",
-  "app_id": "",
+  "app_id": "fbeb58ca",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
